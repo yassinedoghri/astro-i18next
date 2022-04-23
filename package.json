@@ -1,0 +1,61 @@
+{
+  "name": "astro-i18next",
+  "version": "0.0.0-development",
+  "description": "Astro components for i18next",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext js,ts,astro src",
+    "prettier": "prettier --check --ignore-path .gitignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore .",
+    "commit": "cz",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yassinedoghri/astro-i18next.git"
+  },
+  "keywords": [
+    "astro",
+    "i18next",
+    "i18n",
+    "internationalization",
+    "i10n",
+    "localization"
+  ],
+  "author": {
+    "name": "Yassine Doghri",
+    "email": "yassine@doghri.fr",
+    "url": "https://yassinedoghri.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yassinedoghri/astro-i18next/issues"
+  },
+  "homepage": "https://github.com/yassinedoghri/astro-i18next#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.14.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.0",
+    "prettier": "2.6.2",
+    "typescript": "^4.6.3"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
