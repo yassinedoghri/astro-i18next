@@ -22,7 +22,7 @@
     "src/Trans.astro",
     "src/utils.ts"
   ],
-  "exports": "./src/index.mjs",
+  "exports": "./src/index.mts",
   "keywords": [
     "astro",
     "i18next",
