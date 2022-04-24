@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "lib": ["ES2021"]
   },
-  "include": ["src/**/*.astro"],
+  "include": ["src/**/*.ts", "src/**/*.mts", "src/**/*.astro", "src/index.mjs"],
   "exclude": []
 }
