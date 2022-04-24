@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "description": "Astro components for i18next",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "astro dev",
     "preview": "astro preview",
     "lint": "eslint --ext js,ts,mts src",
@@ -46,6 +46,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
+    "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "astro": "^1.0.0-beta.17",
@@ -54,6 +55,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-n": "^15.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
@@ -63,6 +65,7 @@
     "prettier": "2.6.2",
     "prettier-plugin-astro": "^0.1.0-next.4",
     "semantic-release": "^19.0.2",
+    "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
   },
   "lint-staged": {
