@@ -1,6 +1,6 @@
 {
   "name": "astro-i18next",
-  "version": "0.0.0-development",
+  "version": "1.0.0-alpha.1",
   "description": "Astro components for i18next",
   "scripts": {
     "test": "jest",
