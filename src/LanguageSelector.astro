@@ -1,0 +1,26 @@
+---
+import i18next from "i18next";
+import ISO6391 from "iso-639-1";
+
+export interface Props {
+  className?: string;
+}
+
+const supportedLanguages = i18next.languages;
+const currentLanguage = i18next.language;
+
+const { className } = Astro.props;
+---
+
+<select onchange="location = this.value;" class={className}>
+  {supportedLanguages.map((supportedLanguage: string) => {
+    const value = supportedLanguage === "en" ? "/" : supportedLanguage
+    const label = ISO6391.getNativeName(supportedLanguage)
+
+    return (
+      <option value={value} selected={supportedLanguage === currentLanguage}>
+        {label}
+      </option>
+    )
+  })}
+</select>
