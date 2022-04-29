@@ -1,3 +1,10 @@
+# [1.0.0-alpha.3](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2022-04-29)
+
+### Features
+
+- prefix language name with language flag emoji using language-flag-colors
+  ([7e09d93](https://github.com/yassinedoghri/astro-i18next/commit/7e09d93d45538ce90ebdc2d16a6a3ce5be782211))
+
 # [1.0.0-alpha.2](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2022-04-29)
 
 ### Features
