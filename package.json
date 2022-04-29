@@ -42,8 +42,10 @@
   },
   "homepage": "https://github.com/yassinedoghri/astro-i18next#readme",
   "peerDependencies": {
-    "astro": "^1.0.0-beta.1",
-    "i18next": "^21.0.0"
+    "astro": "^1.0.0-beta.1"
+  },
+  "dependencies": {
+    "i18next": "^21.6.16"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",
