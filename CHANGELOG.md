@@ -1,3 +1,10 @@
+# [1.0.0-alpha.2](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2022-04-29)
+
+### Features
+
+- add LanguageSelector component to select language from supported locales
+  ([ad3fe2a](https://github.com/yassinedoghri/astro-i18next/commit/ad3fe2af6895a993f94e414757269d86aefc8451))
+
 # 1.0.0-alpha.1 (2022-04-27)
 
 ### Bug Fixes
