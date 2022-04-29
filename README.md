@@ -2,9 +2,10 @@
 
 i18next components to help translate [astro](https://astro.build/) websites.
 
-> **Status**
+> **Status** [alpha version]
 >
-> Currently in development: missing tests, better docs and examples
+> Currently in development, not ready yet! Missing tests, better integration,
+> better docs and examples
 
 ## Install
 
@@ -35,17 +36,35 @@ import { Trans } from "astro-i18next";
 ```
 
 ```json
-// en.json
+// fr.json
 {
-  "superCoolKey": "This is a <0>super cool</0> sentence!"
+  "superCoolKey": "Ceci est une phrase <0>super cool</0>!"
 }
 ```
 
-### Props
+#### Trans Props
 
 | Propname | Type   | Description              |
 | -------- | ------ | ------------------------ |
 | i18nKey  | string | Internationalization key |
+
+### LanguageSelector component
+
+Unstyled custom select component to choose amongst supported locales.
+
+```astro
+---
+import { LanguageSelector } from "astro-i18next";
+---
+
+<LanguageSelector className="my-select-class" />
+```
+
+#### LanguageSelector Props
+
+| Propname  | Type   | Description                            |
+| --------- | ------ | -------------------------------------- |
+| className | string | class attribute for the `<select>` tag |
 
 ## License
 
