@@ -46,7 +46,8 @@
   },
   "dependencies": {
     "i18next": "^21.6.16",
-    "iso-639-1": "^2.1.13"
+    "iso-639-1": "^2.1.13",
+    "language-flag-colors": "^2.0.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",
