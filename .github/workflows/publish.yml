@@ -22,6 +22,7 @@ jobs:
 
   bundle:
     runs-on: ubuntu-latest
+    needs: quality
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -31,24 +32,25 @@ jobs:
       - run: npm run build
       - uses: actions/upload-artifact@v3
         with:
-          name: dist
+          name: bundle
           path: ./dist/
+          retention-days: 1
           if-no-files-found: error
 
   publish:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha'
-    needs: [quality, bundle]
+    needs: bundle
     steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: dist
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN_SEMANTIC_RELEASE }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - uses: actions/download-artifact@v3
+        with:
+          name: bundle
       - run: npm ci
       - run: npm run semantic-release
         env:
