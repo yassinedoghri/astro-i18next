@@ -20,6 +20,7 @@
   "files": [
     "src/index.mts",
     "src/Trans.astro",
+    "src/LanguageSelector.astro",
     "src/utils.ts"
   ],
   "exports": "./src/index.mts",
