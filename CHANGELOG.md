@@ -1,3 +1,11 @@
+# [1.0.0-alpha.8](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2022-04-30)
+
+### Bug Fixes
+
+- **workflow:** download bundle artifact into dist path to include it into
+  package
+  ([3fb5a78](https://github.com/yassinedoghri/astro-i18next/commit/3fb5a781051f38c1c210d5c70a6533f1e8d34469))
+
 # [1.0.0-alpha.7](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2022-04-30)
 
 ### Bug Fixes
