@@ -6,10 +6,12 @@
     "test": "jest",
     "dev": "astro dev",
     "preview": "astro preview",
+    "build": "./build.js && npm run typecheck:emit",
     "lint": "eslint --ext js,ts,mts src",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
     "typecheck": "tsc --noEmit",
+    "typecheck:emit": "tsc --declaration --emitDeclarationOnly --outDir dist",
     "commit": "cz",
     "prepare": "husky install",
     "semantic-release": "semantic-release"
@@ -19,12 +21,16 @@
     "url": "https://github.com/yassinedoghri/astro-i18next.git"
   },
   "files": [
-    "src/index.mts",
-    "src/Trans.astro",
-    "src/LanguageSelector.astro",
-    "src/utils.ts"
+    "src",
+    "!src/index.d.ts",
+    "!src/**/*.test.ts",
+    "dist"
   ],
-  "exports": "./src/index.mts",
+  "main": "./dist/index.mjs",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./components": "./dist/components/index.d.mts"
+  },
   "keywords": [
     "astro",
     "i18next",
@@ -61,6 +67,7 @@
     "@typescript-eslint/parser": "^5.21.0",
     "astro": "^1.0.0-beta.19",
     "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.14.38",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",

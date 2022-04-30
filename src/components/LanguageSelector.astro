@@ -4,14 +4,14 @@ import ISO6391 from "iso-639-1";
 import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 
 export interface Props {
+  baseLanguage: string;
   className?: string;
 }
 
 const supportedLanguages = i18next.languages;
 const currentLanguage = i18next.language;
-const baseLanguage = "en";
 
-const { className } = Astro.props;
+const { baseLanguage, className } = Astro.props;
 ---
 
 <select onchange="location = this.value;" class={className}>

@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "baseUrl": "src",
     "lib": ["ES2021"]
   },
-  "include": ["src/**/*.ts", "src/**/*.mts", "src/**/*.astro", "src/index.mjs"],
-  "exclude": []
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"]
 }

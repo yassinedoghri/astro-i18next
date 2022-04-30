@@ -62,9 +62,10 @@ import { LanguageSelector } from "astro-i18next";
 
 #### LanguageSelector Props
 
-| Propname  | Type   | Description                            |
-| --------- | ------ | -------------------------------------- |
-| className | string | class attribute for the `<select>` tag |
+| Propname     | Type   | Description                                                                                           |
+| ------------ | ------ | ----------------------------------------------------------------------------------------------------- |
+| baseLanguage | string | language code that translations are based off of (will redirect to `/` instead of `/[language-code]`) |
+| className    | string | class attribute for the `<select>` tag to customize it                                                |
 
 ## License
 
