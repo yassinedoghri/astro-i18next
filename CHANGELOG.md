@@ -1,3 +1,10 @@
+# [1.0.0-alpha.7](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2022-04-30)
+
+### Bug Fixes
+
+- update publish workflow to include bundled package in dist
+  ([5428dc3](https://github.com/yassinedoghri/astro-i18next/commit/5428dc34a5f6729da3b2b81ab1a49a03a4811a32))
+
 # [1.0.0-alpha.6](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-04-30)
 
 ### Features
