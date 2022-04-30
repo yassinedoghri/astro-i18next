@@ -1,3 +1,10 @@
+# [1.0.0-alpha.6](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-04-30)
+
+### Features
+
+- add astro integration --> initialize i18next upon astro:config:setup
+  ([78ec744](https://github.com/yassinedoghri/astro-i18next/commit/78ec7444439ac6d31b0e66cc2aa10007d83ac5c1))
+
 # [1.0.0-alpha.5](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-04-30)
 
 ### Bug Fixes
