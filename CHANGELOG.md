@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2022-04-30)
+
+### Bug Fixes
+
+- include LanguageSelector component to release files
+  ([efa1961](https://github.com/yassinedoghri/astro-i18next/commit/efa19613f3341dde2afbd794b43fcd9e73d6f1b1))
+
 # [1.0.0-alpha.3](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2022-04-29)
 
 ### Features
