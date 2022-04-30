@@ -13,7 +13,7 @@ export const interpolate = (
     tagsRegex.exec("");
   });
 
-  if (referenceTags === []) {
+  if (referenceTags.length === 0) {
     console.warn(
       "WARNING(astro-i18next): The default slot does not include any html tag to interpolate!"
     );
