@@ -9,6 +9,7 @@
     "lint": "eslint --ext js,ts,mts src",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
+    "typecheck": "tsc --noEmit",
     "commit": "cz",
     "prepare": "husky install",
     "semantic-release": "semantic-release"
@@ -46,9 +47,9 @@
     "astro": "^1.0.0-beta.1"
   },
   "dependencies": {
+    "country-code-to-flag-emoji": "^1.1.0",
     "i18next": "^21.6.16",
-    "iso-639-1": "^2.1.13",
-    "language-flag-colors": "^2.0.4"
+    "iso-639-1": "^2.1.13"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",

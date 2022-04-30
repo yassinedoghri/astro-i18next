@@ -1,7 +1,7 @@
 ---
 import i18next from "i18next";
 import ISO6391 from "iso-639-1";
-import { getEmoji } from "language-flag-colors";
+import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 
 export interface Props {
   className?: string;
@@ -17,9 +17,9 @@ const { className } = Astro.props;
 <select onchange="location = this.value;" class={className}>
   {supportedLanguages.map((supportedLanguage: string) => {
     const value = supportedLanguage === baseLanguage ? "/" : supportedLanguage
-    const label = `${getEmoji(supportedLanguage)} ${ISO6391.getNativeName(
+    const label = `${countryCodeToFlagEmoji(
       supportedLanguage
-    )}`
+    )} ${ISO6391.getNativeName(supportedLanguage)}`
 
     return (
       <option value={value} selected={supportedLanguage === currentLanguage}>
