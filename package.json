@@ -1,7 +1,7 @@
 {
   "name": "astro-i18next",
   "version": "1.0.0-alpha.8",
-  "description": "i18next integration and components for translating astro websites.",
+  "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
     "test": "jest",
     "dev": "astro dev",
