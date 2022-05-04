@@ -1,0 +1,43 @@
+---
+import i18next, { t } from "i18next";
+import { LanguageSelector, Trans } from "astro-i18next/components";
+---
+
+<html lang={i18next.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>astro-i18next</title>
+  </head>
+  <body
+    class="w-screen h-screen container flex flex-col justify-center items-center"
+  >
+    <div class="inline-flex items-center gap-2">
+      <h1 class="text-6xl font-bold text-cyan-900">🧪 astro-i18next</h1>
+      <LanguageSelector
+        className="mt-2 py-3 px-4 font-semibold"
+        baseLanguage="en"
+      />
+    </div>
+    <p class="mt-4 text-center text-xl max-w-xl">
+      <Trans i18nKey="subtitle">
+        An <a
+          class="underline hover:no-underline decoration-4 decoration-cyan-500"
+          href="https://astro.build"
+          title="Astro website"
+          >astro
+        </a> integration of <a
+          class="underline hover:no-underline decoration-4 decoration-cyan-500"
+          href="https://www.i18next.com/"
+          title="i18next website"
+          >i18next
+        </a> and utility components to help you translate your astro websites!
+      </Trans>
+    </p>
+    <a
+      href="https://github.com/yassinedoghri/astro-i18next#readme"
+      class="py-4 px-6 bg-cyan-500 rounded-full font-semibold uppercase mt-6 text-white hover:bg-cyan-600 focus:ring-2 tracking-wider"
+      >{t("getStarted")}
+    </a>
+  </body>
+</html>

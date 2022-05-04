@@ -17,10 +17,12 @@
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "astro-build.astro-vscode",
+    "bradlc.vscode-tailwindcss",
     "DavidAnson.vscode-markdownlint",
     "dbaeumer.vscode-eslint",
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
+    "heybourn.headwind",
     "pflannery.vscode-versionlens",
     "streetsidesoftware.code-spell-checker",
     "wayou.vscode-todo-highlight",
