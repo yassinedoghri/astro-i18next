@@ -48,7 +48,7 @@
   "bugs": {
     "url": "https://github.com/yassinedoghri/astro-i18next/issues"
   },
-  "homepage": "https://github.com/yassinedoghri/astro-i18next#readme",
+  "homepage": "https://yassinedoghri.github.io/astro-i18next/",
   "peerDependencies": {
     "astro": "^1.0.0-beta.1"
   },
