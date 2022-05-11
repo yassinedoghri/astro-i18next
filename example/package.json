@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@astrojs/tailwind": "^0.2.1",
-    "astro": "^1.0.0-beta.20",
-    "postcss": "^8.4.13"
+    "astro": "^1.0.0-beta.20"
   }
 }
