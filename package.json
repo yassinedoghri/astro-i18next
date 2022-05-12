@@ -48,13 +48,13 @@
   "bugs": {
     "url": "https://github.com/yassinedoghri/astro-i18next/issues"
   },
-  "homepage": "https://yassinedoghri.github.io/astro-i18next/",
+  "homepage": "https://astro-i18next.yassinedoghri.com/",
   "peerDependencies": {
     "astro": "^1.0.0-beta.1"
   },
   "dependencies": {
     "country-code-to-flag-emoji": "^1.1.0",
-    "i18next": "^21.6.16",
+    "i18next": "^21.8.1",
     "iso-639-1": "^2.1.13"
   },
   "devDependencies": {
@@ -62,13 +62,13 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@types/jest": "^27.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
-    "@typescript-eslint/parser": "^5.21.0",
-    "astro": "^1.0.0-beta.19",
+    "@types/jest": "^27.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "astro": "^1.0.0-beta.27",
     "cz-conventional-changelog": "^3.3.0",
-    "esbuild": "^0.14.38",
-    "eslint": "^8.14.0",
+    "esbuild": "^0.14.39",
+    "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -76,13 +76,12 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
-    "husky": "^7.0.4",
-    "i18next": "^21.6.16",
+    "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
     "prettier": "2.6.2",
     "prettier-plugin-astro": "^0.1.0-next.4",
     "semantic-release": "^19.0.2",
-    "ts-jest": "^27.1.4",
+    "ts-jest": "^28.0.2",
     "typescript": "^4.6.4"
   },
   "lint-staged": {
