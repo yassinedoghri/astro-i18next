@@ -1,3 +1,10 @@
+# [1.0.0-alpha.9](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2022-05-12)
+
+### Features
+
+- load translation resources automatically + add example website
+  ([48dd98e](https://github.com/yassinedoghri/astro-i18next/commit/48dd98e6d95a824abd7ca521f786d1802cec0db5))
+
 # [1.0.0-alpha.8](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2022-04-30)
 
 ### Bug Fixes
