@@ -6,7 +6,11 @@ export function getStaticPaths() {
   const languageRoutes = [];
 
   i18next.languages.forEach((lang) => {
-    languageRoutes.push({ params: { lang } });
+    // filter out base language
+    // TODO: get base language from config
+    if (lang !== "en") {
+      languageRoutes.push({ params: { lang } });
+    }
   });
 
   return languageRoutes;

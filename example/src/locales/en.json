@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "astro-i18next | Translate your Astro websites with i18next",
+    "description": "astro-i18next is an astro integration of i18next + some utility components to help you translate your astro websites!",
+    "ogTitle": "astro-i18next | Translate your Astro website with i18next!",
+    "ogImageAlt": "A test tube placed on the lower left corner spreading out the astro-i18next text with bubbles and country flags."
+  },
   "subtitle": "An <0>astro</0> integration of <1>i18next</1> + some utility components to help you translate your astro websites!",
   "getStarted": "Get started"
 }

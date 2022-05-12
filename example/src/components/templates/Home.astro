@@ -1,6 +1,7 @@
 ---
 import i18next, { t } from "i18next";
 import { LanguageSelector, Trans } from "astro-i18next/components";
+import { SEO } from "astro-seo";
 ---
 
 <html lang={i18next.language}>
@@ -8,7 +9,31 @@ import { LanguageSelector, Trans } from "astro-i18next/components";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>astro-i18next</title>
+    <SEO
+      title={t("seo.title")}
+      description={t("seo.description")}
+      canonical="https://astro-i18next.yassinedoghri.com/"
+      openGraph={{
+        basic: {
+          title: t("seo.ogTitle"),
+          description: t("seo.description"),
+          type: "website",
+          image:
+            "https://astro-i18next.yassinedoghri.com/assets/images/open-graph.jpg",
+          url: "https://astro-i18next.yassinedoghri.com/",
+        },
+        image: {
+          alt: t("seo.ogImageAlt"),
+          width: "1200",
+          height: "630",
+          type: "image/jpeg",
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        creator: "@yassinedoghri",
+      }}
+    />
   </head>
   <body
     class="w-screen h-screen container flex flex-col justify-center items-center"
