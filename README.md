@@ -5,10 +5,11 @@ An [astro](https://astro.build/) integration of
 [utility components](#utility-components) to help you translate your astro
 websites!
 
-> **Status** [alpha version]
+> **Status** [beta version]
 >
-> Currently in development, can be used though some breaking changes may be
-> introduced from a version to another!
+> You can use it, and feedback is welcome! As integrations in Astro are still
+> experimental, note that some breaking changes may be still introduced during
+> this phase.
 
 ## Getting started
 
@@ -18,7 +19,7 @@ websites!
 npm install astro-i18next
 ```
 
-## 2. Configure
+### 2. Configure
 
 1. Add `astro-i18next` to your `astro.config.mjs`:
 
@@ -43,7 +44,8 @@ npm install astro-i18next
    });
    ```
 
-2. Create a `locales` folder containing the translation strings as JSONs:
+2. Create a `locales` folder containing the translation strings as JSONs (the
+   files must be named with the language code):
 
    ```bash
    src
@@ -55,20 +57,21 @@ npm install astro-i18next
        └-- index.astro  # route for base language (first element in fallbackLng)
    ```
 
-## 3. Translate!
+### 3. Start translating
 
 You're all set! You may now start translating your website by using
 [i18next's `t` function](https://www.i18next.com/overview/api#t) or the
 [Trans component](#trans-component) depending on your needs.
 
-Here's a quick tutorial:
+Here's a quick tutorial to get you going:
 
 ```astro
 ---
 // src/pages/index.astro
 import i18next, { t } from "i18next";
+import { Trans } from "astro-i18next/components";
 
-// You may change language
+// Use i18next's changeLanguage() function to change the language
 i18next.changeLanguage("fr");
 ---
 
@@ -101,7 +104,7 @@ i18next.changeLanguage("fr");
   },
   "home": {
     "title": "Welcome to my awesome website!",
-    "subtitle": "This is a <0>more complex</0> string to translate, mixed with <1>html elements</1>, such as a <2>a link</2>!"
+    "subtitle": "This is a <0>more complex</0> string to translate, mixed with <1>html elements</1>, such as a <2>a cool link</2>!"
   }
 }
 ```
@@ -115,7 +118,7 @@ i18next.changeLanguage("fr");
   },
   "home": {
     "title": "Bienvenue sur mon super site web !",
-    "subtitle": "Ceci est une chaine de charactères <0>plus compliquée</0> à traduire, il y a des <1>éléments html</1>, comme <2>un lien</2> par exemple !"
+    "subtitle": "Ceci est une chaine de charactères <0>plus compliquée</0> à traduire, il y a des <1>éléments html</1>, comme <2>un super lien</2> par exemple !"
   }
 }
 ```
@@ -164,7 +167,7 @@ Unstyled custom select component to choose amongst supported locales.
 import { LanguageSelector } from "astro-i18next/components";
 ---
 
-<LanguageSelector className="my-select-class" />
+<LanguageSelector baseLanguage="en" className="my-select-class" />
 ```
 
 #### LanguageSelector Props
@@ -176,4 +179,7 @@ import { LanguageSelector } from "astro-i18next/components";
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+Code released under the [MIT License](https://choosealicense.com/licenses/mit/).
+
+Copyright (c) 2022-present, Yassine Doghri
+([@yassinedoghri](https://twitter.com/yassinedoghri))

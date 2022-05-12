@@ -2,7 +2,7 @@ name: Publish Package
 
 on:
   push:
-    branches: [develop, main, alpha]
+    branches: [develop, main, alpha, beta]
   pull_request:
     branches: "*"
 
@@ -38,7 +38,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha' || github.ref == 'refs/heads/beta'
     needs: [quality, bundle]
     steps:
       - uses: actions/checkout@v3
