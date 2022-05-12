@@ -4,7 +4,6 @@
   "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
     "test": "jest",
-    "dev": "astro dev",
     "preview": "astro preview",
     "build": "./build.js && npm run typecheck:emit",
     "lint": "eslint --ext js,ts,mts src",
