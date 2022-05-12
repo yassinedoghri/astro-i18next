@@ -1,3 +1,36 @@
+# 1.0.0-beta.1 (2022-05-12)
+
+### Bug Fixes
+
+- include LanguageSelector component to release files
+  ([efa1961](https://github.com/yassinedoghri/astro-i18next/commit/efa19613f3341dde2afbd794b43fcd9e73d6f1b1))
+- replace language-flag-colors with country-code-to-flag-emoji dependency
+  ([7d4d408](https://github.com/yassinedoghri/astro-i18next/commit/7d4d408577e48d8fb860ae897a5573f2ec7c3beb))
+- update package.json's exports value
+  ([86d7cf9](https://github.com/yassinedoghri/astro-i18next/commit/86d7cf96a91176c75235ed2553bacbdf68217c61))
+- update publish workflow to include bundled package in dist
+  ([5428dc3](https://github.com/yassinedoghri/astro-i18next/commit/5428dc34a5f6729da3b2b81ab1a49a03a4811a32))
+- update utils path to relative in Trans component
+  ([c767fe3](https://github.com/yassinedoghri/astro-i18next/commit/c767fe3c174212358e285e1b85ebfff3ce9411e1))
+- **workflow:** download bundle artifact into dist path to include it into
+  package
+  ([3fb5a78](https://github.com/yassinedoghri/astro-i18next/commit/3fb5a781051f38c1c210d5c70a6533f1e8d34469))
+
+### Features
+
+- add astro integration --> initialize i18next upon astro:config:setup
+  ([78ec744](https://github.com/yassinedoghri/astro-i18next/commit/78ec7444439ac6d31b0e66cc2aa10007d83ac5c1))
+- add LanguageSelector component to select language from supported locales
+  ([ad3fe2a](https://github.com/yassinedoghri/astro-i18next/commit/ad3fe2af6895a993f94e414757269d86aefc8451))
+- add showFlag attribute to LanguageSelector to display the flag emoji or not
+  ([a4b2f98](https://github.com/yassinedoghri/astro-i18next/commit/a4b2f988b1772056e10812c10c906af3da5716bc))
+- add Trans component to interpolate translation strings with its contents
+  ([14ff1bd](https://github.com/yassinedoghri/astro-i18next/commit/14ff1bd0258e1d860fc188cfee941338787b5f4d))
+- load translation resources automatically + add example website
+  ([48dd98e](https://github.com/yassinedoghri/astro-i18next/commit/48dd98e6d95a824abd7ca521f786d1802cec0db5))
+- prefix language name with language flag emoji using language-flag-colors
+  ([7e09d93](https://github.com/yassinedoghri/astro-i18next/commit/7e09d93d45538ce90ebdc2d16a6a3ce5be782211))
+
 # [1.0.0-alpha.9](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2022-05-12)
 
 ### Features
