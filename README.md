@@ -172,10 +172,11 @@ import { LanguageSelector } from "astro-i18next/components";
 
 #### LanguageSelector Props
 
-| Prop name    | Type    | Description                                                                                           |
-| ------------ | ------- | ----------------------------------------------------------------------------------------------------- |
-| baseLanguage | string  | language code that translations are based off of (will redirect to `/` instead of `/[language-code]`) |
-| className    | ?string | class attribute for the `<select>` tag to customize it                                                |
+| Prop name    | Type     | Description                                                                                           |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------- |
+| baseLanguage | string   | language code that translations are based off of (will redirect to `/` instead of `/[language-code]`) |
+| showFlag     | ?boolean | choose to display the language emoji before language name (defaults to `false`)                       |
+| className    | ?string  | class attribute for the `<select>` tag to customize it                                                |
 
 ## License
 
