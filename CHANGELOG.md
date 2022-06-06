@@ -1,3 +1,15 @@
+# [1.0.0-beta.2](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-06-06)
+
+### Features
+
+- add utility function to localize path + improve components and overall DX
+  ([d230f00](https://github.com/yassinedoghri/astro-i18next/commit/d230f002183bccad88230d947d4c981e2792b2ed))
+
+### BREAKING CHANGES
+
+- rename i18nextConfig to i18next in config + remove className and baseLanguage
+  props for LanguageSelector
+
 # 1.0.0-beta.1 (2022-05-12)
 
 ### Bug Fixes
