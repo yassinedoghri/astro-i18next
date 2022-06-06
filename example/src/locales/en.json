@@ -10,7 +10,7 @@
     "about": "About"
   },
   "description": "An <0>astro</0> integration of <1>i18next</1> + some utility components to help you translate your astro websites!",
-  "about": "Created with love ❤️, cheese 🧀 and baguettes 🥖 during the <0>Astro hackathon</0> of May 2022 by <1>@yassinedoghri</1>.",
+  "about": "Created with love ❤️, cheese 🧀 and baguettes 🥖 during the <0>Astro hackathon</0> of April / May 2022 by <1>@yassinedoghri</1>.",
   "astroTitle": "Astro website",
   "i18nextTitle": "i18next website",
   "astroHackathonTitle": "Astro's showcase of astro-i18next",
