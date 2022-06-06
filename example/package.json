@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm link .. && astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:package": "cd .. && npm run build && cd example",
     "preview": "astro preview"
   },
   "devDependencies": {

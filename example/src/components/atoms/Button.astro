@@ -1,0 +1,11 @@
+---
+const { ...attributes } = Astro.props;
+
+const { class: className, ...attrs } = attributes;
+---
+
+<a
+  class={`transition shadow-lg hover:shadow-md hover:shadow-cyan-500/30 shadow-cyan-500/40 py-3 px-5 bg-gradient-to-b from-cyan-50 to-cyan-200 rounded-full font-semibold uppercase text-cyan-900 border-b-2 border-t-2 border-t-white border-b-cyan-400 focus:ring-2 tracking-wider ${className}`}
+  {...attrs}
+  ><slot></slot>
+</a>

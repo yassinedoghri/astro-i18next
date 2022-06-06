@@ -1,0 +1,24 @@
+---
+import i18next from "i18next";
+import About from "templates:About";
+
+export function getStaticPaths() {
+  const languageRoutes = [];
+
+  i18next.languages.forEach((lang) => {
+    // filter out base language
+    // i18next.options.supportedLngs[0] is the base language from config
+    if (lang !== i18next.options.supportedLngs[0]) {
+      languageRoutes.push({ params: { lang } });
+    }
+  });
+
+  return languageRoutes;
+}
+
+const { lang } = Astro.params;
+
+i18next.changeLanguage(lang as string);
+---
+
+<About />

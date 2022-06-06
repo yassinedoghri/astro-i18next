@@ -1,14 +1,14 @@
 ---
 import i18next from "i18next";
-import Home from "../components/templates/Home.astro";
+import Home from "templates:Home";
 
 export function getStaticPaths() {
   const languageRoutes = [];
 
   i18next.languages.forEach((lang) => {
     // filter out base language
-    // TODO: get base language from config
-    if (lang !== "en") {
+    // i18next.options.supportedLngs[0] is the base language from config
+    if (lang !== i18next.options.supportedLngs[0]) {
       languageRoutes.push({ params: { lang } });
     }
   });

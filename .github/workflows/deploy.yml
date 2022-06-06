@@ -1,4 +1,4 @@
-name: Build and Deploy Example
+name: astro-i18next-deploy-example
 
 on:
   push:

@@ -5,6 +5,15 @@
     "ogTitle": "astro-i18next | Translate your Astro website with i18next!",
     "ogImageAlt": "A test tube placed on the lower left corner spreading out the astro-i18next text with bubbles and country flags."
   },
-  "subtitle": "An <0>astro</0> integration of <1>i18next</1> + some utility components to help you translate your astro websites!",
+  "navigation": {
+    "home": "Home",
+    "about": "About"
+  },
+  "description": "An <0>astro</0> integration of <1>i18next</1> + some utility components to help you translate your astro websites!",
+  "about": "Created with love ❤️, cheese 🧀 and baguettes 🥖 during the <0>Astro hackathon</0> of May 2022 by <1>@yassinedoghri</1>.",
+  "astroTitle": "Astro website",
+  "i18nextTitle": "i18next website",
+  "astroHackathonTitle": "Astro's showcase of astro-i18next",
+  "twitterTitle": "Follow me on Twitter :)",
   "getStarted": "Get started"
 }

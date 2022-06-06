@@ -1,0 +1,36 @@
+---
+import i18next, { t } from "i18next";
+import Navigation from "molecules:Navigation";
+import HeadSEO from "organisms:HeadSEO";
+import { LanguageSelector } from "astro-i18next/components";
+import Button from "atoms:Button";
+---
+
+<html lang={i18next.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <HeadSEO />
+  </head>
+
+  <body
+    class="w-screen h-screen container flex flex-col justify-center items-center"
+  >
+    <div class="flex items-center justify-center gap-4 flex-wrap">
+      <h1 class="text-5xl md:text-6xl font-bold text-cyan-900">
+        🧪 astro-i18next
+      </h1>
+      <LanguageSelector
+        class="mt-2 py-2 px-4 font-semibold bg-transparent hover:bg-gray-50 border-2"
+        showFlag={true}
+      />
+    </div>
+    <Navigation />
+    <slot></slot>
+    <Button
+      class="mt-8"
+      href="https://github.com/yassinedoghri/astro-i18next#readme"
+      >{t("getStarted")}
+    </Button>
+  </body>
+</html>
