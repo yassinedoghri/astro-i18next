@@ -1,0 +1,33 @@
+---
+import { SEO } from "astro-seo";
+import { t } from "i18next";
+
+const { href: canonicalUrl } = Astro.canonicalURL;
+---
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<SEO
+  title={t("seo.title")}
+  description={t("seo.description")}
+  canonical={canonicalUrl}
+  openGraph={{
+    basic: {
+      title: t("seo.ogTitle"),
+      description: t("seo.description"),
+      type: "website",
+      image:
+        "https://astro-i18next.yassinedoghri.com/assets/images/open-graph.jpg",
+      url: canonicalUrl,
+    },
+    image: {
+      alt: t("seo.ogImageAlt"),
+      width: "1200",
+      height: "630",
+      type: "image/jpeg",
+    },
+  }}
+  twitter={{
+    card: "summary_large_image",
+    creator: "@yassinedoghri",
+  }}
+/>

@@ -1,0 +1,9 @@
+---
+const { ...attributes } = Astro.props;
+---
+
+<a
+  class="underline hover:no-underline decoration-4 decoration-cyan-500"
+  {...attributes}
+  ><slot></slot>
+</a>

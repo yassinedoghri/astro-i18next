@@ -1,0 +1,22 @@
+---
+import { Trans } from "astro-i18next/components";
+import Link from "atoms:Link";
+import { t } from "i18next";
+import BaseTemplate from "templates:BaseTemplate";
+---
+
+<BaseTemplate>
+  <p class="mt-4 text-center text-xl max-w-xl">
+    <Trans i18nKey="about">
+      Created with love ❤️, cheese 🧀 and baguettes 🥖 during the <Link
+        href="https://hackathon-1-0-projects.vercel.app/integration/astro-i18next"
+        title={t("astroHackathonTitle")}
+        >Astro hackathon
+      </Link> of May 2022 by <Link
+        href="https://astro.build"
+        title={t("twitterTitle")}
+        >@yassinedoghri
+      </Link>.
+    </Trans>
+  </p>
+</BaseTemplate>

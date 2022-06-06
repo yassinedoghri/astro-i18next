@@ -5,11 +5,18 @@
     "module": "ESNext",
     // Enable node-style module resolution, for things like npm package imports.
     "moduleResolution": "node",
-    // Enable JSON imports.
-    "resolveJsonModule": true,
+    "baseUrl": "src" /* Base directory to resolve non-absolute module names. */,
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
     // Add type definitions for our Vite runtime.
-    "types": ["vite/client"]
-  }
+    "types": ["vite/client"],
+    "paths": {
+      "atoms:*": ["components/atoms/*.astro"],
+      "molecules:*": ["components/molecules/*.astro"],
+      "organisms:*": ["components/organisms/*.astro"],
+      "templates:*": ["components/templates/*.astro"]
+    }
+  },
+  "include": ["src/**/*.astro"],
+  "exclude": []
 }

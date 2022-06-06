@@ -2,22 +2,23 @@
 import i18next from "i18next";
 import ISO6391 from "iso-639-1";
 import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
+import { localizePath } from "../utils";
 
 export interface Props {
-  baseLanguage: string;
   showFlag?: boolean;
-  className?: string;
 }
 
 const supportedLanguages = i18next.languages;
 const currentLanguage = i18next.language;
 
-const { baseLanguage, showFlag = false, className } = Astro.props;
+const { pathname } = Astro.canonicalURL;
+
+const { showFlag = false, ...attributes } = Astro.props;
 ---
 
-<select onchange="location = this.value;" class={className}>
+<select onchange="location = this.value;" {...attributes}>
   {supportedLanguages.map((supportedLanguage: string) => {
-    const value = supportedLanguage === baseLanguage ? "/" : supportedLanguage
+    let value = localizePath(pathname, supportedLanguage)
     const label = `${
       showFlag ? countryCodeToFlagEmoji(supportedLanguage) + " " : ""
     }${ISO6391.getNativeName(supportedLanguage)}`

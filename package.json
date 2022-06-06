@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.1",
   "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
     "preview": "astro preview",
     "build": "./build.js && npm run typecheck:emit",
     "lint": "eslint --ext js,ts,mts src",
@@ -22,7 +22,7 @@
   "files": [
     "src",
     "!src/index.d.ts",
-    "!src/**/*.test.ts",
+    "!src/tests",
     "dist"
   ],
   "main": "./dist/index.mjs",
@@ -53,8 +53,8 @@
   },
   "dependencies": {
     "country-code-to-flag-emoji": "^1.1.0",
-    "i18next": "^21.8.1",
-    "iso-639-1": "^2.1.13"
+    "i18next": "^21.8.8",
+    "iso-639-1": "^2.1.14"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
@@ -71,7 +71,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.5.1",
+    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-n": "^15.2.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",

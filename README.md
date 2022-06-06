@@ -1,9 +1,19 @@
+<div align="center">
+
 # 🧪 astro-i18next
 
 An [astro](https://astro.build/) integration of
 [i18next](https://www.i18next.com/) + some
 [utility components](#utility-components) to help you translate your astro
 websites!
+
+</div>
+
+<div align="center">
+
+[![npm-badge]][npm]&nbsp;[![build-badge]][build]&nbsp;[![license-badge]][license]&nbsp;[![contributions-badge]][contributions]&nbsp;[![semantic-release-badge]][semantic-release]&nbsp;[![stars-badge]][stars]
+
+</div>
 
 > **Status** [beta version]
 >
@@ -34,18 +44,17 @@ npm install astro-i18next
      integrations: [
        astroI18next({
          resourcesPath: "./src/locales/",
-         i18nextConfig: {
+         i18next: {
            debug: true,
-           fallbackLng: ["en", "fr"],
-           supportedLngs: ["en", "fr"],
+           supportedLngs: ["en", "fr"], // ℹ️ base language is the first one, ie. "en"
          },
        }),
      ],
    });
    ```
 
-2. Create a `locales` folder containing the translation strings as JSONs (the
-   files must be named with the language code):
+2. Create a `locales` folder containing the translation strings as JSONs (⚠️
+   files must be named as the language code):
 
    ```bash
    src
@@ -54,10 +63,10 @@ npm install astro-i18next
    |   └-- fr.json      # french translation strings
    └-- pages
        |-- [lang].astro # you may add a dynamic route to generate language routes
-       └-- index.astro  # route for base language (first element in fallbackLng)
+       └-- index.astro  # route for base language (first element in supportedLngs)
    ```
 
-### 3. Start translating
+### 3. 🚀 Start translating
 
 You're all set! You may now start translating your website by using
 [i18next's `t` function](https://www.i18next.com/overview/api#t) or the
@@ -88,7 +97,7 @@ i18next.changeLanguage("fr");
       <Trans i18nKey="home.subtitle">
         This is a <em>more complex</em> string to translate, mixed with <strong
           >html elements
-        </strong> such as a <a href="https://example.com/">a cool link</a>!
+        </strong> such as <a href="https://example.com/">a cool link</a>!
       </Trans>
     </p>
   </body>
@@ -125,6 +134,8 @@ i18next.changeLanguage("fr");
 
 For a more exhaustive example, see the [example astro website](./example/).
 
+---
+
 ## Utility components
 
 ### Trans component
@@ -138,7 +149,7 @@ strings. Inspired by
 import { Trans } from "astro-i18next/components";
 ---
 
-<Trans i18nKey="sampleKey">
+<Trans i18nKey="superCoolKey">
   An <a href="https://astro.build" title="Astro website">astro</a> integration of
   <a href="https://www.i18next.com/" title="i18next website">i18next</a> and utility
   components to help you translate your astro websites!
@@ -158,6 +169,22 @@ import { Trans } from "astro-i18next/components";
 | --------- | ------ | ------------------------------------------ |
 | i18nKey   | string | Internationalization key to interpolate to |
 
+#### interpolate function
+
+`interpolate(i18nKey: string, reference: string): string`
+
+astro-i18next exposes the logic behind the Trans component, you may want to use
+it directly.
+
+```ts
+import { interpolate } from "astro-i18next";
+
+const interpolated = interpolate(
+  "superCoolKey",
+  'An <a href="https://astro.build" title="Astro website">astro</a> integration of <a href="https://www.i18next.com/" title="i18next website">i18next</a> and utility components to help you translate your astro websites!'
+);
+```
+
 ### LanguageSelector component
 
 Unstyled custom select component to choose amongst supported locales.
@@ -167,16 +194,36 @@ Unstyled custom select component to choose amongst supported locales.
 import { LanguageSelector } from "astro-i18next/components";
 ---
 
-<LanguageSelector baseLanguage="en" className="my-select-class" />
+<LanguageSelector showFlag={true} class="my-select-class" />
 ```
 
 #### LanguageSelector Props
 
-| Prop name    | Type     | Description                                                                                           |
-| ------------ | -------- | ----------------------------------------------------------------------------------------------------- |
-| baseLanguage | string   | language code that translations are based off of (will redirect to `/` instead of `/[language-code]`) |
-| showFlag     | ?boolean | choose to display the language emoji before language name (defaults to `false`)                       |
-| className    | ?string  | class attribute for the `<select>` tag to customize it                                                |
+| Prop name | Type     | Description                                                                     |
+| --------- | -------- | ------------------------------------------------------------------------------- |
+| showFlag  | ?boolean | Choose to display the language emoji before language name (defaults to `false`) |
+
+### localizePath function
+
+`localizePath(path: string, locale: string | null = null): string`
+
+Sets a path within a given locale. If the locale param is not specified, the
+current language will be used.
+
+**Note:** This should be used instead of hard coding paths to other pages. It
+will take care of setting the right path depending on the locale you set.
+
+```astro
+---
+import { localizePath } from "astro-i18next";
+import i18next from "i18next";
+
+i18next.changeLanguage("fr");
+---
+
+<a href={localizePath("/about")}>Go to about page ➔</a>
+<!-- renders: <a href="/fr/about">Go to about page ➔</a> -->
+```
 
 ## License
 
@@ -184,3 +231,23 @@ Code released under the [MIT License](https://choosealicense.com/licenses/mit/).
 
 Copyright (c) 2022-present, Yassine Doghri
 ([@yassinedoghri](https://twitter.com/yassinedoghri))
+
+[npm]: https://www.npmjs.com/package/astro-i18next
+[npm-badge]: https://img.shields.io/npm/v/astro-i18next
+[build]:
+  https://github.com/yassinedoghri/astro-i18next/actions/workflows/publish.yml
+[build-badge]:
+  https://img.shields.io/github/workflow/status/yassinedoghri/astro-i18next/astro-i18next-publish
+[license]:
+  https://github.com/yassinedoghri/astro-i18next/blob/develop/LICENSE.md
+[license-badge]:
+  https://img.shields.io/github/license/yassinedoghri/astro-i18next
+[contributions]: https://github.com/yassinedoghri/astro-i18next/issues
+[contributions-badge]:
+  https://img.shields.io/badge/contributions-welcome-brightgreen.svg
+[semantic-release]: https://github.com/semantic-release/semantic-release
+[semantic-release-badge]:
+  https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[stars]: https://github.com/yassinedoghri/astro-i18next/stargazers
+[stars-badge]:
+  https://img.shields.io/github/stars/yassinedoghri/astro-i18next?style=social
