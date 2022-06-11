@@ -2,6 +2,7 @@ import { AstroIntegration } from "astro";
 import { InitOptions, Resource } from "i18next";
 import * as fs from "fs";
 import * as path from "path";
+import { deeplyStringifyObject } from "./utils";
 
 interface AstroI18nextOptions {
   resourcesPath?: string;
@@ -52,7 +53,7 @@ export default (options: AstroI18nextOptions): AstroIntegration => {
         injectScript(
           "page-ssr",
           `import i18next from "i18next";
-           i18next.init(${JSON.stringify(options.i18next)});`
+           i18next.init(${deeplyStringifyObject(options.i18next)});`
         );
       },
     },
