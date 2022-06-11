@@ -104,3 +104,41 @@ export const localizePath = (
 
   return "/" + pathSegments.join("/");
 };
+
+export const deeplyStringifyObject = (obj: object | Array<any>) => {
+  const isArr = Array.isArray(obj);
+  let str = isArr ? "[" : "{";
+  for (const key in obj) {
+    if (obj[key] === null || obj[key] === undefined) {
+      continue;
+    }
+    let val = null;
+    switch (typeof obj[key]) {
+      case "string": {
+        val = `"${obj[key]}"`;
+        break;
+      }
+      case "number":
+      case "boolean": {
+        val = obj[key];
+        break;
+      }
+      case "object": {
+        val = deeplyStringifyObject(obj[key]);
+        break;
+      }
+      case "function": {
+        val = obj[key].toString();
+        break;
+      }
+      case "symbol": {
+        val = `Symbol("${obj[key].description}")`;
+        break;
+      }
+      default:
+        break;
+    }
+    str += isArr ? `${val},` : `"${key}": ${val},`;
+  }
+  return `${str}${isArr ? "]" : "}"}`;
+};
