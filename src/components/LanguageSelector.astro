@@ -1,6 +1,6 @@
 ---
 import i18next from "i18next";
-import ISO6391, { LanguageCode } from "iso-639-1";
+import ISO6991 from "iso-639-1";
 import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 import { localizePath } from "../utils";
 
@@ -19,9 +19,9 @@ const { showFlag = false, ...attributes } = Astro.props;
 <select onchange="location = this.value;" {...attributes}>
   {supportedLanguages.map((supportedLanguage: string) => {
     let value = localizePath(pathname, supportedLanguage)
-    const label = `${
-      showFlag ? countryCodeToFlagEmoji(supportedLanguage) + " " : ""
-    }${ISO6391.getNativeName(supportedLanguage as LanguageCode)}`
+    const flag = showFlag ? countryCodeToFlagEmoji(supportedLanguage) + " " : ""
+    const nativeName = ISO6991.getNativeName(supportedLanguage)
+    const label = flag + nativeName
 
     return (
       <option value={value} selected={supportedLanguage === currentLanguage}>

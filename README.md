@@ -82,7 +82,7 @@ Here's a quick tutorial to get you going:
 ---
 // src/pages/index.astro
 import i18next, { t } from "i18next";
-import { Trans } from "astro-i18next/components";
+import { Trans, HeadHrefLangs } from "astro-i18next/components";
 
 // Use i18next's changeLanguage() function to change the language
 i18next.changeLanguage("fr");
@@ -94,6 +94,7 @@ i18next.changeLanguage("fr");
     <meta name="viewport" content="width=device-width" />
     <title>{t("site.title")}</title>
     <meta name="description" content={t("site.description")} />
+    <HeadHrefLangs />
   </head>
   <body>
     <h1>{t("home.title")}</h1>
@@ -208,6 +209,42 @@ import { LanguageSelector } from "astro-i18next/components";
 | --------- | ------------------ | --------------------------------------------------------- |
 | showFlag  | ?boolean (`false`) | Choose to display the language emoji before language name |
 
+### HeadHrefLangs component
+
+HTML tags to include in your page's `<head>` section to let search engines know
+about its language and region variants. To know more, see
+[Google's advanced localized versions](https://developers.google.com/search/docs/advanced/crawling/localized-versions#html).
+
+```astro
+---
+import i18next from "i18next";
+import { HeadHrefLangs } from "astro-i18next/components";
+---
+
+<html lang={i18next.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>...</title>
+    <meta name="description" content="..." />
+    <HeadHrefLangs />
+  </head>
+  <body>...</body>
+</html>
+```
+
+The HeadHrefLangs component will generate all of the alternate links depending
+on the current url and supported languages.
+
+For example, if you are on the `/about` page and support 3 languages (`en`,
+`fr`, `es`) with `en` being the base language, this will render:
+
+```html
+<link rel="alternate" hreflang="en" href="https://www.example.com/about/" />
+<link rel="alternate" hreflang="fr" href="https://www.example.com/fr/about/" />
+<link rel="alternate" hreflang="es" href="https://www.example.com/es/about/" />
+```
+
 ### localizePath function
 
 `localizePath(path: string, locale: string | null = null): string`
@@ -228,6 +265,28 @@ i18next.changeLanguage("fr");
 
 <a href={localizePath("/about")}>...</a>
 <!-- renders: <a href="/fr/about">...</a> -->
+```
+
+### localizeUrl function
+
+`localizeUrl(url: string, locale: string | null = null): string`
+
+Sets a url within a given locale. If the locale param is not specified, the
+current language will be used.
+
+**Note:** This should be used instead of hard coding urls for internal links. It
+will take care of setting the right url depending on the locale you set.
+
+```astro
+---
+import { localizeUrl } from "astro-i18next";
+import i18next from "i18next";
+
+i18next.changeLanguage("fr");
+---
+
+<a href={localizeUrl("https://www.example.com/about")}>...</a>
+<!-- renders: <a href="https://www.example.com/fr/about">...</a> -->
 ```
 
 ---

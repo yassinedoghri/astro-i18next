@@ -203,7 +203,17 @@ export const localizePath = (
   return "/" + pathSegments.join("/");
 };
 
-export const deeplyStringifyObject = (obj: object | Array<any>) => {
+export const localizeUrl = (
+  url: string,
+  locale: string | null = null
+): string => {
+  const [protocol, , host, ...path] = url.split("/");
+  const baseUrl = protocol + "//" + host;
+
+  return baseUrl + localizePath(path.join("/"), locale);
+};
+
+export const deeplyStringifyObject = (obj: object | Array<any>): string => {
   const isArr = Array.isArray(obj);
   let str = isArr ? "[" : "{";
   for (const key in obj) {
