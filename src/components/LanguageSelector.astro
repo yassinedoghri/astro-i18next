@@ -1,6 +1,6 @@
 ---
 import i18next from "i18next";
-import ISO6391 from "iso-639-1";
+import ISO6391, { LanguageCode } from "iso-639-1";
 import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 import { localizePath } from "../utils";
 
@@ -21,7 +21,7 @@ const { showFlag = false, ...attributes } = Astro.props;
     let value = localizePath(pathname, supportedLanguage)
     const label = `${
       showFlag ? countryCodeToFlagEmoji(supportedLanguage) + " " : ""
-    }${ISO6391.getNativeName(supportedLanguage)}`
+    }${ISO6391.getNativeName(supportedLanguage as LanguageCode)}`
 
     return (
       <option value={value} selected={supportedLanguage === currentLanguage}>

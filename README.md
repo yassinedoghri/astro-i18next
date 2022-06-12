@@ -17,9 +17,9 @@ websites!
 
 > **Status** [beta version]
 >
-> You can use it, and feedback is welcome! As integrations in Astro are still
-> experimental, note that some breaking changes may be still introduced during
-> this phase.
+> You can use it, and feedback is more than welcome! As integrations in Astro
+> are still experimental, note that some breaking changes may still be
+> introduced during this phase.
 
 ## Getting started
 
@@ -43,10 +43,10 @@ npm install astro-i18next
      },
      integrations: [
        astroI18next({
-         resourcesPath: "./src/locales/",
+         baseLanguage: "en",
          i18next: {
-           debug: true,
-           supportedLngs: ["en", "fr"], // ℹ️ base language is the first one, ie. "en"
+           debug: true, // convenient during development to check for missing keys
+           supportedLngs: ["en", "fr"],
          },
        }),
      ],
@@ -63,8 +63,12 @@ npm install astro-i18next
    |   └-- fr.json      # french translation strings
    └-- pages
        |-- [lang].astro # you may add a dynamic route to generate language routes
-       └-- index.astro  # route for base language (first element in supportedLngs)
+       └-- index.astro  # route for base language
    ```
+
+ℹ️ This is the **minimal setup** to get you started as fast as possible. If
+you'd like to go further, check out the [config props](#config-props) and
+[namespaces](#namespaces).
 
 ### 3. 🚀 Start translating
 
@@ -132,7 +136,7 @@ i18next.changeLanguage("fr");
 }
 ```
 
-For a more exhaustive example, see the [example astro website](./example/).
+For a more exhaustive example, see the [demo project](./example/).
 
 ---
 
@@ -165,13 +169,14 @@ import { Trans } from "astro-i18next/components";
 
 #### Trans Props
 
-| Prop name | Type   | Description                                |
-| --------- | ------ | ------------------------------------------ |
-| i18nKey   | string | Internationalization key to interpolate to |
+| Prop name | Type (default)      | Description                                                                                                                                            |
+| --------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| i18nKey   | string (undefined)  | Internationalization key to interpolate to. Can contain the namespace by prepending it in the form 'ns:key' (depending on i18next.options.nsSeparator) |
+| ns        | ?string (undefined) | Namespace to use. May also be embedded in i18nKey but not recommended when used in combination with natural language keys.                             |
 
 #### interpolate function
 
-`interpolate(i18nKey: string, reference: string): string`
+`interpolate(i18nKey: string, reference: string, namespace: string | null): string`
 
 astro-i18next exposes the logic behind the Trans component, you may want to use
 it directly.
@@ -199,9 +204,9 @@ import { LanguageSelector } from "astro-i18next/components";
 
 #### LanguageSelector Props
 
-| Prop name | Type     | Description                                                                     |
-| --------- | -------- | ------------------------------------------------------------------------------- |
-| showFlag  | ?boolean | Choose to display the language emoji before language name (defaults to `false`) |
+| Prop name | Type (default)     | Description                                               |
+| --------- | ------------------ | --------------------------------------------------------- |
+| showFlag  | ?boolean (`false`) | Choose to display the language emoji before language name |
 
 ### localizePath function
 
@@ -221,9 +226,100 @@ import i18next from "i18next";
 i18next.changeLanguage("fr");
 ---
 
-<a href={localizePath("/about")}>Go to about page ➔</a>
-<!-- renders: <a href="/fr/about">Go to about page ➔</a> -->
+<a href={localizePath("/about")}>...</a>
+<!-- renders: <a href="/fr/about">...</a> -->
 ```
+
+---
+
+## Namespaces
+
+For larger projects, the namespaces feature allows you to break your
+translations into multiple files, thus easier maintenance!
+
+See i18next's documentation on the
+[Namespaces principle](https://www.i18next.com/principles/namespaces).
+
+### 1. Configure namespaces
+
+All you have to do is create a folder including the namespaced translation files
+for each language instead of a single file per language.
+
+🪄 `astro-i18next` will automagically load the namespaces for you!
+
+```bash
+src
+├-- locales
+|   ├-- en # the base language `en` contains 3 namespaces
+|   |   ├-- common.json
+|   |   ├-- home.json
+|   |   └-- about.json
+|   └-- fr # `fr` language must contain the same namespaces as the base `en` language
+|       ├-- common.json
+|       ├-- home.json
+|       └-- about.json
+└-- pages
+    └-- [...]
+```
+
+You can also define the default namespace in your `astro-i18next` config:
+
+```mjs
+import { defineConfig } from "astro/config";
+import astroI18next from "astro-i18next";
+
+export default defineConfig({
+  experimental: {
+    integrations: true,
+  },
+  integrations: [
+    astroI18next({
+      baseLanguage: "en",
+      i18next: {
+        defaultNS: "common", // translation keys will be retrieved in the common.json file by default
+        supportedLngs: ["en", "fr"],
+      },
+    }),
+  ],
+});
+```
+
+### 2. Using namespaces
+
+1. Using i18next's `t` function
+
+   ```astro
+   ---
+   import { t } from "i18next";
+   ---
+
+   <p>{t("home:myKey")}</p>
+   or
+   <p>{t("myKey", { ns: "home" })}</p>
+   ```
+
+2. Using the [Trans component](#trans-component)
+
+```astro
+---
+import { Trans } from "astro-i18next/components";
+---
+
+<Trans i18nKey="myKey" ns="home">This is a sample key</Trans>
+```
+
+## Config Props
+
+`astro-i18next` abstracts most of the configuration for you so that you don't
+have to think about it. Just focus on translating!
+
+Though if you'd like to go further, feel free to tweak the config!
+
+| Prop name     | Type (default)                     | Description                                                                                                                   |
+| ------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| baseLanguage  | string (undefined)                 | The default language for your website                                                                                         |
+| resourcesPath | ?string (`src/resources/locales/`) | The path to your translation files                                                                                            |
+| i18next       | `InitOptions` (undefined)          | The i18next configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options) to know more |
 
 ## License
 
@@ -241,10 +337,10 @@ Copyright (c) 2022-present, Yassine Doghri
 [license]:
   https://github.com/yassinedoghri/astro-i18next/blob/develop/LICENSE.md
 [license-badge]:
-  https://img.shields.io/github/license/yassinedoghri/astro-i18next
+  https://img.shields.io/github/license/yassinedoghri/astro-i18next?color=blue
 [contributions]: https://github.com/yassinedoghri/astro-i18next/issues
 [contributions-badge]:
-  https://img.shields.io/badge/contributions-welcome-brightgreen.svg
+  https://img.shields.io/badge/contributions-welcome-blueviolet.svg
 [semantic-release]: https://github.com/semantic-release/semantic-release
 [semantic-release-badge]:
   https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
