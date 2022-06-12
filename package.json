@@ -4,6 +4,7 @@
   "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+    "test:coverage": "npm test -- --coverage",
     "preview": "astro preview",
     "build": "./build.js && npm run typecheck:emit",
     "lint": "eslint --ext js,ts,mts src",
@@ -31,7 +32,8 @@
     "./components": "./dist/components/index.d.mts"
   },
   "keywords": [
-    "astro",
+    "astro-component",
+    "seo",
     "i18next",
     "i18n",
     "internationalization",

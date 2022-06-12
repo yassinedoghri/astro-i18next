@@ -1,12 +1,14 @@
 ---
+import i18next from "i18next";
 import { interpolate } from "../utils";
 export interface Props {
   i18nKey: string;
+  ns?: string;
 }
 
-const { i18nKey } = Astro.props;
+const { i18nKey, ns } = Astro.props;
 
 const referenceString = await Astro.slots.render("default");
 ---
 
-<Fragment set:html={interpolate(i18nKey, referenceString)} />
+<Fragment set:html={interpolate(i18nKey, referenceString, ns)} />
