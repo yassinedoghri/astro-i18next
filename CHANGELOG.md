@@ -1,3 +1,14 @@
+# [1.0.0-beta.3](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-06-12)
+
+### Features
+
+- add HeadHrefLangs component + localizeUrl util function
+  ([cd4095e](https://github.com/yassinedoghri/astro-i18next/commit/cd4095ec7b42d7a4759ef980ba76515549b21f75))
+- add i18next namespaces + validate config before processing it
+  ([10b40cc](https://github.com/yassinedoghri/astro-i18next/commit/10b40cc81329d2d34f9cd9e37f1aa16145812449))
+- allow passing functions to i18next init
+  ([ed7c721](https://github.com/yassinedoghri/astro-i18next/commit/ed7c72117ccc363a8174681b990f75c67986dcd6))
+
 # [1.0.0-beta.2](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-06-06)
 
 ### Features
