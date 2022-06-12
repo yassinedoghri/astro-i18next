@@ -5,6 +5,7 @@ import {
   moveBaseLanguageToFirstIndex,
   loadResourcesNamespaced,
   loadNamespaces,
+  localizeUrl,
 } from "../utils";
 import i18next from "i18next";
 
@@ -246,5 +247,29 @@ describe("localizePath(...)", () => {
     i18next.changeLanguage("de");
     expect(localizePath("/fr/about")).toBe("/fr/about");
     expect(console.warn).toHaveBeenCalled();
+  });
+});
+
+describe("localizeUrl(...)", () => {
+  // load i18next config with "en", "fr", "fr-CA" and "es" as supported languages,
+  // and "en" being the base language
+  require("./i18next-test");
+
+  test("generates the correct url given a url with supported locale", () => {
+    i18next.changeLanguage("en");
+    expect(localizeUrl("https://example.com/")).toBe("https://example.com/");
+    expect(localizeUrl("https://example.com/about")).toBe(
+      "https://example.com/about"
+    );
+    expect(localizeUrl("https://example.com/fr/")).toBe("https://example.com/");
+    expect(localizeUrl("https://example.com/fr/about")).toBe(
+      "https://example.com/about"
+    );
+
+    i18next.changeLanguage("fr");
+    expect(localizeUrl("https://example.com/")).toBe("https://example.com/fr/");
+    expect(localizeUrl("https://example.com/about")).toBe(
+      "https://example.com/fr/about"
+    );
   });
 });

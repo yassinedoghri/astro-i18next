@@ -2,7 +2,7 @@
 import i18next, { t } from "i18next";
 import Navigation from "molecules:Navigation";
 import HeadSEO from "organisms:HeadSEO";
-import { LanguageSelector } from "astro-i18next/components";
+import { LanguageSelector, HeadHrefLangs } from "astro-i18next/components";
 import Button from "atoms:Button";
 ---
 
@@ -11,6 +11,7 @@ import Button from "atoms:Button";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <HeadSEO />
+    <HeadHrefLangs />
   </head>
 
   <body

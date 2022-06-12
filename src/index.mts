@@ -105,4 +105,4 @@ export default (options: AstroI18nextOptions): AstroIntegration => {
   };
 };
 
-export { interpolate, localizePath } from "./utils";
+export { interpolate, localizePath, localizeUrl } from "./utils";
