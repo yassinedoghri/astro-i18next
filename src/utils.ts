@@ -1,105 +1,19 @@
-import i18next, { t, Resource } from "i18next";
-import * as fs from "fs";
-import * as path from "path";
+import i18next, { t } from "i18next";
 
+/**
+ * Moves the default locale in the first index
+ */
 export const moveBaseLanguageToFirstIndex = (
-  supportedLngs: string[],
-  baseLanguage: string
+  supportedLocales: string[],
+  baseLocale: string
 ): void => {
-  const baseLanguageIndex = supportedLngs.indexOf(baseLanguage);
-  supportedLngs.splice(baseLanguageIndex, 1);
-  supportedLngs.splice(0, 0, baseLanguage);
-};
-
-export const loadResources = (
-  resourcesPath: string,
-  supportedLanguages: string[]
-): Resource => {
-  const resources = {};
-  const errors = [];
-
-  for (const language of supportedLanguages) {
-    try {
-      const rawContents = fs.readFileSync(resourcesPath + language + ".json");
-
-      resources[language] = {
-        translation: JSON.parse(rawContents.toString()),
-      };
-    } catch (error) {
-      errors.push(`\t- ${resourcesPath + language + ".json"}`);
-    }
-  }
-
-  if (errors.length) {
-    throw new Error(
-      `[astro-i18next]: some i18n resources are missing! Forgot to include them?\n\n${errors.join(
-        "\n"
-      )}\n`
-    );
-  }
-
-  return resources;
-};
-
-export const loadResourcesNamespaced = (
-  resourcesPath: string,
-  supportedLanguages: string[],
-  namespaces: string[]
-): Resource => {
-  const resources = {};
-  const errors = [];
-
-  for (const language of supportedLanguages) {
-    const directoryPath = resourcesPath + language + "/";
-
-    const namespaceResources = {};
-    for (const namespace of namespaces) {
-      try {
-        const rawContents = fs.readFileSync(
-          directoryPath + namespace + ".json"
-        );
-
-        namespaceResources[namespace] = JSON.parse(rawContents.toString());
-      } catch {
-        errors.push(`\t- ${directoryPath + namespace + ".json"}`);
-      }
-    }
-
-    resources[language] = namespaceResources;
-  }
-
-  if (errors.length) {
-    throw new Error(
-      `[astro-i18next]: some i18n resources are missing! Forgot to include them?\n\n${errors.join(
-        "\n"
-      )}\n`
-    );
-  }
-
-  return resources;
-};
-
-export const loadNamespaces = (
-  resourcesPath: string,
-  baseLanguage: string
-): string[] => {
-  // get namespaces from baseLanguage in resourcesPath
-  const namespaceFilenames = fs.readdirSync(resourcesPath + baseLanguage);
-
-  const namespaces = [];
-  for (const namespaceFile of namespaceFilenames) {
-    namespaces.push(path.parse(namespaceFile).name);
-  }
-
-  return namespaces;
+  const baseLocaleIndex = supportedLocales.indexOf(baseLocale);
+  supportedLocales.splice(baseLocaleIndex, 1);
+  supportedLocales.unshift(baseLocale);
 };
 
 /**
  * Interpolates a localized string (loaded with the i18nKey) to a given reference string.
- *
- * @param i18nKey
- * @param referenceString
- * @returns
  */
 export const interpolate = (
   i18nKey: string,
@@ -150,10 +64,7 @@ export const interpolate = (
 };
 
 /**
- * Injects the current locale to a path
- *
- * @param path
- * @param locale
+ * Injects the given locale to a path
  */
 export const localizePath = (
   path: string = "/",
@@ -203,6 +114,9 @@ export const localizePath = (
   return "/" + pathSegments.join("/");
 };
 
+/**
+ * Injects the given locale to a url
+ */
 export const localizeUrl = (
   url: string,
   locale: string | null = null
@@ -213,40 +127,77 @@ export const localizeUrl = (
   return baseUrl + localizePath(path.join("/"), locale);
 };
 
+/**
+ * Returns the locale detected from a given path
+ */
+export const detectLocaleFromPath = (path: string) => {
+  // remove all leading slashes
+  path = path.replace(/^\/+/g, "");
+
+  const pathSegments = path.split("/");
+
+  if (
+    JSON.stringify(pathSegments) === JSON.stringify([""]) ||
+    JSON.stringify(pathSegments) === JSON.stringify(["", ""])
+  ) {
+    return i18next.options.supportedLngs[0];
+  }
+
+  // make a copy of i18next's supportedLngs
+  const otherLocales = [...(i18next.options.supportedLngs as string[])];
+  otherLocales.slice(1); // remove base locale (first index)
+
+  // loop over all locales except the base one
+  for (const otherLocale of otherLocales) {
+    if (pathSegments[0] === otherLocale) {
+      // if the path starts with one of the other locales, then detected!
+      return otherLocale;
+    }
+  }
+
+  // return base locale by default
+  return i18next.options.supportedLngs[0];
+};
+
 export const deeplyStringifyObject = (obj: object | Array<any>): string => {
-  const isArr = Array.isArray(obj);
-  let str = isArr ? "[" : "{";
+  const isArray = Array.isArray(obj);
+  let str = isArray ? "[" : "{";
   for (const key in obj) {
     if (obj[key] === null || obj[key] === undefined) {
       continue;
     }
-    let val = null;
+
+    let value = null;
+
+    // see typeof result: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#description
     switch (typeof obj[key]) {
       case "string": {
-        val = `"${obj[key]}"`;
+        value = `"${obj[key]}"`;
         break;
       }
       case "number":
       case "boolean": {
-        val = obj[key];
+        value = obj[key];
         break;
       }
       case "object": {
-        val = deeplyStringifyObject(obj[key]);
+        value = deeplyStringifyObject(obj[key]);
         break;
       }
       case "function": {
-        val = obj[key].toString();
+        value = obj[key].toString().replace(/\s+/g, " ");
         break;
       }
       case "symbol": {
-        val = `Symbol("${obj[key].description}")`;
+        value = `Symbol("${obj[key].description}")`;
         break;
       }
+      /* istanbul ignore next */
       default:
         break;
     }
-    str += isArr ? `${val},` : `"${key}": ${val},`;
+
+    str += isArray ? `${value},` : `"${key}": ${value},`;
   }
-  return `${str}${isArr ? "]" : "}"}`;
+  return `${str}${isArray ? "]" : "}"}`;
 };
