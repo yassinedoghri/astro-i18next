@@ -11,7 +11,7 @@ websites!
 
 <div align="center">
 
-[![npm-badge]][npm]&nbsp;[![build-badge]][build]&nbsp;[![license-badge]][license]&nbsp;[![contributions-badge]][contributions]&nbsp;[![semantic-release-badge]][semantic-release]&nbsp;[![stars-badge]][stars]
+[![npm-badge]][npm]&nbsp;[![build-badge]][build]&nbsp;[![codecov-badge]][codecov]&nbsp;[![license-badge]][license]&nbsp;[![contributions-badge]][contributions]&nbsp;[![semantic-release-badge]][semantic-release]&nbsp;[![stars-badge]][stars]
 
 </div>
 
@@ -406,3 +406,6 @@ Copyright (c) 2022-present, Yassine Doghri
 [stars]: https://github.com/yassinedoghri/astro-i18next/stargazers
 [stars-badge]:
   https://img.shields.io/github/stars/yassinedoghri/astro-i18next?style=social
+[codecov]: https://codecov.io/gh/yassinedoghri/astro-i18next
+[codecov-badge]:
+  https://codecov.io/gh/yassinedoghri/astro-i18next/branch/develop/graph/badge.svg?token=IFWNB6UJDJ
