@@ -1,19 +1,47 @@
 import { AstroIntegration } from "astro";
-import { InitOptions } from "i18next";
-import {
-  moveBaseLanguageToFirstIndex,
-  loadNamespaces,
-  loadResources,
-  loadResourcesNamespaced,
-  deeplyStringifyObject,
-} from "./utils";
-import * as fs from "fs";
+import i18next, { i18n, InitOptions } from "i18next";
+import { moveBaseLanguageToFirstIndex, deeplyStringifyObject } from "./utils";
 
-interface AstroI18nextOptions {
-  baseLanguage: string;
-  resourcesPath?: string;
+export interface AstroI18nextOptions {
+  /**
+   * The default language for your website.
+   *
+   * @default undefined
+   */
+  baseLocale: string;
+
+  /**
+   * The locales that are supported by your website.
+   *
+   * @default undefined
+   */
+  supportedLocales: string[];
+
+  /**
+   * i18next config. See https://www.i18next.com/overview/configuration-options
+   *
+   * @default undefined
+   */
   i18next: InitOptions;
+
+  /**
+   * i18next plugins. See https://www.i18next.com/overview/plugins-and-utils
+   *
+   * Include the plugins with the key being the import name and the value being the plugin name.
+   *
+   * Eg.:
+   * ```
+   * {
+   *  "Backend": "i18next-fs-backend",
+   * }
+   * ```
+   */
+  i18nextPlugins: {
+    [key: string]: string;
+  };
 }
+
+export const aI18next: i18n = i18next;
 
 export default (options: AstroI18nextOptions): AstroIntegration => {
   return {
@@ -23,86 +51,63 @@ export default (options: AstroI18nextOptions): AstroIntegration => {
         /**
          * 1. Validate and prepare config
          */
-        if (!options.baseLanguage || options.baseLanguage === "") {
+        if (!options.baseLocale || options.baseLocale === "") {
           throw new Error(
             "[astro-i18next]: you must set a `baseLanguage` in your config!"
           );
         }
 
-        if (!options.i18next.supportedLngs) {
-          throw new Error(
-            "[astro-i18next]: i18next.supportedLngs must be set!"
-          );
+        if (!options.supportedLocales) {
+          options.supportedLocales = [options.baseLocale];
         }
 
-        if (!options.i18next.supportedLngs.length) {
-          throw new Error(
-            "[astro-i18next]: i18next.supportedLngs must not be empty!"
-          );
-        }
-
-        if (!options.i18next.supportedLngs.includes(options.baseLanguage)) {
-          throw new Error(
-            "[astro-i18next]: i18next.supportedLngs must include the base language!"
-          );
-        }
-
-        if (options.resourcesPath) {
-          // normalize resourcesPath: add trailing slash to resourcesPath if not present
-          options.resourcesPath = options.resourcesPath.replace(/\/?$/, "/");
-        } else {
-          // set default resourcesPath if not defined
-          options.resourcesPath = "src/locales/";
+        if (!options.supportedLocales.includes(options.baseLocale)) {
+          options.supportedLocales.unshift(options.baseLocale);
         }
 
         // make sure to have base language set as first element in supportedLngs
-        if (options.i18next.supportedLngs[0] !== options.baseLanguage) {
+        if (options.supportedLocales[0] !== options.baseLocale) {
           moveBaseLanguageToFirstIndex(
-            options.i18next.supportedLngs as string[],
-            options.baseLanguage
+            options.supportedLocales as string[],
+            options.baseLocale
           );
         }
 
-        // set i18next fallback languages (same as supportedLngs)
+        // set i18next supported and fallback languages (same as supportedLocales)
+        options.i18next.supportedLngs = [
+          ...(options.supportedLocales as string[]),
+        ];
         options.i18next.fallbackLng = [
-          ...(options.i18next.supportedLngs as string[]),
+          ...(options.supportedLocales as string[]),
         ];
 
-        /**
-         * 2. Inject i18next translation resources based on config and contents of resourcesPath
-         */
+        let imports = `import i18next from "i18next";`;
+        let i18nextInit = `i18next`;
+        if (
+          options.i18nextPlugins &&
+          Object.keys(options.i18nextPlugins).length > 0
+        ) {
+          // loop through plugins to import them
+          for (const key of Object.keys(options.i18nextPlugins)) {
+            imports += `import ${key} from "${options.i18nextPlugins[key]}";`;
+          }
 
-        // check if resourcesPath includes namespace directories or files (using the base language)
-        if (fs.existsSync(options.resourcesPath + options.baseLanguage)) {
-          // inject namespaces based on the ones set for baseLanguage in resourcesPath
-          options.i18next.ns = loadNamespaces(
-            options.resourcesPath,
-            options.baseLanguage
-          );
-
-          // inject loaded namespaced resources to i18next.resources option
-          options.i18next.resources = loadResourcesNamespaced(
-            options.resourcesPath,
-            options.i18next.supportedLngs as string[],
-            options.i18next.ns as string[]
-          );
-        } else {
-          // inject loaded resources to i18next.resources option
-          options.i18next.resources = loadResources(
-            options.resourcesPath,
-            options.i18next.supportedLngs as string[]
-          );
+          // loop through plugins to use them
+          for (const key of Object.keys(options.i18nextPlugins)) {
+            i18nextInit += `.use(${key})`;
+          }
         }
+        i18nextInit += `.init(${deeplyStringifyObject(options.i18next)});`;
 
-        // init i18next
-        injectScript(
-          "page-ssr",
-          `import i18next from "i18next";
-           i18next.init(${deeplyStringifyObject(options.i18next)});`
-        );
+        injectScript("page-ssr", imports + i18nextInit);
       },
     },
   };
 };
 
-export { interpolate, localizePath, localizeUrl } from "./utils";
+export {
+  interpolate,
+  localizePath,
+  localizeUrl,
+  detectLocaleFromPath,
+} from "./utils";

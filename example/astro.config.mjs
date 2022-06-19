@@ -13,11 +13,16 @@ export default defineConfig({
     sitemap(),
     tailwind(),
     astroI18next({
-      baseLanguage: "en",
+      baseLocale: "en",
+      supportedLocales: ["en", "fr"],
       i18next: {
         debug: true,
-        supportedLngs: ["en", "fr"],
+        initImmediate: false,
+        backend: {
+          loadPath: "./src/locales/{{lng}}.json",
+        },
       },
+      i18nextPlugins: { fsBackend: "i18next-fs-backend" },
     }),
   ],
 });
