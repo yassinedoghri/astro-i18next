@@ -380,6 +380,29 @@ Though if you'd like to go further, feel free to tweak the config!
 | resourcesPath | ?string (`src/resources/locales/`) | The path to your translation files                                                                                            |
 | i18next       | `InitOptions` (undefined)          | The i18next configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options) to know more |
 
+## Contributors ✨
+
+Thanks goes to these wonderful people
+([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://yassinedoghri.com/"><img src="https://avatars.githubusercontent.com/u/11021441?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yassine Doghri</b></sub></a><br /><a href="https://github.com/yassinedoghri/astro-i18next/commits?author=yassinedoghri" title="Code">💻</a> <a href="https://github.com/yassinedoghri/astro-i18next/commits?author=yassinedoghri" title="Documentation">📖</a> <a href="#design-yassinedoghri" title="Design">🎨</a> <a href="#example-yassinedoghri" title="Examples">💡</a> <a href="#maintenance-yassinedoghri" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!
+
 ## License
 
 Code released under the [MIT License](https://choosealicense.com/licenses/mit/).

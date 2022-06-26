@@ -1,0 +1,28 @@
+{
+  "projectName": "astro-i18next",
+  "projectOwner": "yassinedoghri",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "yassinedoghri",
+      "name": "Yassine Doghri",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11021441?v=4",
+      "profile": "https://yassinedoghri.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "example",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
