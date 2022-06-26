@@ -22,6 +22,16 @@
         "example",
         "maintenance"
       ]
+    },
+    {
+      "login": "killpowa",
+      "name": "Davide Ceschia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10165264?v=4",
+      "profile": "https://gdevs.io/",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
