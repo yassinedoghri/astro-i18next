@@ -8,7 +8,7 @@ require("esbuild")
     outExtension: {
       ".js": ".mjs",
     },
-    external: ["i18next", "country-code-to-flag-emoji"],
+    external: ["i18next", "locale-emoji"],
     minify: false,
     format: "esm",
     platform: "node",
