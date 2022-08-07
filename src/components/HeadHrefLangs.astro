@@ -3,7 +3,7 @@ import i18next from "i18next";
 import { localizeUrl } from "../utils";
 
 const supportedLanguages = i18next.languages;
-const currentUrl = Astro.canonicalURL.href;
+const currentUrl = Astro.url.href;
 ---
 
 {supportedLanguages.map((supportedLanguage) => (
