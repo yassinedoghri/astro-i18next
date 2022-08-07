@@ -2,7 +2,7 @@
 import { SEO } from "astro-seo";
 import { t } from "i18next";
 
-const { href: canonicalUrl } = Astro.canonicalURL;
+const { href: canonicalUrl } = Astro.url;
 ---
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -26,8 +26,5 @@ const { href: canonicalUrl } = Astro.canonicalURL;
       type: "image/jpeg",
     },
   }}
-  twitter={{
-    card: "summary_large_image",
-    creator: "@yassinedoghri",
-  }}
+  twitter={{ card: "summary_large_image", creator: "@yassinedoghri" }}
 />
