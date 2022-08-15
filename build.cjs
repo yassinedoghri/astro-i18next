@@ -3,12 +3,25 @@
 require("esbuild")
   .build({
     bundle: true,
-    entryPoints: ["src/index.mts", "src/utils.ts", "src/components/index.mts"],
+    entryPoints: [
+      "src/index.mts",
+      "src/utils.ts",
+      "src/components/index.mts",
+      "src/cli/index.ts",
+    ],
     outdir: "dist",
     outExtension: {
       ".js": ".mjs",
     },
-    external: ["i18next", "locale-emoji"],
+    external: [
+      "i18next",
+      "locale-emoji",
+      "typescript",
+      "fdir",
+      "fs-extra",
+      "iso-639-1",
+      "iso-3166-1-alpha-2",
+    ],
     minify: false,
     format: "esm",
     platform: "node",
