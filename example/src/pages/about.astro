@@ -1,8 +1,24 @@
 ---
-import i18next from "i18next";
-import About from "templates:About";
+import { t, changeLanguage } from "i18next";
+import { Trans } from "astro-i18next/components";
+import BaseTemplate from "templates:BaseTemplate";
+import Link from "atoms:Link";
 
-i18next.changeLanguage(i18next.options.supportedLngs[0]);
+changeLanguage("en");
 ---
 
-<About />
+<BaseTemplate>
+  <p class="mt-4 text-center text-xl max-w-xl">
+    <Trans i18nKey="about">
+      Created with love ❤️, cheese 🧀 and baguettes 🥖 during the <Link
+        href="https://hackathon-1-0-projects.vercel.app/"
+        title={t("astroHackathonTitle")}
+        >Astro hackathon
+      </Link> of April / May 2022 by <Link
+        href="https://twitter.com/yassinedoghri"
+        title={t("twitterTitle")}
+        >@yassinedoghri
+      </Link>.
+    </Trans>
+  </p>
+</BaseTemplate>

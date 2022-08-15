@@ -3,19 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npm link .. && astro dev",
+    "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "build:package": "cd .. && npm run build && cd example",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "i18n:generate": "astro-i18next generate -d en -l fr"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^0.3.0",
-    "@astrojs/tailwind": "^0.2.5",
-    "astro": "1.0.0-rc.7",
-    "astro-seo": "^0.5.1"
-  },
-  "dependencies": {
+    "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/tailwind": "^1.0.0",
+    "astro": "^1.0.5",
+    "astro-i18next": "file:..",
+    "astro-seo": "^0.5.1",
     "i18next-fs-backend": "^1.1.5"
   }
 }
