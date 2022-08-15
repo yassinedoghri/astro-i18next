@@ -17,8 +17,8 @@ websites!
 
 > **Status** [beta version]
 >
-> You can use it, and feedback is more than welcome! As integrations in Astro
-> are still experimental, note that some breaking changes may still be
+> You can use it, and feedback is more than welcome! As third-party integrations
+> in Astro are still experimental, note that some breaking changes may still be
 > introduced during this phase.
 
 ## Getting started
