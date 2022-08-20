@@ -41,7 +41,8 @@ export const generate = (
       allLanguages.forEach((language) => {
         const frontmatterCode = generateLocalizedFrontmatter(
           parsedFrontmatter,
-          language
+          language,
+          language === defaultLanguage ? 0 : 1
         );
 
         // get the astro file contents

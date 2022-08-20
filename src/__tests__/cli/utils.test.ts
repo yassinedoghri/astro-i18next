@@ -1,4 +1,5 @@
 import {
+  addDepthToRelativePath,
   doesStringIncludeFrontmatter,
   extractFrontmatterFromAstroSource,
   isLocale,
@@ -81,12 +82,52 @@ describe("overwriteAstroFrontmatter(...)", () => {
     ).toBe(`---\nconsole.log("Howdy World!");\n---\n<div>Hello world</div>`);
   });
 
+  test("with source wrapped with unwanted newlines", () => {
+    expect(
+      overwriteAstroFrontmatter(
+        `---\n\nconsole.log("Hello World");\n\n---\n<div>Hello world</div>`,
+        `console.log("Howdy World!");`
+      )
+    ).toBe(`---\nconsole.log("Howdy World!");\n---\n<div>Hello world</div>`);
+  });
+
   test("adds frontmatter if no frontmatter is present", () => {
     expect(
       overwriteAstroFrontmatter(
         `<div>Hello world</div>`,
         `console.log("Howdy World!");`
       )
-    ).toBe(`---\nconsole.log("Howdy World!");\n---\n<div>Hello world</div>`);
+    ).toBe(`---\nconsole.log("Howdy World!");\n---\n\n<div>Hello world</div>`);
+  });
+
+  test("with frontmatter wrapped with unwanted newlines", () => {
+    expect(
+      overwriteAstroFrontmatter(
+        `<div>Hello world</div>`,
+        `\n\nconsole.log("Howdy World!");\n\n`
+      )
+    ).toBe(`---\nconsole.log("Howdy World!");\n---\n\n<div>Hello world</div>`);
+  });
+});
+
+describe("addDepthToRelativePath(...)", () => {
+  test("with any depth level / path", () => {
+    expect(addDepthToRelativePath("../foo/bar", 1)).toBe("../../foo/bar");
+    expect(addDepthToRelativePath("../../../foo/bar/baz", 2)).toBe(
+      "../../../../../foo/bar/baz"
+    );
+    expect(addDepthToRelativePath("../../foo", 5)).toBe(
+      "../../../../../../../foo"
+    );
+  });
+
+  test("with relative path beginning with current folder", () => {
+    expect(addDepthToRelativePath("./foo/bar/baz", 1)).toBe("../foo/bar/baz");
+    expect(addDepthToRelativePath("./foo/bar/baz", 2)).toBe(
+      "../../foo/bar/baz"
+    );
+    expect(addDepthToRelativePath("./foo/bar/baz", 5)).toBe(
+      "../../../../../foo/bar/baz"
+    );
   });
 });
