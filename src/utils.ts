@@ -1,4 +1,35 @@
 import i18next, { t } from "i18next";
+import { fileURLToPath } from "url";
+import load from "@proload/core";
+import { AstroI18nextConfig } from "types";
+import typescript from "@proload/plugin-typescript";
+
+/**
+ * Adapted from astro's tailwind integration:
+ * https://github.com/withastro/astro/tree/main/packages/integrations/tailwind
+ */
+export const getUserConfig = async (
+  root: URL,
+  configPath?: string
+): Promise<load.Config<AstroI18nextConfig>> => {
+  const resolvedRoot = fileURLToPath(root);
+  let userConfigPath: string | undefined;
+
+  if (configPath) {
+    const configPathWithLeadingSlash = /^\.*\//.test(configPath)
+      ? configPath
+      : `./${configPath}`;
+
+    userConfigPath = fileURLToPath(new URL(configPathWithLeadingSlash, root));
+  }
+
+  load.use([typescript]);
+  return (await load("astro-i18next", {
+    mustExist: false,
+    cwd: resolvedRoot,
+    filePath: userConfigPath,
+  })) as load.Config<AstroI18nextConfig>;
+};
 
 /**
  * Moves the default locale in the first index

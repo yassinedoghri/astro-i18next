@@ -12,18 +12,16 @@ import {
  * Reads all files inside inputPath
  *
  * @param inputPath
- * @param languages
+ * @param supportedLanguages
  * @param outputPath
  */
 export const generate = (
   inputPath: string,
   defaultLanguage: string,
-  languages: string[],
+  supportedLanguages: string[],
   outputPath: string = inputPath
 ) => {
   const files = crawlInputDirectory(inputPath);
-
-  const allLanguages = [defaultLanguage, ...languages];
 
   const filesToGenerate: FileToGenerate[] = [];
 
@@ -38,7 +36,7 @@ export const generate = (
 
       const parsedFrontmatter = parseFrontmatter(fileContentsString);
 
-      allLanguages.forEach((language) => {
+      supportedLanguages.forEach((language) => {
         const frontmatterCode = generateLocalizedFrontmatter(
           parsedFrontmatter,
           language,
