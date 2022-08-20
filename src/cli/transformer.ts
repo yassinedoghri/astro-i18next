@@ -1,4 +1,5 @@
 import ts from "typescript";
+import { addDepthToRelativePath } from "./utils";
 
 /**
  * Traverse ts' AST to inject i18next's language switch
@@ -10,7 +11,7 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
     const { factory, getCompilerOptions } = context;
     let doesI18nextImportExist = false;
 
-    const { language } = getCompilerOptions();
+    const { language, fileDepth } = getCompilerOptions();
 
     function visit(node: ts.Node): ts.Node {
       // isolate i18next import statement
@@ -74,6 +75,27 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
         }
 
         return node;
+      }
+
+      // update relative imports
+      if (
+        ts.isImportDeclaration(node) &&
+        ts.isStringLiteral(node.moduleSpecifier) &&
+        node.moduleSpecifier.text.startsWith(".")
+      ) {
+        return factory.updateImportDeclaration(
+          node,
+          node.decorators,
+          node.modifiers,
+          node.importClause,
+          factory.createStringLiteral(
+            addDepthToRelativePath(
+              node.moduleSpecifier.text,
+              fileDepth as number
+            )
+          ),
+          node.assertClause
+        );
       }
 
       // remove any occurrence of changeLanguage() call

@@ -63,6 +63,12 @@ describe("transformer(...)", () => {
       expected:
         'import { changeLanguage } from "i18next";\nconst a = 1 + 2;\n\nchangeLanguage("fr");\n',
     },
+    {
+      name: "with relative imports",
+      actual: `import Foo from "../Foo.astro";\nimport Bar from "../../Bar.astro";\nimport { baz } from "./baz";`,
+      expected:
+        'import { changeLanguage } from "i18next";\nimport Foo from "../../Foo.astro";\nimport Bar from "../../../Bar.astro";\nimport { baz } from "../baz";\n\nchangeLanguage("fr");\n',
+    },
   ];
 
   codeStringTests.forEach((codeStringTest) => {
