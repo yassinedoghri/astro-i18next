@@ -4,7 +4,7 @@ require("esbuild")
   .build({
     bundle: true,
     entryPoints: [
-      "src/index.mts",
+      "src/index.ts",
       "src/utils.ts",
       "src/components/index.mts",
       "src/cli/index.ts",
@@ -21,6 +21,8 @@ require("esbuild")
       "fs-extra",
       "iso-639-1",
       "iso-3166-1-alpha-2",
+      "@proload/core",
+      "@proload/plugin-typescript",
     ],
     minify: false,
     format: "esm",
