@@ -43,7 +43,6 @@ yargs(hideBin(process.argv))
             type: "string",
             description:
               "Set the output of the generated pages if different from input",
-            default: "./src/pages",
           },
         })
         .check((argv) => {

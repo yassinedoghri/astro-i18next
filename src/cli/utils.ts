@@ -25,37 +25,6 @@ export const parseFrontmatter = (source: string): ts.SourceFile =>
     ts.ScriptTarget.Latest
   );
 
-/* istanbul ignore next */
-export const generateLocalizedFrontmatter = (
-  tsNode: ts.SourceFile,
-  language: string
-) => {
-  // generate for default language, then loop over languages to generate other pages
-  const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
-    tsNode,
-    [transformer],
-    { language }
-  );
-  const printer = ts.createPrinter();
-
-  return printer.printNode(
-    ts.EmitHint.Unspecified,
-    result.transformed[0],
-    tsNode
-  );
-};
-
-/* istanbul ignore next */
-export const crawlInputDirectory = (directoryPath: string): PathsOutput => {
-  // eslint-disable-next-line new-cap
-  const api = new fdir()
-    .exclude((dirName) => isLocale(dirName))
-    .withRelativePaths()
-    .crawl(directoryPath);
-
-  return api.sync() as PathsOutput;
-};
-
 export const isLocale = (code: string): boolean => {
   const REGEX = /^(?<iso6391>[a-z]{2})(-(?<iso33661a2>[A-Z]{2}))?$/;
 
@@ -82,29 +51,70 @@ export const doesStringIncludeFrontmatter = (source: string): boolean =>
   /---.*---/s.test(source);
 
 export const extractFrontmatterFromAstroSource = (source: string): string => {
-  let frontmatterSource = "";
   if (doesStringIncludeFrontmatter(source)) {
     const {
       groups: { frontmatter },
     } = /---(?<frontmatter>(.*))---/s.exec(source);
-    frontmatterSource = frontmatter;
+
+    return frontmatter;
   }
 
-  return frontmatterSource;
+  return "";
 };
 
 export const overwriteAstroFrontmatter = (
   source: string,
   frontmatter: string
 ): string => {
-  let newFileContents = "";
   if (doesStringIncludeFrontmatter(source)) {
-    newFileContents = source.replace(/---.*---/s, `---\n${frontmatter}\n---`);
-  } else {
-    newFileContents = `---\n${frontmatter}\n---\n` + source;
+    return source.replace(/---[\s\S]*---/g, `---\n${frontmatter.trim()}\n---`);
   }
 
-  return newFileContents;
+  return `---\n${frontmatter.trim()}\n---\n\n` + source;
+};
+
+export const addDepthToRelativePath = (
+  relativePath: string,
+  depth: number = 1
+): string => {
+  if (relativePath.startsWith("./")) {
+    // remove "./" from relativePath
+    relativePath = relativePath.slice(2);
+  }
+
+  return relativePath.padStart(relativePath.length + depth * 3, "../");
+};
+
+/* istanbul ignore next */
+export const generateLocalizedFrontmatter = (
+  tsNode: ts.SourceFile,
+  language: string,
+  fileDepth: number
+) => {
+  // generate for default language, then loop over languages to generate other pages
+  const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
+    tsNode,
+    [transformer],
+    { language, fileDepth }
+  );
+  const printer = ts.createPrinter();
+
+  return printer.printNode(
+    ts.EmitHint.Unspecified,
+    result.transformed[0],
+    tsNode
+  );
+};
+
+/* istanbul ignore next */
+export const crawlInputDirectory = (directoryPath: string): PathsOutput => {
+  // eslint-disable-next-line new-cap
+  const api = new fdir()
+    .exclude((dirName) => isLocale(dirName))
+    .withRelativePaths()
+    .crawl(directoryPath);
+
+  return api.sync() as PathsOutput;
 };
 
 /* istanbul ignore next */
