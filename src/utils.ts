@@ -8,6 +8,7 @@ import typescript from "@proload/plugin-typescript";
  * Adapted from astro's tailwind integration:
  * https://github.com/withastro/astro/tree/main/packages/integrations/tailwind
  */
+/* istanbul ignore next */
 export const getUserConfig = async (
   root: URL,
   configPath?: string
