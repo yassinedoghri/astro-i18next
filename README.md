@@ -1,11 +1,10 @@
 <div align="center">
 
-# 🧪 astro-i18next
+# 🧪 astro-i18next <!-- omit in toc -->
 
 An [astro](https://astro.build/) integration of
-[i18next](https://www.i18next.com/) + some
-[utility components](#utility-components) to help you translate your astro
-websites!
+[i18next](https://www.i18next.com/) + some utility components to help you
+translate your astro websites!
 
 </div>
 
@@ -15,13 +14,33 @@ websites!
 
 </div>
 
-> **Status** [beta version]
+> **Note**
 >
-> You can use it, and feedback is more than welcome! As third-party integrations
-> in Astro are still experimental, note that some breaking changes may still be
-> introduced during this phase.
+> Status - **Beta**
+>
+> You can use it, and feedback is more than welcome! Note that some breaking
+> changes may still be introduced during this phase as the goal for v1 is to get
+> the best possible DX for translating your Astro pages.
 
-## Getting started
+- [🚀 Getting started](#-getting-started)
+  - [1. Install](#1-install)
+  - [2. Configure](#2-configure)
+  - [3. Start translating](#3-start-translating)
+- [💻 CLI commands](#-cli-commands)
+  - [generate](#generate)
+- [📦 Utility components](#-utility-components)
+  - [Trans component](#trans-component)
+  - [LanguageSelector component](#languageselector-component)
+  - [HeadHrefLangs component](#headhreflangs-component)
+- [📦 Utility functions](#-utility-functions)
+  - [interpolate function](#interpolate-function)
+  - [localizePath function](#localizepath-function)
+  - [localizeUrl function](#localizeurl-function)
+- [🛠️ AstroI18nextConfig Props](#️-astroi18nextconfig-props)
+- [✨ Contributors](#-contributors)
+- [📜 License](#-license)
+
+## 🚀 Getting started
 
 ### 1. Install
 
@@ -31,9 +50,9 @@ npm install astro-i18next
 
 ### 2. Configure
 
-1. Add `astro-i18next` to your `astro.config.mjs`:
+1. Add `astro-i18next` to your `astro.config.js`:
 
-   ```mjs
+   ```js
    import { defineConfig } from "astro/config";
    import astroI18next from "astro-i18next";
 
@@ -41,107 +60,178 @@ npm install astro-i18next
      experimental: {
        integrations: true,
      },
-     integrations: [
-       astroI18next({
-         baseLanguage: "en",
-         i18next: {
-           debug: true, // convenient during development to check for missing keys
-           supportedLngs: ["en", "fr"],
-         },
-       }),
-     ],
+     integrations: [astroI18next()],
    });
    ```
 
-2. Create a `locales` folder containing the translation strings as JSONs (⚠️
-   files must be named as the language code):
+2. Configure `astro-i18next` in your `astro-i18next.config.js` file:
 
-   ```bash
-   src
-   ├-- locales          # astro-i18next will load all supported locales
-   |   |-- en.json      # english translation strings
-   |   └-- fr.json      # french translation strings
-   └-- pages
-       |-- [lang].astro # you may add a dynamic route to generate language routes
-       └-- index.astro  # route for base language
+   ```js
+   /** @type {import('astro-i18next').AstroI18nextConfig} */
+   export default {
+     defaultLanguage: "en",
+     supportedLanguages: ["en", "fr"],
+   };
    ```
 
-ℹ️ This is the **minimal setup** to get you started as fast as possible. If
-you'd like to go further, check out the [config props](#config-props) and
-[namespaces](#namespaces).
+   ℹ️ For a more advanced configuration, see the
+   [AstroI18nextConfig props](#astroi18nextconfig-props).
 
-### 3. 🚀 Start translating
+3. (recommended) Load translation keys using an
+   [i18next backend plugin](https://www.i18next.com/overview/plugins-and-utils#backends).
+   For instance with the
+   [`i18next-fs-backend`](https://github.com/i18next/i18next-fs-backend) plugin:
 
-You're all set! You may now start translating your website by using
+   ```bash
+   npm install i18next-fs-backend
+   ```
+
+   ```bash
+     src
+     ├-- locales  # create this folder to store your translation strings
+     |   |-- en.json      # english translation strings
+     |   └-- fr.json      # french translation strings
+     └-- pages
+         └-- index.astro  # route for default language
+   ```
+
+   ```js
+   /** @type {import('astro-i18next').AstroI18nextConfig} */
+   export default {
+     defaultLanguage: "en",
+     supportedLanguages: ["en", "fr"],
+     i18next: {
+       // debug is convenient during development to check for missing keys
+       debug: true,
+       initImmediate: false,
+       backend: {
+         loadPath: "./src/locales/{{lng}}.json",
+       },
+     },
+     i18nextPlugins: { fsBackend: "i18next-fs-backend" },
+   };
+   ```
+
+### 3. Start translating
+
+You may now start translating your pages by using
 [i18next's `t` function](https://www.i18next.com/overview/api#t) or the
 [Trans component](#trans-component) depending on your needs.
 
 Here's a quick tutorial to get you going:
 
-```astro
----
-// src/pages/index.astro
-import i18next, { t } from "i18next";
-import { Trans, HeadHrefLangs } from "astro-i18next/components";
+1. Use translation keys in your Astro pages
 
-// Use i18next's changeLanguage() function to change the language
-i18next.changeLanguage("fr");
+   ```astro
+   ---
+   // src/pages/index.astro
+   import { t } from "i18next";
+   import { Trans, HeadHrefLangs } from "astro-i18next/components";
+   ---
+
+   <html lang={i18next.language}>
+     <head>
+       <meta charset="utf-8" />
+       <meta name="viewport" content="width=device-width" />
+       <title>{t("site.title")}</title>
+       <meta name="description" content={t("site.description")} />
+       <HeadHrefLangs />
+     </head>
+     <body>
+       <h1>{t("home.title")}</h1>
+       <p>
+         <Trans i18nKey="home.subtitle">
+           This is a <em>more complex</em> string to translate, mixed with <strong
+             >html elements
+           </strong> such as <a href="https://example.com/">a cool link</a>!
+         </Trans>
+       </p>
+     </body>
+   </html>
+   ```
+
+   ```json
+   // src/locales/en.json
+   {
+     "site": {
+       "title": "My awesome website!",
+       "description": "Here is the description of my awesome website!"
+     },
+     "home": {
+       "title": "Welcome to my awesome website!",
+       "subtitle": "This is a <0>more complex</0> string to translate, mixed with <1>html elements</1>, such as a <2>a cool link</2>!"
+     }
+   }
+   ```
+
+   ```json
+   // src/locales/fr.json
+   {
+     "site": {
+       "title": "Mon super site web !",
+       "description": "Voici la description de mon super site web !"
+     },
+     "home": {
+       "title": "Bienvenue sur mon super site web !",
+       "subtitle": "Ceci est une chaine de charactères <0>plus compliquée</0> à traduire, il y a des <1>éléments html</1>, comme <2>un super lien</2> par exemple !"
+     }
+   }
+   ```
+
+2. Create localized pages using the [generate command](#generate)
+
+   ```bash
+   npx astro-i18next generate
+   ```
+
+3. You're all set! Have fun translating and generate localized pages as you go
+   🚀
+
+> **Note**
+>
+> For a real world example, see the [demo project](./example/).
+
 ---
 
-<html lang={i18next.language}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{t("site.title")}</title>
-    <meta name="description" content={t("site.description")} />
-    <HeadHrefLangs />
-  </head>
-  <body>
-    <h1>{t("home.title")}</h1>
-    <p>
-      <Trans i18nKey="home.subtitle">
-        This is a <em>more complex</em> string to translate, mixed with <strong
-          >html elements
-        </strong> such as <a href="https://example.com/">a cool link</a>!
-      </Trans>
-    </p>
-  </body>
-</html>
+## 💻 CLI commands
+
+### generate
+
+```bash
+npx astro-i18next generate
 ```
 
-```json
-// src/locales/en.json
-{
-  "site": {
-    "title": "My awesome website!",
-    "description": "Here is the description of my awesome website!"
-  },
-  "home": {
-    "title": "Welcome to my awesome website!",
-    "subtitle": "This is a <0>more complex</0> string to translate, mixed with <1>html elements</1>, such as a <2>a cool link</2>!"
-  }
-}
+This command will generate localized pages depending on your config and set
+i18next's language change on each page.
+
+For instance, with `supportedLanguages = ["en", "fr", "es"]`, and `"en"` being
+the default language and having:
+
+```bash
+src
+└-- pages
+    |-- about.astro
+    └-- index.astro
 ```
 
-```json
-// src/locales/fr.json
-{
-  "site": {
-    "title": "Mon super site web !",
-    "description": "Voici la description de mon super site web !"
-  },
-  "home": {
-    "title": "Bienvenue sur mon super site web !",
-    "subtitle": "Ceci est une chaine de charactères <0>plus compliquée</0> à traduire, il y a des <1>éléments html</1>, comme <2>un super lien</2> par exemple !"
-  }
-}
-```
+👇 Running `npx astro-i18next generate` will create the following pages
 
-For a more exhaustive example, see the [demo project](./example/).
+```bash
+src
+└-- pages
+    |-- es
+    |   |-- about.astro
+    |   └-- index.astro
+    |-- fr
+    |   |-- about.astro
+    |   └-- index.astro
+    |-- about.astro
+    └-- index.astro
+```
 
 ---
 
-## Utility components
+## 📦 Utility components
 
 ### Trans component
 
@@ -174,22 +264,6 @@ import { Trans } from "astro-i18next/components";
 | --------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | i18nKey   | string (undefined)  | Internationalization key to interpolate to. Can contain the namespace by prepending it in the form 'ns:key' (depending on i18next.options.nsSeparator) |
 | ns        | ?string (undefined) | Namespace to use. May also be embedded in i18nKey but not recommended when used in combination with natural language keys.                             |
-
-#### interpolate function
-
-`interpolate(i18nKey: string, reference: string, namespace: string | null): string`
-
-astro-i18next exposes the logic behind the Trans component, you may want to use
-it directly.
-
-```ts
-import { interpolate } from "astro-i18next";
-
-const interpolated = interpolate(
-  "superCoolKey",
-  'An <a href="https://astro.build" title="Astro website">astro</a> integration of <a href="https://www.i18next.com/" title="i18next website">i18next</a> and utility components to help you translate your astro websites!'
-);
-```
 
 ### LanguageSelector component
 
@@ -237,12 +311,30 @@ The HeadHrefLangs component will generate all of the alternate links depending
 on the current url and supported languages.
 
 For example, if you are on the `/about` page and support 3 languages (`en`,
-`fr`, `es`) with `en` being the base language, this will render:
+`fr`, `es`) with `en` being the default language, this will render:
 
 ```html
 <link rel="alternate" hreflang="en" href="https://www.example.com/about/" />
 <link rel="alternate" hreflang="fr" href="https://www.example.com/fr/about/" />
 <link rel="alternate" hreflang="es" href="https://www.example.com/es/about/" />
+```
+
+## 📦 Utility functions
+
+### interpolate function
+
+`interpolate(i18nKey: string, reference: string, namespace: string | null): string`
+
+`astro-i18next` exposes the logic behind the Trans component, you may want to
+use it directly.
+
+```ts
+import { interpolate } from "astro-i18next";
+
+const interpolated = interpolate(
+  "superCoolKey",
+  'An <a href="https://astro.build" title="Astro website">astro</a> integration of <a href="https://www.i18next.com/" title="i18next website">i18next</a> and utility components to help you translate your astro websites!'
+);
 ```
 
 ### localizePath function
@@ -291,96 +383,22 @@ i18next.changeLanguage("fr");
 
 ---
 
-## Namespaces
+## 🛠️ AstroI18nextConfig Props
 
-For larger projects, the namespaces feature allows you to break your
-translations into multiple files, thus easier maintenance!
+`astro-i18next`'s goal is to abstract most of the configuration for you so that
+you don't have to think about it. Just focus on translating!
 
-See i18next's documentation on the
-[Namespaces principle](https://www.i18next.com/principles/namespaces).
+Though if you'd like to go further in customizing i18next, feel free to tweak
+your config!
 
-### 1. Configure namespaces
+| Prop name          | Type (default)             | Description                                                                                                       |
+| ------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| defaultLanguage    | `string` (undefined)       | The default language for your website                                                                             |
+| supportedLanguages | `string[]` (undefined)     | Your website's supported languages                                                                                |
+| i18next            | `?InitOptions`             | The i18next configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
+| i18nextPlugins     | `?{[key: string]: string}` | Set i18next plugins. See [i18next's available plugins](https://www.i18next.com/overview/plugins-and-utils).       |
 
-All you have to do is create a folder including the namespaced translation files
-for each language instead of a single file per language.
-
-🪄 `astro-i18next` will automagically load the namespaces for you!
-
-```bash
-src
-├-- locales
-|   ├-- en # the base language `en` contains 3 namespaces
-|   |   ├-- common.json
-|   |   ├-- home.json
-|   |   └-- about.json
-|   └-- fr # `fr` language must contain the same namespaces as the base `en` language
-|       ├-- common.json
-|       ├-- home.json
-|       └-- about.json
-└-- pages
-    └-- [...]
-```
-
-You can also define the default namespace in your `astro-i18next` config:
-
-```mjs
-import { defineConfig } from "astro/config";
-import astroI18next from "astro-i18next";
-
-export default defineConfig({
-  experimental: {
-    integrations: true,
-  },
-  integrations: [
-    astroI18next({
-      baseLanguage: "en",
-      i18next: {
-        defaultNS: "common", // translation keys will be retrieved in the common.json file by default
-        supportedLngs: ["en", "fr"],
-      },
-    }),
-  ],
-});
-```
-
-### 2. Using namespaces
-
-1. Using i18next's `t` function
-
-   ```astro
-   ---
-   import { t } from "i18next";
-   ---
-
-   <p>{t("home:myKey")}</p>
-   or
-   <p>{t("myKey", { ns: "home" })}</p>
-   ```
-
-2. Using the [Trans component](#trans-component)
-
-```astro
----
-import { Trans } from "astro-i18next/components";
----
-
-<Trans i18nKey="myKey" ns="home">This is a sample key</Trans>
-```
-
-## Config Props
-
-`astro-i18next` abstracts most of the configuration for you so that you don't
-have to think about it. Just focus on translating!
-
-Though if you'd like to go further, feel free to tweak the config!
-
-| Prop name     | Type (default)                     | Description                                                                                                                   |
-| ------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| baseLanguage  | string (undefined)                 | The default language for your website                                                                                         |
-| resourcesPath | ?string (`src/resources/locales/`) | The path to your translation files                                                                                            |
-| i18next       | `InitOptions` (undefined)          | The i18next configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options) to know more |
-
-## Contributors ✨
+## ✨ Contributors
 
 Thanks goes to these wonderful people
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -392,6 +410,7 @@ Thanks goes to these wonderful people
   <tr>
     <td align="center"><a href="https://yassinedoghri.com/"><img src="https://avatars.githubusercontent.com/u/11021441?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yassine Doghri</b></sub></a><br /><a href="https://github.com/yassinedoghri/astro-i18next/commits?author=yassinedoghri" title="Code">💻</a> <a href="https://github.com/yassinedoghri/astro-i18next/commits?author=yassinedoghri" title="Documentation">📖</a> <a href="#design-yassinedoghri" title="Design">🎨</a> <a href="#example-yassinedoghri" title="Examples">💡</a> <a href="#maintenance-yassinedoghri" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://gdevs.io/"><img src="https://avatars.githubusercontent.com/u/10165264?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Davide Ceschia</b></sub></a><br /><a href="https://github.com/yassinedoghri/astro-i18next/commits?author=killpowa" title="Code">💻</a> <a href="https://github.com/yassinedoghri/astro-i18next/issues?q=author%3Akillpowa" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/preetamslot"><img src="https://avatars.githubusercontent.com/u/5420582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>preetamslot</b></sub></a><br /><a href="https://github.com/yassinedoghri/astro-i18next/issues?q=author%3Apreetamslot" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
@@ -404,7 +423,7 @@ This project follows the
 [all-contributors](https://github.com/all-contributors/all-contributors)
 specification. Contributions of any kind welcome!
 
-## License
+## 📜 License
 
 Code released under the [MIT License](https://choosealicense.com/licenses/mit/).
 
