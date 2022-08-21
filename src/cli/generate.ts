@@ -20,7 +20,7 @@ export const generate = (
   defaultLanguage: string,
   supportedLanguages: string[],
   outputPath: string = inputPath
-) => {
+): FileToGenerate[] => {
   const files = crawlInputDirectory(inputPath);
 
   const filesToGenerate: FileToGenerate[] = [];
@@ -64,4 +64,6 @@ export const generate = (
   });
 
   createFiles(filesToGenerate);
+
+  return filesToGenerate;
 };
