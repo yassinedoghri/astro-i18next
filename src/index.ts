@@ -108,3 +108,5 @@ export {
   localizeUrl,
   detectLocaleFromPath,
 } from "./utils";
+
+export { AstroI18nextConfig, AstroI18nextOptions } from "./types";

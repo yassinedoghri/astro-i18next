@@ -10,9 +10,6 @@ require("esbuild")
       "src/cli/index.ts",
     ],
     outdir: "dist",
-    outExtension: {
-      ".js": ".mjs",
-    },
     external: [
       "i18next",
       "locale-emoji",
@@ -30,6 +27,7 @@ require("esbuild")
     target: "node14",
     sourcemap: "inline",
     sourcesContent: false,
+    allowOverwrite: true,
     loader: {
       ".astro": "file",
     },
