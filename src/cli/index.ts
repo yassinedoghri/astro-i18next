@@ -32,12 +32,22 @@ yargs(hideBin(process.argv))
 
       const pagesPath = argv.path + "src/pages";
 
-      generate(
+      const filesToGenerate = generate(
         pagesPath,
         argv.config.defaultLanguage,
         argv.config.supportedLanguages,
         argv.output
       );
+
+      // All good! Show success feedback
+      console.log(`🧪 Localized .astro pages were generated successfully!`);
+
+      if (argv.verbose) {
+        const filepaths = filesToGenerate.map(
+          (fileToGenerate) => fileToGenerate.path
+        );
+        console.log(`\n✨ ${filepaths.join("\n✨ ")}`);
+      }
     }
   )
   .middleware([normalizePath, loadConfig], true)
