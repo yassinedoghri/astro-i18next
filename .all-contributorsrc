@@ -31,7 +31,17 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "preetamslot",
+      "name": "preetamslot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5420582?v=4",
+      "profile": "https://github.com/preetamslot",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "commitConvention": "none"
 }

@@ -2,13 +2,14 @@
   "name": "astro-i18next/example",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "build:package": "cd .. && npm run build && cd example",
     "preview": "astro preview",
-    "i18n:generate": "astro-i18next generate -d en -l fr"
+    "i18n:generate": "astro-i18next generate"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^1.0.0",

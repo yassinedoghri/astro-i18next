@@ -1,6 +1,5 @@
-import { AstroI18nextConfig } from "astro-i18next";
-
-const config: AstroI18nextConfig = {
+/** @type {import('astro-i18next').AstroI18nextConfig} */
+export default {
   defaultLanguage: "en",
   supportedLanguages: ["en", "fr"],
   i18next: {
@@ -12,5 +11,3 @@ const config: AstroI18nextConfig = {
   },
   i18nextPlugins: { fsBackend: "i18next-fs-backend" },
 };
-
-export default config;
