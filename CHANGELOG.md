@@ -1,3 +1,40 @@
+# [1.0.0-beta.4](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-08-21)
+
+### Bug Fixes
+
+- add depth level to relative import declarations
+  ([02ddb76](https://github.com/yassinedoghri/astro-i18next/commit/02ddb7614391e07975d3422357e5f0140ed48ec8))
+- **example:** add isCurrentPath function comparing current url to localized
+  path
+  ([ee90afb](https://github.com/yassinedoghri/astro-i18next/commit/ee90afb2dc44168a343e627a3c9cea1f369f8da8))
+- **language-selector:** replace country-code-to-flag-emoji dependency with
+  locale-emoji
+  ([6aee21d](https://github.com/yassinedoghri/astro-i18next/commit/6aee21d6064cd596f6bff1bf6b670cc58ef0b263)),
+  closes [#14](https://github.com/yassinedoghri/astro-i18next/issues/14)
+
+### Features
+
+- allow using i18next plugins directly in the config
+  ([114ccd7](https://github.com/yassinedoghri/astro-i18next/commit/114ccd759d80c7bdd017f787cdbd557f0721e817))
+- **cli:** add generate command to create localized astro pages
+  ([17982cf](https://github.com/yassinedoghri/astro-i18next/commit/17982cf1ef152c913230094b017828f1a77073da)),
+  closes [#13](https://github.com/yassinedoghri/astro-i18next/issues/13)
+- **cli:** add success feedback to generate command + add generated filepaths
+  with verbose
+  ([9e3d4f5](https://github.com/yassinedoghri/astro-i18next/commit/9e3d4f57f31913e4f8646c1003a5f9379d5cae2a))
+- move astro-i18next config in a standalone file to load it for CLI commands
+  ([bdf2408](https://github.com/yassinedoghri/astro-i18next/commit/bdf240857e1fbb0d7b13482cbbd39eedfe768119))
+
+### BREAKING CHANGES
+
+- config is now a standalone file + some property names have changed for better
+  clarity and consistency
+
+* `baseLocale` is now `defaultLanguage`
+* `supportedLocales` is now `supportedLanguages``
+
+- `baseLanguage` is now `baseLocale` in config options
+
 # [1.0.0-beta.3](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-06-12)
 
 ### Features
