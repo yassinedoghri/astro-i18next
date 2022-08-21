@@ -5,6 +5,7 @@ const config: AstroI18nextConfig = {
   supportedLanguages: ["en", "fr"],
   i18next: {
     debug: true,
+    initImmediate: false,
     backend: {
       loadPath: "./src/locales/{{lng}}.json",
     },
