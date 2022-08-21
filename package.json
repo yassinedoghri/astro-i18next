@@ -16,10 +16,6 @@
     "prepare": "husky install",
     "semantic-release": "semantic-release"
   },
-  "bin": {
-    "astro-i18next": "./dist/cli/index.mjs"
-  },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/yassinedoghri/astro-i18next.git"
@@ -30,10 +26,15 @@
     "!src/__tests__",
     "dist"
   ],
-  "main": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/index.js",
     "./components": "./dist/components/index.d.mts"
+  },
+  "bin": {
+    "astro-i18next": "./dist/cli/index.js"
   },
   "keywords": [
     "astro-component",
