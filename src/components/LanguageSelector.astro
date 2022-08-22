@@ -17,15 +17,18 @@ const { showFlag = false, ...attributes } = Astro.props;
 ---
 
 <select onchange="location = this.value;" {...attributes}>
-  {supportedLanguages.map((supportedLanguage: string) => {
-    let value = localizePath(pathname, supportedLanguage);
-    const flag = showFlag ? localeEmoji(supportedLanguage) + " " : "";
-    const nativeName = ISO6991.getNativeName(supportedLanguage);
-    const label = flag + nativeName;
-    return (
-      <option value={value} selected={supportedLanguage === currentLanguage}>
-        {label}
-      </option>
-    );
-  })}
+  {
+    supportedLanguages.map((supportedLanguage: string) => {
+      let value = localizePath(pathname, supportedLanguage);
+      const flag = showFlag ? localeEmoji(supportedLanguage) + " " : "";
+      const nativeName = ISO6991.getNativeName(supportedLanguage);
+      const label = flag + nativeName;
+
+      return (
+        <option value={value} selected={supportedLanguage === currentLanguage}>
+          {label}
+        </option>
+      );
+    })
+  }
 </select>
