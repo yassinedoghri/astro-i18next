@@ -33,16 +33,16 @@
     ".": "./dist/index.js",
     "./components": "./dist/components/index.js"
   },
-	"typesVersions": {
-		"*": {
-			"index": [
-				"./dist/index.d.ts"
-			],
-			"components": [
-				"./dist/components/index.d.mts"
-			]
-		}
-	},
+  "typesVersions": {
+    "*": {
+      "index": [
+        "./dist/index.d.ts"
+      ],
+      "components": [
+        "./dist/components/index.d.mts"
+      ]
+    }
+  },
   "bin": {
     "astro-i18next": "./dist/cli/index.js"
   },
