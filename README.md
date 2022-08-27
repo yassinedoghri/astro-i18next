@@ -16,7 +16,9 @@ translate your astro websites!
 
 > **Note**
 >
-> Status - **Beta**
+> Status - 🚧 **Beta**
+>
+> [👉 **Road to v1.0.0**](https://github.com/yassinedoghri/astro-i18next/issues/19)
 >
 > You can use it, and feedback is more than welcome! Note that some breaking
 > changes may still be introduced during this phase as the goal for v1 is to get
@@ -209,7 +211,9 @@ Here's a quick tutorial to get you going:
 
 > **Note**
 >
-> For a real world example, see the [demo project](./example/).
+> For a real world example, see the [demo project](./example/) or try the _Astro
+> i18n basics example_ on StackBlitz:\
+> [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/astro-i18n-basics-example?file=README.md)
 
 ---
 
@@ -407,7 +411,8 @@ i18next.changeLanguage("fr");
 
 ### Namespaces
 
-i18next allows you to organize your translation keys into namespaces.
+i18next allows you to organize your translation keys into
+[namespaces](https://www.i18next.com/principles/namespaces).
 
 Using the `i18next-fs-backend` plugin, it can easily be setup in your
 `backend.loadPath` option like so:
