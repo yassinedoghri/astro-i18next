@@ -6,7 +6,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <title>astro-i18next | Traduisez vos sites web Astro avec i18next</title>
 
-<link rel="canonical" href="https://astro-i18next.yassinedoghri.com/fr">
+<link rel="canonical" href="https://astro-i18next.yassinedoghri.com/fr/">
 
 <meta name="description" content="astro-i18next est une intégration astro de i18next + quelques composants utilitaires pour vous aider à traduire vos sites astro !">
 
@@ -15,7 +15,7 @@
 <meta property="og:title" content="astro-i18next | Traduisez vos sites web Astro avec i18next !">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://astro-i18next.yassinedoghri.com/assets/images/open-graph.jpg">
-<meta property="og:url" content="https://astro-i18next.yassinedoghri.com/fr">
+<meta property="og:url" content="https://astro-i18next.yassinedoghri.com/fr/">
 
 
 <meta property="og:image:url" content="https://astro-i18next.yassinedoghri.com/assets/images/open-graph.jpg">
@@ -33,7 +33,8 @@
 
 
 
-    <./HeadHrefLangs.astro></./HeadHrefLangs.astro>
+    <link rel="alternate" hreflang="fr" href="https://astro-i18next.yassinedoghri.com/fr/"><link rel="alternate" hreflang="en" href="https://astro-i18next.yassinedoghri.com/">
+
   <link rel="stylesheet" href="/assets/about-fr-about-fr-index-index.ae3d02fd.css" /></head>
 
   <body class="w-screen h-screen container flex flex-col justify-center items-center">
@@ -41,7 +42,13 @@
       <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-cyan-900">
         🧪 astro-i18next
       </h1>
-      <./LanguageSelector.astro class="mt-2 py-2 px-4 font-semibold bg-transparent hover:bg-gray-50 border-2" showFlag="true"></./LanguageSelector.astro>
+      <select onchange="location = this.value;" class="mt-2 py-2 px-4 font-semibold bg-transparent hover:bg-gray-50 border-2">
+  <option value="/fr/" selected="true">
+          🇫🇷 Français
+        </option><option value="/">
+          🇺🇸 English
+        </option>
+</select>
     </div>
     <nav class="py-2 mt-2 flex gap-x-2">
   <a class="py-2 px-4 uppercase text-sm underline-offset-2 tracking-wider decoration-4 font-semibold underline decoration-cyan-500" href="/fr/">
@@ -51,13 +58,8 @@
         </a>
 </nav>
     <p class="mt-4 text-center text-xl max-w-xl">
-    <./Trans.astro i18nKey="description">
-      An <a class="underline hover:no-underline decoration-4 decoration-cyan-500" href="https://astro.build" title="Site web d'Astro">astro
-</a> integration
-      of <a class="underline hover:no-underline decoration-4 decoration-cyan-500" href="https://www.i18next.com/" title="Site web d'i18next">i18next
-      
-</a> and utility components to help you translate your astro websites!
-    </./Trans.astro>
+    Une intégration <a class="underline hover:no-underline decoration-4 decoration-cyan-500" href="https://astro.build" title="Site web d'Astro">astro</a> d'<a class="underline hover:no-underline decoration-4 decoration-cyan-500" href="https://www.i18next.com/" title="Site web d'i18next">i18next</a> + quelques composants utilitaires pour vous aider à traduire vos sites astro !
+
   </p>
     <a class="transition shadow-lg hover:shadow-md hover:shadow-cyan-500/30 shadow-cyan-500/40 py-3 px-5 bg-gradient-to-b from-cyan-50 to-cyan-200 rounded-full font-semibold uppercase text-cyan-900 border-b-2 border-t-2 border-t-white border-b-cyan-400 focus:ring-2 tracking-wider mt-8" href="https://github.com/yassinedoghri/astro-i18next#readme">Commencer
 </a>
