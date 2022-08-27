@@ -40,6 +40,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "MellKam",
+      "name": "MelKam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51422045?v=4",
+      "profile": "https://t.me/mellkam",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
