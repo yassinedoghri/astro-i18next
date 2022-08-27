@@ -2,7 +2,7 @@ name: astro-i18next-deploy-example
 
 on:
   push:
-    branches: [develop, main, alpha, beta]
+    branches: [main, alpha, beta]
 
 jobs:
   build-and-deploy:
