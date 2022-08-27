@@ -7,8 +7,9 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": "src",
-    "lib": ["ES2021"]
+    "lib": ["ES2021"],
+    "types": ["jest", "astro/client"]
   },
   "include": ["src/**/*"],
-  "exclude": ["src/__tests__/**/*", "dist"]
+  "exclude": ["src/__tests__/**/*", "dist", "src/components/**/*"]
 }
