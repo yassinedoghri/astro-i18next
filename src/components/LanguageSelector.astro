@@ -4,7 +4,7 @@ import ISO6991 from "iso-639-1";
 import localeEmoji from "locale-emoji";
 import { localizePath } from "../utils";
 
-export interface Props {
+export interface Props extends astroHTML.JSX.SelectHTMLAttributes {
   showFlag?: boolean;
 }
 
