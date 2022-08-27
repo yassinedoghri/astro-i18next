@@ -1,3 +1,19 @@
+# [1.0.0-beta.5](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-08-27)
+
+### Bug Fixes
+
+- **build:** remove components and utils from build + set components export to
+  src
+  ([bb7ab0f](https://github.com/yassinedoghri/astro-i18next/commit/bb7ab0f318feeb7bd4243ea805d09f55634b1ecf)),
+  closes [#18](https://github.com/yassinedoghri/astro-i18next/issues/18)
+- **generate:** inject changeLanguage statement after imports and before
+  frontmatter logic
+  ([4d74e0b](https://github.com/yassinedoghri/astro-i18next/commit/4d74e0b3d1d03c40ca9090b82fb4d171cd4b84a0)),
+  closes [#23](https://github.com/yassinedoghri/astro-i18next/issues/23)
+- type definitions for exported astro components
+  ([bb60949](https://github.com/yassinedoghri/astro-i18next/commit/bb609499c1002dca13849ce0f500940b31c1482b)),
+  closes [#18](https://github.com/yassinedoghri/astro-i18next/issues/18)
+
 # [1.0.0-beta.4](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-08-21)
 
 ### Bug Fixes
