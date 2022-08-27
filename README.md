@@ -36,7 +36,9 @@ translate your astro websites!
   - [interpolate function](#interpolate-function)
   - [localizePath function](#localizepath-function)
   - [localizeUrl function](#localizeurl-function)
-- [🛠️ AstroI18nextConfig Props](#️-astroi18nextconfig-props)
+- [👀 Going further](#-going-further)
+  - [Namespaces](#namespaces)
+  - [AstroI18nextConfig Props](#astroi18nextconfig-props)
 - [✨ Contributors](#-contributors)
 - [📜 License](#-license)
 
@@ -71,6 +73,21 @@ npm install astro-i18next
    export default {
      defaultLanguage: "en",
      supportedLanguages: ["en", "fr"],
+     i18next: {
+       debug: true, // convenient during development to check for missing keys
+       resources: {
+         en: {
+           translation: {
+             key: "hello world",
+           },
+         },
+         fr: {
+           translation: {
+             key: "bonjour le monde",
+           },
+         },
+       },
+     },
    };
    ```
 
@@ -80,7 +97,8 @@ npm install astro-i18next
 3. (recommended) Load translation keys using an
    [i18next backend plugin](https://www.i18next.com/overview/plugins-and-utils#backends).
    For instance with the
-   [`i18next-fs-backend`](https://github.com/i18next/i18next-fs-backend) plugin:
+   [`i18next-fs-backend`](https://github.com/i18next/i18next-fs-backend) plugin
+   to load translation keys from the filesystem:
 
    ```bash
    npm install i18next-fs-backend
@@ -101,7 +119,6 @@ npm install astro-i18next
      defaultLanguage: "en",
      supportedLanguages: ["en", "fr"],
      i18next: {
-       // debug is convenient during development to check for missing keys
        debug: true,
        initImmediate: false,
        backend: {
@@ -111,6 +128,9 @@ npm install astro-i18next
      i18nextPlugins: { fsBackend: "i18next-fs-backend" },
    };
    ```
+
+   ℹ️ You may choose to organize your translations into multiple files instead
+   of a single file per language [using namespaces](#namespaces).
 
 ### 3. Start translating
 
@@ -383,7 +403,71 @@ i18next.changeLanguage("fr");
 
 ---
 
-## 🛠️ AstroI18nextConfig Props
+## 👀 Going further
+
+### Namespaces
+
+i18next allows you to organize your translation keys into namespaces.
+
+Using the `i18next-fs-backend` plugin, it can easily be setup in your
+`backend.loadPath` option like so:
+
+```ts
+/** @type {import('astro-i18next').AstroI18nextConfig} */
+export default {
+  defaultLanguage: "en",
+  supportedLanguages: ["en", "fr"],
+  i18next: {
+    debug: true,
+    initImmediate: false,
+    backend: {
+      loadPath: "./src/locales/{{lng}}/{{ns}}.json", // will look for json files inside language folders
+    },
+  },
+  i18nextPlugins: { fsBackend: "i18next-fs-backend" },
+};
+```
+
+You can see
+[i18next-fs-backend's documentation](https://github.com/i18next/i18next-fs-backend)
+for more info.
+
+Then, let's say you have a translation file under
+`./src/locales/{{lng}}/home.json`, you may use the `t()` function or the `Trans`
+component by setting the namespace (`home` here):
+
+```astro
+---
+import { t } from "i18next";
+import { Trans } from "astro-i18next/components";
+---
+
+<h1>{t("home:myHomeTitle")}</h1>
+<p>
+  <Trans i18nKey="myHomeDescription" ns="home">
+    This translation was retrieved using the <strong>home</strong> namespace!
+    <Trans />
+  </Trans>
+</p>
+```
+
+You can have as many namespaces as you wish, have one per page and one for
+common translation strings for example:
+
+```bash
+src
+ ├-- locales
+ |   |-- en
+ |   |   |-- about.json    # "about" namespace
+ |   |   |-- common.json   # "common" namespace
+ |   |   └-- home.json     # "home" namespace
+ |   └-- fr   # same in files other language folders
+ └-- pages
+      |-- about.astro
+      └-- index.astro
+```
+
+### AstroI18nextConfig Props
 
 `astro-i18next`'s goal is to abstract most of the configuration for you so that
 you don't have to think about it. Just focus on translating!
