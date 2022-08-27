@@ -7,7 +7,7 @@
     "test:coverage": "npm test -- --coverage",
     "preview": "astro preview",
     "build": "./build.cjs && npm run typecheck:emit && npm link .",
-    "lint": "eslint --ext js,ts,mts src",
+    "lint": "eslint --ext js,cjs,ts .",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
     "typecheck": "tsc --noEmit",
@@ -110,8 +110,8 @@
     "typescript": "^4.8.2"
   },
   "lint-staged": {
-    "*.js": "eslint --ext js,ts,mts --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,cjs,ts}": "eslint --ext js,cjs,ts . --cache --fix",
+    "*.{js,cjs,ts,astro,css,md}": "prettier --write"
   },
   "config": {
     "commitizen": {

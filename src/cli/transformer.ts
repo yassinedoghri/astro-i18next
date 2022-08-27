@@ -26,7 +26,6 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
         if (!node.importClause.namedBindings) {
           return factory.updateImportDeclaration(
             node,
-            node.decorators,
             node.modifiers,
             factory.createImportClause(
               node.importClause.isTypeOnly,
@@ -54,7 +53,6 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
           // import changeLanguage function in i18next import declaration
           return factory.updateImportDeclaration(
             node,
-            node.decorators,
             node.modifiers,
             factory.updateImportClause(
               node.importClause,
@@ -85,7 +83,6 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
       ) {
         return factory.updateImportDeclaration(
           node,
-          node.decorators,
           node.modifiers,
           node.importClause,
           factory.createStringLiteral(
@@ -115,23 +112,11 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
 
     let visitedNode = ts.visitNode(rootNode, visit);
 
-    let statements: ts.NodeArray<ts.Statement> = factory.createNodeArray([
-      ...visitedNode.statements,
-      // append the changeLanguageStatement after a new line
-      factory.createIdentifier("\n") as unknown as ts.Statement,
-      factory.createExpressionStatement(
-        factory.createCallExpression(
-          factory.createIdentifier("changeLanguage"),
-          undefined,
-          [factory.createStringLiteral(language as string)]
-        )
-      ),
-    ]);
+    const statements = [...visitedNode.statements];
 
     if (!doesI18nextImportExist) {
-      statements = factory.createNodeArray([
+      statements.unshift(
         factory.createImportDeclaration(
-          undefined,
           undefined,
           factory.createImportClause(
             false,
@@ -146,10 +131,43 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
           ),
           factory.createStringLiteral("i18next"),
           undefined
-        ),
-        ...statements,
-      ]);
+        )
+      );
     }
+
+    // append the changeLanguage statement after imports
+
+    // get a boolean array with values telling whether or not a statement is an import
+    const importDeclarationsMap = statements.map((statement) =>
+      ts.isImportDeclaration(statement)
+    );
+
+    const lastIndexOfImportDeclaration =
+      importDeclarationsMap.lastIndexOf(true);
+
+    // insert changeLanguage statement after the imports
+    // and surrounded by line breaks
+    statements.splice(
+      lastIndexOfImportDeclaration + 1,
+      0,
+      factory.createIdentifier("\n") as unknown as ts.Statement
+    );
+    statements.splice(
+      lastIndexOfImportDeclaration + 1,
+      0,
+      factory.createExpressionStatement(
+        factory.createCallExpression(
+          factory.createIdentifier("changeLanguage"),
+          undefined,
+          [factory.createStringLiteral(language as string)]
+        )
+      )
+    );
+    statements.splice(
+      lastIndexOfImportDeclaration + 1,
+      0,
+      factory.createIdentifier("\n") as unknown as ts.Statement
+    );
 
     visitedNode = factory.updateSourceFile(
       visitedNode,
