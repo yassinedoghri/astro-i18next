@@ -147,7 +147,7 @@ Here's a quick tutorial to get you going:
    ```astro
    ---
    // src/pages/index.astro
-   import { t } from "i18next";
+   import i18next, { t } from "i18next";
    import { Trans, HeadHrefLangs } from "astro-i18next/components";
    ---
 
