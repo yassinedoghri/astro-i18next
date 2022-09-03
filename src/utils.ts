@@ -1,7 +1,7 @@
 import i18next, { t } from "i18next";
 import { fileURLToPath } from "url";
 import load from "@proload/core";
-import { AstroI18nextConfig } from "types";
+import { AstroI18nextConfig } from "./types";
 import typescript from "@proload/plugin-typescript";
 
 /**
