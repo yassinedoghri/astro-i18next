@@ -1,4 +1,4 @@
-import { AstroI18nextConfig } from "types";
+import { AstroI18nextConfig } from "../types";
 
 export interface GlobalArgs {
   verbose: boolean;

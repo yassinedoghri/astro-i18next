@@ -1,5 +1,5 @@
 import { AstroIntegration } from "astro";
-import { AstroI18nextConfig, AstroI18nextOptions } from "types";
+import { AstroI18nextConfig, AstroI18nextOptions } from "./types";
 import {
   moveBaseLanguageToFirstIndex,
   deeplyStringifyObject,
