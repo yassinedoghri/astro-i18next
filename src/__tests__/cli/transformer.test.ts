@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { transformer } from "../../cli/transformer";
 import ts from "typescript";
 
@@ -72,7 +73,7 @@ describe("transformer(...)", () => {
   ];
 
   codeStringTests.forEach((codeStringTest) => {
-    test(codeStringTest.name, () => {
+    it(codeStringTest.name, () => {
       const tsNode = ts.createSourceFile(
         "test.ts",
         codeStringTest.actual,

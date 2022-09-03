@@ -8,7 +8,7 @@ import typescript from "@proload/plugin-tsm";
  * Adapted from astro's tailwind integration:
  * https://github.com/withastro/astro/tree/main/packages/integrations/tailwind
  */
-/* istanbul ignore next */
+/* c8 ignore start */
 export const getUserConfig = async (
   root: URL,
   configPath?: string
@@ -31,6 +31,7 @@ export const getUserConfig = async (
     filePath: userConfigPath,
   })) as load.Config<AstroI18nextConfig>;
 };
+/* c8 ignore stop */
 
 /**
  * Moves the default locale in the first index
@@ -224,9 +225,10 @@ export const deeplyStringifyObject = (obj: object | Array<any>): string => {
         value = `Symbol("${obj[key].description}")`;
         break;
       }
-      /* istanbul ignore next */
+      /* c8 ignore start */
       default:
         break;
+      /* c8 ignore stop */
     }
 
     str += isArray ? `${value},` : `"${key}": ${value},`;
