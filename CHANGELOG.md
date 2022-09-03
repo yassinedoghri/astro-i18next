@@ -1,3 +1,10 @@
+# [1.0.0-beta.7](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2022-09-03)
+
+### Bug Fixes
+
+- replace @proload/plugin-typescript with @proload/plugin-tsm
+  ([6f639ee](https://github.com/yassinedoghri/astro-i18next/commit/6f639ee9b3f5ee121d6f7bfad90b2088f4112688))
+
 # [1.0.0-beta.6](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2022-09-03)
 
 ### Bug Fixes
