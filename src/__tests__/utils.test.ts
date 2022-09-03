@@ -7,6 +7,7 @@ import {
   detectLocaleFromPath,
 } from "../utils";
 import i18next from "i18next";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 // init i18next config with "en", "fr", "fr-CA" and "es" as supported languages,
 // and "en" being the base language
@@ -36,18 +37,18 @@ i18next.init({
 });
 
 afterEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 
 describe("moveBaseLanguageToFirstIndex(...)", () => {
-  test("moves base language to first index", () => {
+  it("moves base language to first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
     moveBaseLanguageToFirstIndex(supportedLngs, "en");
     expect(supportedLngs).toStrictEqual(["en", "fr", "es"]);
   });
 
-  test("keeps base language in first index", () => {
+  it("keeps base language in first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
     moveBaseLanguageToFirstIndex(supportedLngs, "fr");
@@ -56,10 +57,10 @@ describe("moveBaseLanguageToFirstIndex(...)", () => {
 });
 
 describe("interpolate(...)", () => {
-  jest.spyOn(console, "warn");
+  vi.spyOn(console, "warn");
   const referenceString = "This is a <strong>super cool</strong> sentence!";
 
-  test("interpolates the localized string", () => {
+  it("interpolates the localized string", () => {
     i18next.changeLanguage("fr");
     const interpolatedStringFR =
       "Ceci est une phrase <strong>super cool</strong> !";
@@ -74,12 +75,12 @@ describe("interpolate(...)", () => {
     );
   });
 
-  test("with an i18nKey that is undefined", () => {
+  it("with an i18nKey that is undefined", () => {
     expect(interpolate("missingKey", referenceString)).toBe(referenceString);
     expect(console.warn).toHaveBeenCalled();
   });
 
-  test("with no HTML tags in default slot", () => {
+  it("with no HTML tags in default slot", () => {
     expect(
       interpolate(
         "interpolationKeyNoHTML",
@@ -89,7 +90,7 @@ describe("interpolate(...)", () => {
     expect(console.warn).toHaveBeenCalled();
   });
 
-  test("with malformed HTML tags in default slot", () => {
+  it("with malformed HTML tags in default slot", () => {
     expect(
       interpolate(
         "interpolationKeyNoHTML",
@@ -101,9 +102,9 @@ describe("interpolate(...)", () => {
 });
 
 describe("localizePath(...)", () => {
-  jest.spyOn(console, "warn");
+  vi.spyOn(console, "warn");
 
-  test("generates the correct path given a path with supported locale", () => {
+  it("generates the correct path given a path with supported locale", () => {
     i18next.changeLanguage("en");
     expect(localizePath("/")).toBe("/");
     expect(localizePath("/fr")).toBe("/");
@@ -121,7 +122,7 @@ describe("localizePath(...)", () => {
     expect(localizePath("/about")).toBe("/fr-CA/about");
   });
 
-  test("with longer paths", () => {
+  it("with longer paths", () => {
     i18next.changeLanguage("fr");
     expect(localizePath("/really/long/path")).toBe("/fr/really/long/path");
     expect(localizePath("/super/huge/and/really/long/path")).toBe(
@@ -139,13 +140,13 @@ describe("localizePath(...)", () => {
     );
   });
 
-  test("with multiple leading slashes", () => {
+  it("with multiple leading slashes", () => {
     i18next.changeLanguage("fr");
     expect(localizePath("//fr-CA/about")).toBe("/fr/about");
     expect(localizePath("////fr/about")).toBe("/fr/about");
   });
 
-  test("with an empty string as path", () => {
+  it("with an empty string as path", () => {
     i18next.changeLanguage("en"); // base language
     expect(localizePath("")).toBe("/");
 
@@ -153,7 +154,7 @@ describe("localizePath(...)", () => {
     expect(localizePath("")).toBe("/fr/");
   });
 
-  test("with no supplied path", () => {
+  it("with no supplied path", () => {
     i18next.changeLanguage("en"); // base language
     expect(localizePath()).toBe("/");
 
@@ -161,7 +162,7 @@ describe("localizePath(...)", () => {
     expect(localizePath()).toBe("/fr/");
   });
 
-  test("with an unsupported locale", () => {
+  it("with an unsupported locale", () => {
     i18next.changeLanguage("de");
     expect(localizePath("/fr/about")).toBe("/fr/about");
     expect(console.warn).toHaveBeenCalled();
@@ -169,7 +170,7 @@ describe("localizePath(...)", () => {
 });
 
 describe("localizeUrl(...)", () => {
-  test("generates the correct url given a url with supported locale", () => {
+  it("generates the correct url given a url with supported locale", () => {
     i18next.changeLanguage("en");
     expect(localizeUrl("https://example.com/")).toBe("https://example.com/");
     expect(localizeUrl("https://example.com/about")).toBe(
@@ -189,7 +190,7 @@ describe("localizeUrl(...)", () => {
 });
 
 describe("detectLocaleFromPath(...)", () => {
-  test("with supported locales", () => {
+  it("with supported locales", () => {
     expect(detectLocaleFromPath("/")).toBe("en");
     expect(detectLocaleFromPath("")).toBe("en");
 
@@ -202,14 +203,14 @@ describe("detectLocaleFromPath(...)", () => {
     expect(detectLocaleFromPath("/fr-CA/another/example")).toBe("fr-CA");
   });
 
-  test("with unsupported locales", () => {
+  it("with unsupported locales", () => {
     expect(detectLocaleFromPath("/de/example")).toBe("en");
     expect(detectLocaleFromPath("de/example")).toBe("en");
   });
 });
 
 describe("deeplyStringifyObject(...)", () => {
-  test("with deep object", () => {
+  it("with deep object", () => {
     const objectToStringify = {
       string1: "This is a string",
       object1: {
@@ -237,11 +238,11 @@ describe("deeplyStringifyObject(...)", () => {
     };
 
     expect(deeplyStringifyObject(objectToStringify)).toBe(
-      `{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function () { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},}`
+      `{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function() { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},}`
     );
   });
 
-  test("with deep array", () => {
+  it("with deep array", () => {
     const arrayToStringify = [
       {
         string1: "This is a string",
@@ -296,7 +297,7 @@ describe("deeplyStringifyObject(...)", () => {
     ];
 
     expect(deeplyStringifyObject(arrayToStringify)).toBe(
-      `[{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function () { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},},{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function () { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},},]`
+      `[{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function() { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},},{"string1": "This is a string","object1": {"string2": "This is another string","string3": "This is yet another string","function1": function() { console.log("This is a function"); },"arrowFunction": () => { console.log("This is an arrow function"); },"array1": [12346,55,"string",{"foo": "foo","bar": "bar",},],"object2": {"string4": "Again, another string!",},"symbol1": Symbol("sym"),"nan1": NaN,"infinity1": Infinity,"negativeInfinity1": -Infinity,"boolean1": true,"boolean2": false,},},]`
     );
   });
 });

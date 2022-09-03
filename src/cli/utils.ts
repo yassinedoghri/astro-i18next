@@ -12,19 +12,6 @@ export interface FileToGenerate {
   source: string;
 }
 
-/* istanbul ignore next */
-/**
- * parse frontmatter using typescript compiler
- *
- * @param source
- */
-export const parseFrontmatter = (source: string): ts.SourceFile =>
-  ts.createSourceFile(
-    "x.ts",
-    extractFrontmatterFromAstroSource(source),
-    ts.ScriptTarget.Latest
-  );
-
 export const isLocale = (code: string): boolean => {
   const REGEX = /^(?<iso6391>[a-z]{2})(-(?<iso33661a2>[A-Z]{2}))?$/;
 
@@ -85,7 +72,19 @@ export const addDepthToRelativePath = (
   return relativePath.padStart(relativePath.length + depth * 3, "../");
 };
 
-/* istanbul ignore next */
+/* c8 ignore start */
+/**
+ * parse frontmatter using typescript compiler
+ *
+ * @param source
+ */
+export const parseFrontmatter = (source: string): ts.SourceFile =>
+  ts.createSourceFile(
+    "x.ts",
+    extractFrontmatterFromAstroSource(source),
+    ts.ScriptTarget.Latest
+  );
+
 export const generateLocalizedFrontmatter = (
   tsNode: ts.SourceFile,
   language: string,
@@ -106,7 +105,6 @@ export const generateLocalizedFrontmatter = (
   );
 };
 
-/* istanbul ignore next */
 export const crawlInputDirectory = (directoryPath: string): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
@@ -117,7 +115,6 @@ export const crawlInputDirectory = (directoryPath: string): PathsOutput => {
   return api.sync() as PathsOutput;
 };
 
-/* istanbul ignore next */
 export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
   filesToGenerate.forEach((fileToGenerate) => {
     fsExtra.ensureDirSync(path.dirname(fileToGenerate.path));
@@ -125,3 +122,4 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
     fs.writeFileSync(fileToGenerate.path, fileToGenerate.source);
   });
 };
+/* c8 ignore stop */
