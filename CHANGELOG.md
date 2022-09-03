@@ -1,3 +1,11 @@
+# [1.0.0-beta.6](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2022-09-03)
+
+### Bug Fixes
+
+- Rollup failed to resolve import 'types'
+  ([#33](https://github.com/yassinedoghri/astro-i18next/issues/33))
+  ([2807989](https://github.com/yassinedoghri/astro-i18next/commit/2807989b1d3164b1ce7e2a1298dc46d19b63e985))
+
 # [1.0.0-beta.5](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-08-27)
 
 ### Bug Fixes
