@@ -14,7 +14,7 @@
   "devDependencies": {
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
-    "astro": "^1.1.1",
+    "astro": "^1.1.5",
     "astro-i18next": "file:..",
     "astro-seo": "^0.6.0",
     "i18next-fs-backend": "^1.1.5"
