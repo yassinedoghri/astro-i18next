@@ -14,7 +14,7 @@ require("esbuild")
       "iso-639-1",
       "iso-3166-1-alpha-2",
       "@proload/core",
-      "@proload/plugin-typescript",
+      "@proload/plugin-tsm",
     ],
     minify: false,
     format: "esm",
