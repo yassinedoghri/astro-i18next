@@ -17,6 +17,7 @@
       "contributions": [
         "code",
         "doc",
+        "ideas",
         "design",
         "example",
         "maintenance"
@@ -64,6 +65,34 @@
       "name": "MelKam",
       "avatar_url": "https://avatars.githubusercontent.com/u/51422045?v=4",
       "profile": "https://t.me/mellkam",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "L1lith",
+      "name": "L1lith",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34887287?v=4",
+      "profile": "https://webslc.com/",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "Anomander43",
+      "name": "Anomander43",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14289502?v=4",
+      "profile": "https://github.com/Anomander43",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "dschoeni",
+      "name": "Dominik Schöni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1913623?v=4",
+      "profile": "https://github.com/dschoeni",
       "contributions": [
         "code"
       ]
