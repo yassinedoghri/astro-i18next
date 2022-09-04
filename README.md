@@ -54,16 +54,13 @@ npm install astro-i18next
 
 ### 2. Configure
 
-1. Add `astro-i18next` to your `astro.config.js`:
+1. Add `astro-i18next` to your `astro.config.mjs`:
 
    ```js
    import { defineConfig } from "astro/config";
    import astroI18next from "astro-i18next";
 
    export default defineConfig({
-     experimental: {
-       integrations: true,
-     },
      integrations: [astroI18next()],
    });
    ```
