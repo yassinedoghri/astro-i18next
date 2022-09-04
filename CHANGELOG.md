@@ -1,3 +1,12 @@
+# [1.0.0-beta.8](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2022-09-04)
+
+### Bug Fixes
+
+- take astro base path into account when using localizePath or localizeUrl
+  functions
+  ([5c35eaf](https://github.com/yassinedoghri/astro-i18next/commit/5c35eaf27b4f3ebc216ba943ef46e0cee1ca468c)),
+  closes [#27](https://github.com/yassinedoghri/astro-i18next/issues/27)
+
 # [1.0.0-beta.7](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2022-09-03)
 
 ### Bug Fixes
