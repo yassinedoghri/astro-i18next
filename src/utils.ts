@@ -103,21 +103,30 @@ export const interpolate = (
  */
 export const localizePath = (
   path: string = "/",
-  locale: string | null = null
+  locale: string | null = null,
+  base: string = import.meta.env.BASE_URL
 ): string => {
   if (!locale) {
     locale = i18next.language;
   }
 
+  // remove all leading slashes off of path
+  path = path.replace(/^\/+|\/+$/g, "");
+  path = path === "" ? "/" : "/" + path + "/";
+
+  // remove leading and trailing slashes off of base path
+  base = base.replace(/^\/+|\/+$/g, "");
+  base = base === "" ? "/" : "/" + base + "/";
+
+  // remove base path if found
+  path = path.startsWith(base) ? path.slice(base.length) : path.slice(1);
+
   if (!(i18next.options.supportedLngs as string[]).includes(locale)) {
     console.warn(
       `WARNING(astro-i18next): "${locale}" locale is not supported, add it to the supportedLngs in your astro config.`
     );
-    return path;
+    return base + path;
   }
-
-  // remove all leading slashes
-  path = path.replace(/^\/+/g, "");
 
   let pathSegments = path.split("/");
 
@@ -125,7 +134,9 @@ export const localizePath = (
     JSON.stringify(pathSegments) === JSON.stringify([""]) ||
     JSON.stringify(pathSegments) === JSON.stringify(["", ""])
   ) {
-    return locale === i18next.options.supportedLngs[0] ? `/` : `/${locale}/`;
+    return locale === i18next.options.supportedLngs[0]
+      ? base
+      : `${base}${locale}/`;
   }
 
   // make a copy of i18next's supportedLngs
@@ -146,7 +157,7 @@ export const localizePath = (
     pathSegments = [locale, ...pathSegments];
   }
 
-  return "/" + pathSegments.join("/");
+  return base + pathSegments.join("/");
 };
 
 /**
@@ -154,12 +165,13 @@ export const localizePath = (
  */
 export const localizeUrl = (
   url: string,
-  locale: string | null = null
+  locale: string | null = null,
+  base: string = import.meta.env.BASE_URL
 ): string => {
   const [protocol, , host, ...path] = url.split("/");
   const baseUrl = protocol + "//" + host;
 
-  return baseUrl + localizePath(path.join("/"), locale);
+  return baseUrl + localizePath(path.join("/"), locale, base);
 };
 
 /**

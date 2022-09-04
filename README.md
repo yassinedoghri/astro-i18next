@@ -363,7 +363,7 @@ const interpolated = interpolate(
 
 ### localizePath function
 
-`localizePath(path: string, locale: string | null = null): string`
+`localizePath(path: string, locale: string | null = null, base: string = import.meta.env.BASE_URL): string`
 
 Sets a path within a given locale. If the locale param is not specified, the
 current language will be used.
@@ -385,7 +385,7 @@ i18next.changeLanguage("fr");
 
 ### localizeUrl function
 
-`localizeUrl(url: string, locale: string | null = null): string`
+`localizeUrl(url: string, locale: string | null = null, base: string = import.meta.env.BASE_URL): string`
 
 Sets a url within a given locale. If the locale param is not specified, the
 current language will be used.
