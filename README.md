@@ -68,7 +68,7 @@ npm install astro-i18next
    });
    ```
 
-2. Configure `astro-i18next` in your `astro-i18next.config.js` file:
+2. Configure `astro-i18next` in your `astro-i18next.config.mjs` file:
 
    ```js
    /** @type {import('astro-i18next').AstroI18nextConfig} */
@@ -92,6 +92,9 @@ npm install astro-i18next
      },
    };
    ```
+
+   ℹ️ Your `astro-i18next` config file can be a javascript (`.js` | `.mjs` |
+   `.cjs`) or typescript (`.ts` | `.mts` | `.cts`) file.
 
    ℹ️ For a more advanced configuration, see the
    [AstroI18nextConfig props](#astroi18nextconfig-props).
