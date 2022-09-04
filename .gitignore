@@ -9,6 +9,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Output of 'npm pack'
+*.tgz
+
 # macOS-specific files
 .DS_Store
 

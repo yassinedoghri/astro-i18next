@@ -6,7 +6,8 @@
     "test": "vitest",
     "test:coverage": "npm test -- --coverage",
     "preview": "astro preview",
-    "build": "./build.cjs && npm run typecheck:emit && npm link .",
+    "build": "./build.cjs && npm run typecheck:emit",
+    "pack": "npm pack",
     "lint": "eslint --ext js,cjs,ts .",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
@@ -71,13 +72,7 @@
   "dependencies": {
     "@proload/core": "^0.3.3",
     "@proload/plugin-tsm": "^0.2.1",
-    "fdir": "^5.2.0",
-    "fs-extra": "^10.1.0",
-    "i18next": "^21.9.1",
-    "iso-3166-1-alpha-2": "^1.0.0",
-    "iso-639-1": "^2.1.15",
-    "locale-emoji": "^0.3.0",
-    "yargs": "^17.5.1"
+    "i18next": "^21.9.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -93,6 +88,7 @@
     "astro": "1.1.5",
     "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.15.6",
+    "esbuild-plugin-fileloc": "^0.0.6",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
@@ -101,13 +97,19 @@
     "eslint-plugin-n": "^15.2.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.1",
+    "fdir": "^5.2.0",
+    "fs-extra": "^10.1.0",
     "husky": "^8.0.1",
+    "iso-3166-1-alpha-2": "^1.0.0",
+    "iso-639-1": "^2.1.15",
     "lint-staged": "^13.0.3",
+    "locale-emoji": "^0.3.0",
     "prettier": "2.7.1",
     "prettier-plugin-astro": "^0.5.4",
     "semantic-release": "^19.0.5",
     "typescript": "^4.8.2",
-    "vitest": "^0.22.1"
+    "vitest": "^0.22.1",
+    "yargs": "^17.5.1"
   },
   "lint-staged": {
     "*.{js,cjs,ts}": "eslint --ext js,cjs,ts . --cache --fix",
