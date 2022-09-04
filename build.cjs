@@ -5,24 +5,23 @@ require("esbuild")
     bundle: true,
     entryPoints: ["src/index.ts", "src/cli/index.ts"],
     outdir: "dist",
-    external: [
-      "i18next",
-      "locale-emoji",
-      "typescript",
-      "fdir",
-      "fs-extra",
-      "iso-639-1",
-      "iso-3166-1-alpha-2",
-      "@proload/core",
-      "@proload/plugin-tsm",
-    ],
-    minify: false,
+    external: ["i18next", "@proload/core", "@proload/plugin-tsm"],
+    minify: true,
     format: "esm",
     platform: "node",
-    target: "node14",
-    sourcemap: "inline",
+    target: "esnext",
+    banner: {
+      js: `
+      import module2 from 'module';
+      import path2 from 'path';
+      import * as url2 from 'url';
+      const require = module2.createRequire(import.meta.url);
+      const __filename = url2.fileURLToPath(import.meta.url);
+      const __dirname = path2.dirname(__filename);
+      `,
+    },
+    sourcemap: false,
     sourcesContent: false,
     allowOverwrite: true,
-    assetNames: "[dir]/[name]",
   })
   .catch(() => process.exit(1));

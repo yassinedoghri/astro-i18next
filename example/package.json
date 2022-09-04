@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "build:package": "cd .. && npm run build && cd example",
+    "package:build": "cd .. && npm run build && cd example",
+    "package:pack": "cd .. && npm run build && npm run pack && cd example",
     "preview": "astro preview",
     "i18n:generate": "astro-i18next generate"
   },
