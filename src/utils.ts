@@ -3,8 +3,6 @@ import { fileURLToPath } from "url";
 import load from "@proload/core";
 import { AstroI18nextConfig } from "./types";
 import typescript from "@proload/plugin-tsm";
-import localeEmoji from "locale-emoji";
-import ISO6991 from "iso-639-1";
 
 /**
  * Adapted from astro's tailwind integration:
@@ -249,9 +247,3 @@ export const deeplyStringifyObject = (obj: object | Array<any>): string => {
   }
   return `${str}${isArray ? "]" : "}"}`;
 };
-
-/* c8 ignore start */
-export const getLocaleEmoji = (locale: string): string => localeEmoji(locale);
-export const getLocaleNativeName = (locale: string): string =>
-  ISO6991.getNativeName(locale);
-/* c8 ignore stop */

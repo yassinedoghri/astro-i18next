@@ -5,11 +5,17 @@ require("esbuild")
     bundle: true,
     entryPoints: ["src/index.ts", "src/cli/index.ts"],
     outdir: "dist",
-    external: ["i18next", "@proload/core", "@proload/plugin-tsm"],
+    external: [
+      "i18next",
+      "@proload/core",
+      "@proload/plugin-tsm",
+      "locale-emoji",
+      "iso-639-1",
+    ],
     minify: true,
     format: "esm",
     platform: "node",
-    target: "esnext",
+    target: "node14",
     banner: {
       js: `
       import module2 from 'module';

@@ -107,8 +107,6 @@ export {
   localizePath,
   localizeUrl,
   detectLocaleFromPath,
-  getLocaleEmoji,
-  getLocaleNativeName,
 } from "./utils";
 
 export { AstroI18nextConfig, AstroI18nextOptions } from "./types";
