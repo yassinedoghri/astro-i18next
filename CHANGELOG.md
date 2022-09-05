@@ -1,3 +1,11 @@
+# [1.0.0-beta.9](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2022-09-05)
+
+### Bug Fixes
+
+- reset iso-639-1 and locale-emoji as dependencies
+  ([b2863d7](https://github.com/yassinedoghri/astro-i18next/commit/b2863d74ed74b750fda868e3039308e9daa6022d)),
+  closes [#32](https://github.com/yassinedoghri/astro-i18next/issues/32)
+
 # [1.0.0-beta.8](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2022-09-04)
 
 ### Bug Fixes
