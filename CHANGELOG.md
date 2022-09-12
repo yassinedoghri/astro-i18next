@@ -1,3 +1,11 @@
+# [1.0.0-beta.10](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2022-09-12)
+
+### Bug Fixes
+
+- **plugins:** normalize named imports to call in i18next's use function
+  ([6928ddc](https://github.com/yassinedoghri/astro-i18next/commit/6928ddc248465a10fa18764ad903c2fb8e02ddb5)),
+  closes [#38](https://github.com/yassinedoghri/astro-i18next/issues/38)
+
 # [1.0.0-beta.9](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2022-09-05)
 
 ### Bug Fixes
