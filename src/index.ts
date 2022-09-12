@@ -89,7 +89,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
 
           // loop through plugins to use them
           for (const key of Object.keys(astroI18nextConfig.i18nextPlugins)) {
-            i18nextInit += `.use(${key})`;
+            i18nextInit += `.use(${key.replace(/[{}]/g, "")})`;
           }
         }
         i18nextInit += `.init(${deeplyStringifyObject(
