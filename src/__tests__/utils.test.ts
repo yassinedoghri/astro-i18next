@@ -166,6 +166,15 @@ describe("createReferenceStringFromHTML(...)", () => {
 
     expect(console.warn).toHaveBeenCalled();
   });
+
+  it("collapses extra whitespace", () => {
+    expect(
+      createReferenceStringFromHTML("Single  \n    \t    <h1>element</h1>")
+    ).toBe("Single <0>element</0>");
+    expect(
+      createReferenceStringFromHTML("   Trims <h1>outer</h1> text     ")
+    ).toBe("Trims <0>outer</0> text");
+  });
 });
 
 describe("interpolate(...) and createReferenceStringFromHTML(...)", () => {

@@ -143,7 +143,7 @@ export const createReferenceStringFromHTML = (html: string) => {
     tagsRegex.exec("");
   });
 
-  let sanitizedString = html;
+  let sanitizedString = html.replace(/\s+/g, " ").trim();
   for (let index = 0; index < referenceTags.length; index++) {
     const referencedTag = referenceTags[index];
     if (
