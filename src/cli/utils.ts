@@ -105,12 +105,20 @@ export const generateLocalizedFrontmatter = (
   );
 };
 
-export const crawlInputDirectory = (directoryPath: string): PathsOutput => {
+/**
+ * Crawls pages directory and returns all Astro pages
+ * except for locale folders and excluded pages / directories (starting with underscore).
+ * (https://docs.astro.build/en/core-concepts/routing/#excluding-pages)
+ *
+ * @param pagesDirectoryPath
+ */
+export const getAstroPagesPath = (pagesDirectoryPath: string): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
-    .exclude((dirName) => isLocale(dirName))
+    .filter((filename) => !path.basename(filename).startsWith("_"))
+    .exclude((dirName) => isLocale(dirName) || dirName.startsWith("_"))
     .withRelativePaths()
-    .crawl(directoryPath);
+    .crawl(pagesDirectoryPath);
 
   return api.sync() as PathsOutput;
 };
