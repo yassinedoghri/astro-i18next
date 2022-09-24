@@ -1,3 +1,10 @@
+# [1.0.0-beta.11](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2022-09-24)
+
+
+### Bug Fixes
+
+* **generate:** ignore any directories/files that begin with an underscore ([a7e6f08](https://github.com/yassinedoghri/astro-i18next/commit/a7e6f08710c4da71b4b595e6411494abb135d64f)), closes [#43](https://github.com/yassinedoghri/astro-i18next/issues/43)
+
 # [1.0.0-beta.10](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2022-09-12)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "astro-i18next",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
     "test": "vitest",
@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "typecheck:emit": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "commit": "cz",
-    "prepare": "husky install",
+    "prepare": "",
     "semantic-release": "semantic-release"
   },
   "repository": {
