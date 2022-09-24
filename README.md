@@ -414,63 +414,72 @@ i18next.changeLanguage("fr");
 i18next allows you to organize your translation keys into
 [namespaces](https://www.i18next.com/principles/namespaces).
 
-Using the `i18next-fs-backend` plugin, it can easily be setup in your
-`backend.loadPath` option like so:
-
-```ts
-/** @type {import('astro-i18next').AstroI18nextConfig} */
-export default {
-  defaultLanguage: "en",
-  supportedLanguages: ["en", "fr"],
-  i18next: {
-    debug: true,
-    initImmediate: false,
-    backend: {
-      loadPath: "./src/locales/{{lng}}/{{ns}}.json", // will look for json files inside language folders
-    },
-  },
-  i18nextPlugins: { fsBackend: "i18next-fs-backend" },
-};
-```
-
-You can see
-[i18next-fs-backend's documentation](https://github.com/i18next/i18next-fs-backend)
-for more info.
-
-Then, let's say you have a translation file under
-`./src/locales/{{lng}}/home.json`, you may use the `t()` function or the `Trans`
-component by setting the namespace (`home` here):
-
-```astro
----
-import { t } from "i18next";
-import { Trans } from "astro-i18next/components";
----
-
-<h1>{t("home:myHomeTitle")}</h1>
-<p>
-  <Trans i18nKey="myHomeDescription" ns="home">
-    This translation was retrieved using the <strong>home</strong> namespace!
-    <Trans />
-  </Trans>
-</p>
-```
-
 You can have as many namespaces as you wish, have one per page and one for
 common translation strings for example:
 
 ```bash
 src
- ├-- locales
- |   |-- en
- |   |   |-- about.json    # "about" namespace
- |   |   |-- common.json   # "common" namespace
- |   |   └-- home.json     # "home" namespace
- |   └-- fr   # same in files other language folders
- └-- pages
+├-- locales
+|   |-- en
+|   |   |-- about.json    # "about" namespace
+|   |   |-- common.json   # "common" namespace
+|   |   └-- home.json     # "home" namespace
+|   └-- fr   # same files other language folders
+└-- pages
       |-- about.astro
       └-- index.astro
 ```
+
+1. Using the `i18next-fs-backend` plugin, it can easily be setup in your
+   `backend.loadPath` alongside the `ns` and `defaultNS` keys, like so:
+
+   ```ts
+   /** @type {import('astro-i18next').AstroI18nextConfig} */
+   export default {
+     defaultLanguage: "en",
+     supportedLanguages: ["en", "fr"],
+     i18next: {
+       debug: true,
+       initImmediate: false,
+       ns: ["common", "home", "about"],
+       defaultNS: "common",
+       backend: {
+         loadPath: "./src/locales/{{lng}}/{{ns}}.json", // will look for json files inside language folders
+       },
+     },
+     i18nextPlugins: { fsBackend: "i18next-fs-backend" },
+   };
+   ```
+
+   ℹ️ See
+   [i18next-fs-backend's documentation](https://github.com/i18next/i18next-fs-backend)
+   for more info.
+
+2. Load the namespace globally using `i18next.setDefaultNamespace(ns: string)`
+   or specify it in the `t` function or the `Trans` component:
+
+   ```astro
+   ---
+   import { t, setDefaultNamespace } from "i18next";
+   import { Trans } from "astro-i18next/components";
+
+   setDefaultNamespace("home");
+   ---
+
+   <h1>{t("myHomeTitle")}</h1>
+   <p>
+     <Trans i18nKey="myHomeDescription">
+       This translation is loaded from the default <strong>home</strong> namespace!
+     </Trans>
+   </p>
+   <p>
+     <Trans i18nKey="myCommonCTA" ns="common">
+       This translation is loaded from the <strong>common</strong> namespace!
+     </Trans>
+   </p>
+   <!-- t function loads the "buttonCTA" key from the "common" namespace -->
+   <button>{t("common:buttonCTA")}</button>
+   ```
 
 ### AstroI18nextConfig Props
 
