@@ -27,27 +27,31 @@ yargs(hideBin(process.argv))
     },
     async (argv) => {
       if (argv.verbose) {
-        console.info(`Generating localized pages: ${argv.languages}`);
+        console.info(
+          `Generating localized pages: ${argv.config.supportedLanguages}`
+        );
       }
 
       const pagesPath = argv.path + "src/pages";
 
-      const filesToGenerate = generate(
+      const result = generate(
         pagesPath,
         argv.config.defaultLanguage,
         argv.config.supportedLanguages,
         argv.output
       );
 
-      // All good! Show success feedback
-      console.log(`🧪 Localized .astro pages were generated successfully!`);
-
       if (argv.verbose) {
-        const filepaths = filesToGenerate.map(
+        const filepaths = result.filesToGenerate.map(
           (fileToGenerate) => fileToGenerate.path
         );
-        console.log(`\n✨ ${filepaths.join("\n✨ ")}`);
+        console.log(`\n✨ ${filepaths.join("\n✨ ")}\n`);
       }
+
+      // All good! Show success feedback
+      console.log(
+        `🧪 Localized .astro pages were generated successfully, it took ${result.timeToProcess.toFixed()}ms!`
+      );
     }
   )
   .middleware([normalizePath, loadConfig], true)
