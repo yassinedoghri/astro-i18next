@@ -1,6 +1,6 @@
 import fs from "fs";
 import {
-  crawlInputDirectory,
+  getAstroPagesPath,
   createFiles,
   FileToGenerate,
   generateLocalizedFrontmatter,
@@ -21,46 +21,38 @@ export const generate = (
   supportedLanguages: string[],
   outputPath: string = inputPath
 ): FileToGenerate[] => {
-  const files = crawlInputDirectory(inputPath);
+  const astroPagesPaths = getAstroPagesPath(inputPath);
 
   const filesToGenerate: FileToGenerate[] = [];
 
-  files.forEach(async function (file) {
+  astroPagesPaths.forEach(async function (file: string) {
     const inputFilePath = [inputPath, file].join("/");
-    const extension = file.split(".").pop();
 
-    // only parse astro files
-    if (extension === "astro") {
-      const fileContents = fs.readFileSync(inputFilePath);
-      const fileContentsString = fileContents.toString();
+    const fileContents = fs.readFileSync(inputFilePath);
+    const fileContentsString = fileContents.toString();
 
-      const parsedFrontmatter = parseFrontmatter(fileContentsString);
+    const parsedFrontmatter = parseFrontmatter(fileContentsString);
 
-      supportedLanguages.forEach((language) => {
-        const frontmatterCode = generateLocalizedFrontmatter(
-          parsedFrontmatter,
-          language,
-          language === defaultLanguage ? 0 : 1
-        );
+    supportedLanguages.forEach((language) => {
+      const frontmatterCode = generateLocalizedFrontmatter(
+        parsedFrontmatter,
+        language,
+        language === defaultLanguage ? 0 : 1
+      );
 
-        // get the astro file contents
-        const newFileContents = overwriteAstroFrontmatter(
-          fileContentsString,
-          frontmatterCode
-        );
+      // get the astro file contents
+      const newFileContents = overwriteAstroFrontmatter(
+        fileContentsString,
+        frontmatterCode
+      );
 
-        filesToGenerate.push({
-          path: [
-            outputPath,
-            language === defaultLanguage ? null : language,
-            file,
-          ]
-            .filter(Boolean)
-            .join("/"),
-          source: newFileContents,
-        });
+      filesToGenerate.push({
+        path: [outputPath, language === defaultLanguage ? null : language, file]
+          .filter(Boolean)
+          .join("/"),
+        source: newFileContents,
       });
-    }
+    });
   });
 
   createFiles(filesToGenerate);
