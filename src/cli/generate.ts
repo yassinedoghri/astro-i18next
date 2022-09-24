@@ -20,11 +20,12 @@ export const generate = (
   defaultLanguage: string,
   supportedLanguages: string[],
   outputPath: string = inputPath
-): FileToGenerate[] => {
+): { filesToGenerate: FileToGenerate[]; timeToProcess: number } => {
+  const start = process.hrtime();
+
   const astroPagesPaths = getAstroPagesPath(inputPath);
 
   const filesToGenerate: FileToGenerate[] = [];
-
   astroPagesPaths.forEach(async function (file: string) {
     const inputFilePath = [inputPath, file].join("/");
 
@@ -57,5 +58,8 @@ export const generate = (
 
   createFiles(filesToGenerate);
 
-  return filesToGenerate;
+  return {
+    filesToGenerate,
+    timeToProcess: process.hrtime(start)[1] / 1000000,
+  };
 };
