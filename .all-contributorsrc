@@ -96,6 +96,43 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dallyh",
+      "name": "Dalibor Hon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6968534?v=4",
+      "profile": "https://github.com/dallyh",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "aquaminer",
+      "name": "Oleksii Lozoviahin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17113289?v=4",
+      "profile": "https://github.com/aquaminer",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "xTalAlex",
+      "name": "Alessandro Talamona",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68308554?v=4",
+      "profile": "https://talale.it/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "jkjustjoshing",
+      "name": "Josh Kramer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/813192?v=4",
+      "profile": "https://github.com/jkjustjoshing",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
