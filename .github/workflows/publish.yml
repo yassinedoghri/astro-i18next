@@ -73,6 +73,7 @@ jobs:
 
       - name: Release & Publish to NPM 🚀
         run: |
+          npm set-script prepare ""
           npm ci
           npm run semantic-release
         env:
