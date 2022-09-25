@@ -1,3 +1,10 @@
+# [1.0.0-beta.12](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2022-09-25)
+
+
+### Bug Fixes
+
+* **cli:** filter out any file other than .astro files for generate ([c34fa07](https://github.com/yassinedoghri/astro-i18next/commit/c34fa070eb1bfd9414e5713c8638be2c3cf90ebf))
+
 # [1.0.0-beta.11](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2022-09-24)
 
 ### Bug Fixes
