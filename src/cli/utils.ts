@@ -115,7 +115,10 @@ export const generateLocalizedFrontmatter = (
 export const getAstroPagesPath = (pagesDirectoryPath: string): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
-    .filter((filename) => !path.basename(filename).startsWith("_"))
+    .filter(
+      (filename) =>
+        !path.basename(filename).startsWith("_") && filename.endsWith(".astro")
+    )
     .exclude((dirName) => isLocale(dirName) || dirName.startsWith("_"))
     .withRelativePaths()
     .crawl(pagesDirectoryPath);
