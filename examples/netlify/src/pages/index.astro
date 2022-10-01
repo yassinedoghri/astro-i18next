@@ -1,0 +1,132 @@
+---
+import Layout from "../components/Layout.astro";
+import { t, changeLanguage } from "i18next";
+import { LanguageSelector, Trans } from "astro-i18next/components";
+
+changeLanguage("en");
+---
+
+<Layout title={t("title")}>
+  <main>
+    <svg
+      id="background"
+      width="1728"
+      height="1235"
+      viewBox="0 0 1728 1235"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      ><g opacity="0.75" filter="url(#filter0_f_39_143)"
+        ><circle cy="1000" r="264" fill="url(#paint0_linear_39_143)"></circle>
+      </g><g opacity="0.65" filter="url(#filter1_f_39_143)"
+        ><circle cx="1720" cy="264" r="379" fill="url(#paint1_linear_39_143)"
+        ></circle>
+      </g><defs
+        ><filter
+          id="filter0_f_39_143"
+          x="-485"
+          y="515"
+          width="970"
+          height="970"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+          ><feFlood flood-opacity="0" result="BackgroundImageFix"
+          ></feFlood><feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"></feBlend><feGaussianBlur
+            stdDeviation="110.5"
+            result="effect1_foregroundBlur_39_143"></feGaussianBlur>
+        </filter><filter
+          id="filter1_f_39_143"
+          x="1120"
+          y="-336"
+          width="1200"
+          height="1200"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+          ><feFlood flood-opacity="0" result="BackgroundImageFix"
+          ></feFlood><feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"></feBlend><feGaussianBlur
+            stdDeviation="110.5"
+            result="effect1_foregroundBlur_39_143"></feGaussianBlur>
+        </filter><linearGradient
+          id="paint0_linear_39_143"
+          x1="196.5"
+          y1="902"
+          x2="-2.55853e-05"
+          y2="1264"
+          gradientUnits="userSpaceOnUse"
+          ><stop stop-color="var(--bttm-left-blur-1)"></stop><stop
+            offset="1"
+            stop-color="var(--bttm-left-blur-2)"></stop>
+        </linearGradient><linearGradient
+          id="paint1_linear_39_143"
+          x1="1720"
+          y1="-115"
+          x2="1720"
+          y2="643"
+          gradientUnits="userSpaceOnUse"
+          ><stop stop-color="var(--top-right-blur-1)"></stop><stop
+            offset="1"
+            stop-color="var(--top-right-blur-2)"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div id="content">
+      <div class="header">
+        <h1>{t("title")}</h1>
+        <LanguageSelector showFlag={true} />
+        <div class="logo">
+          <img
+            src="https://res.cloudinary.com/dzkoxrsdj/image/upload/v1652291187/astro_1_c1yk5a.png"
+            alt={t("logoAlt")}
+          />
+        </div>
+        <h2>
+          {t("description")}
+        </h2>
+        <div class="bttns">
+          <a
+            href="https://app.netlify.com/start/deploy?repository=https://github.com/yassinedoghri/astro-i18next-ssr-netlify-example"
+            class="bttn primary"
+            >{t("deployToNetlify")}
+          </a>
+          <a
+            href="https://github.com/yassinedoghri/astro-i18next-ssr-netlify-example"
+            class="bttn secondary"
+            >{t("viewRepo")}
+          </a>
+        </div>
+      </div>
+      <div class="resource-list">
+        <ul>
+          <li>
+            <a href="https://ntl.fyi/38O9wmY">{t("astroPosts")}</a>
+          </li>
+          <li>
+            <a href="https://ntl.fyi/3KHGtyz">{t("netlifyDocs")}</a>
+          </li>
+          <li>
+            <a href="https://docs.astro.build/en/getting-started/"
+              >{t("astroDocs")}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <footer class="footer">
+        <Trans i18nKey="footer">
+          Made with <a href="https://ntl.fyi/3P0dwBi"
+            ><img
+              src="https://res.cloudinary.com/dzkoxrsdj/image/upload/v1646714899/netliheart_ezlkim.svg"
+              alt="Netlify Logo"
+            />
+          </a> for you!
+        </Trans>
+      </footer>
+    </div>
+  </main>
+</Layout>

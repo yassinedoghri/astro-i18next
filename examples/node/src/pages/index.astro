@@ -1,0 +1,122 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { t, changeLanguage } from "i18next";
+import { Trans, LanguageSelector } from "astro-i18next/components";
+
+changeLanguage("en");
+---
+
+<Layout title={t("pageTitle")}>
+  <main>
+    <LanguageSelector showFlag={true} class="languages" />
+    <h1>
+      <Trans i18nKey="welcome"
+        >Welcome to <span class="text-gradient">Astro</span>
+      </Trans>
+    </h1>
+    <p class="instructions">
+      <Trans i18nKey="instructions">
+        Check out the <code>src/pages</code> directory to get started.<br />
+        <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+      </Trans>
+    </p>
+    <ul role="list" class="link-card-grid">
+      <Card
+        href="https://docs.astro.build/"
+        title={t("cards.documentation.title")}
+        body={t("cards.documentation.body")}
+      />
+      <Card
+        href="https://astro.build/integrations/"
+        title={t("cards.integrations.title")}
+        body={t("cards.integrations.body")}
+      />
+      <Card
+        href="https://astro.build/themes/"
+        title={t("cards.themes.title")}
+        body={t("cards.themes.body")}
+      />
+      <Card
+        href="https://astro.build/chat/"
+        title={t("cards.chat.title")}
+        body={t("cards.chat.body")}
+      />
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+  }
+
+  h1 {
+    margin: 0 0 2rem 0;
+  }
+
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+  }
+
+  .languages {
+    border: 2px solid var(--color-border);
+    margin-top: 2rem;
+    appearance: none;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.4em 0.6em;
+    font-family: system-ui, sans-serif;
+    font-size: var(--font-size-base);
+  }
+
+  .languages:is(:hover, :focus-within) {
+    border-color: #4f39fa;
+  }
+
+  .text-gradient {
+    font-weight: 900;
+    background-image: var(--astro-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% 200%;
+    background-position-y: 100%;
+    border-radius: 0.4rem;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      background-position-y: 0%;
+    }
+    50% {
+      background-position-y: 80%;
+    }
+  }
+
+  .instructions {
+    line-height: 1.6;
+    margin: 1rem 0;
+    background: #4f39fa;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    color: var(--color-bg);
+  }
+
+  .instructions code {
+    font-size: 0.875em;
+    border: 0.1em solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.15em 0.25em;
+  }
+
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 1rem;
+    padding: 0;
+  }
+</style>
