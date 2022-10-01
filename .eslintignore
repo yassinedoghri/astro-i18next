@@ -1,6 +1,5 @@
 # build output
 dist
-example/dist
 
 # dependencies
 node_modules/

@@ -211,7 +211,7 @@ Here's a quick tutorial to get you going:
 
 > **Note**
 >
-> For a real world example, see the [demo project](./example/) or try the _Astro
+> For a real world example, see the [demo project](./website/) or try the _Astro
 > i18n basics example_ on StackBlitz:\
 > [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/astro-i18n-basics-example?file=README.md)
 
