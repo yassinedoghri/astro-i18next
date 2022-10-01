@@ -1,0 +1,11 @@
+{
+  "title": "Template pour démarrer",
+  "logoAlt": "Bannière Netlify plus Astro",
+  "description": "Ceci est un projet Astro minimal avec tout ce qu'il vous faut pour déployer rapidement sur Netlify",
+  "deployToNetlify": "Déployer sur Netlify",
+  "viewRepo": "Voir Dépôt",
+  "astroPosts": "Blog Netlify : publications Astro",
+  "netlifyDocs": "Docs Netlify",
+  "astroDocs": "Docs Astro",
+  "footer": "Fait avec <0><1></0> pour vous !"
+}

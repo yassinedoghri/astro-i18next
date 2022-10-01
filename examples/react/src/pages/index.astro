@@ -1,0 +1,39 @@
+---
+// Component Imports
+import Counter from "../components/Counter";
+import { LanguageSelector } from "astro-i18next/components";
+import { t, changeLanguage } from "i18next";
+
+changeLanguage("en");
+
+const someProps = {
+  count: 0,
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html,
+      body {
+        font-family: system-ui;
+        margin: 0;
+      }
+      body {
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <LanguageSelector showFlag={true} />
+      <Counter {...someProps} client:visible>
+        <h1>{t("helloReact")}</h1>
+      </Counter>
+    </main>
+  </body>
+</html>

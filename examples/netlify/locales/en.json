@@ -1,0 +1,11 @@
+{
+  "title": "Quickstart Template",
+  "logoAlt": "Netlify plus Astro banner",
+  "description": "This is a bare-bones Astro project that has everything you need to quickly deploy it to Netlify",
+  "deployToNetlify": "Deploy to Netlify",
+  "viewRepo": "View Repo",
+  "astroPosts": "Netlify Blog: Astro posts",
+  "netlifyDocs": "Netlify Docs",
+  "astroDocs": "Astro Docs",
+  "footer": "Made with <0><1></0> for you!"
+}

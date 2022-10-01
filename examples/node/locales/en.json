@@ -1,0 +1,23 @@
+{
+  "pageTitle": "Welcome to Astro.",
+  "welcome": "Welcome to <0>Astro</0>",
+  "instructions": "Checkout the <0>src/pages</0> directory to get started.<1><2>Code Challenge:</2> Translate this page with your language of choice.",
+  "cards": {
+    "documentation": {
+      "title": "Documentation",
+      "body": "Learn how Astro works and explore the docs."
+    },
+    "integrations": {
+      "title": "Integrations",
+      "body": "Supercharge your projects with new frameworks and libraries."
+    },
+    "themes": {
+      "title": "Themes",
+      "body": "Explore a galaxy of community-built starter themes."
+    },
+    "chat": {
+      "title": "Chat",
+      "body": "Come and say hi to our amazing Discord community. ❤️"
+    }
+  }
+}
