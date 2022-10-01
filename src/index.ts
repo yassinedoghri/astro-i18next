@@ -37,7 +37,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
           astroI18nextConfig.defaultLanguage === ""
         ) {
           throw new Error(
-            "[astro-i18next]: you must set a `baseLanguage` in your astroI18nextConfig!"
+            "[astro-i18next]: you must set a `defaultLanguage` in your astroI18nextConfig!"
           );
         }
 

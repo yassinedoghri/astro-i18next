@@ -3,6 +3,7 @@ import {
   addDepthToRelativePath,
   doesStringIncludeFrontmatter,
   extractFrontmatterFromAstroSource,
+  isFileHidden,
   isLocale,
   overwriteAstroFrontmatter,
 } from "../../cli/utils";
@@ -130,5 +131,20 @@ describe("addDepthToRelativePath(...)", () => {
     expect(addDepthToRelativePath("./foo/bar/baz", 5)).toBe(
       "../../../../../foo/bar/baz"
     );
+  });
+});
+
+describe("isFileVisible(...)", () => {
+  it("with hidden files", () => {
+    expect(isFileHidden("_foo.ts")).toBe(true);
+    expect(isFileHidden("_foo/bar.ts")).toBe(true);
+    expect(isFileHidden("_foo/bar/baz.ts")).toBe(true);
+    expect(isFileHidden("foo/_bar/baz.ts")).toBe(true);
+  });
+
+  it("with visible files", () => {
+    expect(isFileHidden("foo.ts")).toBe(false);
+    expect(isFileHidden("foo/bar.ts")).toBe(false);
+    expect(isFileHidden("foo/bar/baz.ts")).toBe(false);
   });
 });
