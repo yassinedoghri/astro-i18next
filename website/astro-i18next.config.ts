@@ -1,4 +1,4 @@
-import { AstroI18nextConfig } from "astro-i18next/index";
+import type { AstroI18nextConfig } from "astro-i18next";
 
 const config: AstroI18nextConfig = {
   defaultLanguage: "en",

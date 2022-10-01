@@ -1,5 +1,5 @@
 {
-  "name": "astro-i18next/example",
+  "name": "@astro-i18next/website",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -7,8 +7,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "package:build": "cd .. && npm run build && cd example",
-    "package:pack": "cd .. && npm run build && npm run pack && cd example",
+    "package:build": "cd .. && npm run build && cd website",
+    "package:pack": "cd .. && npm run build && npm run pack && cd website",
     "preview": "astro preview",
     "i18n:generate": "astro-i18next generate"
   },

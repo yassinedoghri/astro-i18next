@@ -1,4 +1,4 @@
-name: astro-i18next-deploy-example
+name: astro-i18next-deploy-website
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          cd example
+          cd website
           npm ci
           npm link ..
           npm run build
@@ -24,4 +24,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages
-          folder: example/dist
+          folder: website/dist
