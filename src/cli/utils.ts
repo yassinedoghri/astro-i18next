@@ -72,6 +72,13 @@ export const addDepthToRelativePath = (
   return relativePath.padStart(relativePath.length + depth * 3, "../");
 };
 
+/**
+ * file is hidden if its name or any of its parent folders start with an underscore
+ */
+export const isFileHidden = (filepath: string): boolean => {
+  return /((^_)|(\/_))/.test(filepath);
+};
+
 /* c8 ignore start */
 /**
  * parse frontmatter using typescript compiler
@@ -116,10 +123,9 @@ export const getAstroPagesPath = (pagesDirectoryPath: string): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
     .filter(
-      (filename) =>
-        !path.basename(filename).startsWith("_") && filename.endsWith(".astro")
+      (filepath) => !isFileHidden(filepath) && filepath.endsWith(".astro")
     )
-    .exclude((dirName) => isLocale(dirName) || dirName.startsWith("_"))
+    .exclude((dirName) => isLocale(dirName))
     .withRelativePaths()
     .crawl(pagesDirectoryPath);
 
