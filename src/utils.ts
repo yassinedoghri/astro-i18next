@@ -134,6 +134,13 @@ export const createReferenceStringFromHTML = (html: string) => {
 
   const referenceStringMatches = html.match(tagsRegex);
 
+  if (!referenceStringMatches) {
+    console.warn(
+      "WARNING(astro-i18next): default slot does not include any HTML tag to interpolate! You should use the `t` function directly."
+    );
+    return html;
+  }
+
   const referenceTags = [];
   referenceStringMatches.forEach((tagNode) => {
     const [, name, attributes] = tagsRegex.exec(tagNode);
@@ -157,7 +164,7 @@ export const createReferenceStringFromHTML = (html: string) => {
       `<${index}/>`
     );
     sanitizedString = sanitizedString.replaceAll(
-      new RegExp(`<${referencedTag.name}[^>]*>`, "gi"),
+      `<${referencedTag.name}${referencedTag.attributes}>`,
       `<${index}>`
     );
     sanitizedString = sanitizedString.replaceAll(

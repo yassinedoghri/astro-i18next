@@ -175,6 +175,14 @@ describe("createReferenceStringFromHTML(...)", () => {
       createReferenceStringFromHTML("   Trims <h1>outer</h1> text     ")
     ).toBe("Trims <0>outer</0> text");
   });
+
+  it("does not cause duplicate elements with attributes to be collapsed", () => {
+    expect(
+      createReferenceStringFromHTML(
+        `<span><span class="one">one</span><span class="two">two</span></span>`
+      )
+    ).toBe("<0><1>one</0><2>two</0></0>");
+  });
 });
 
 describe("interpolate(...) and createReferenceStringFromHTML(...)", () => {
