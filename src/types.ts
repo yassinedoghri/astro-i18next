@@ -44,4 +44,9 @@ export interface AstroI18nextConfig {
   i18nextPlugins?: {
     [key: string]: string;
   };
+
+  routes: {
+    // eslint-disable-next-line no-unused-vars
+    [lang: string]: Record<string, string>;
+  };
 }

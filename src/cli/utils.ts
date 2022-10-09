@@ -6,6 +6,7 @@ import path from "path";
 import fs from "fs";
 import ts from "typescript";
 import { transformer } from "./transformer";
+import { AstroI18nextConfig } from "types";
 
 export interface FileToGenerate {
   path: string;
@@ -138,5 +139,27 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
 
     fs.writeFileSync(fileToGenerate.path, fileToGenerate.source);
   });
+};
+
+/**
+ * Translates `path` with `routeTranslations` if `lang` exists in
+ * `routeTranslations`, else returns `[base, path].join("/")`.
+ * @param base defaults to `""`.
+ */
+export const createTranslatedPath = (
+  routeTranslations: AstroI18nextConfig["routes"],
+  path: string,
+  lang?: string,
+  base = ""
+) => {
+  if (!lang || !routeTranslations[lang]) return `${base}/${path}`;
+  return `${base}/${lang}/${path
+    .split("/")
+    .map((segment) => {
+      const translated = routeTranslations[lang][segment];
+      if (!translated) return segment;
+      return translated;
+    })
+    .join("/")}`;
 };
 /* c8 ignore stop */
