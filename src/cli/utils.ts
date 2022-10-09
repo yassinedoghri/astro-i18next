@@ -147,12 +147,13 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
  * @param base defaults to `""`.
  */
 export const createTranslatedPath = (
-  routeTranslations: AstroI18nextConfig["routes"],
   path: string,
   lang?: string,
-  base = ""
+  base = "",
+  routeTranslations: AstroI18nextConfig["routes"] = {}
 ) => {
-  if (!lang || !routeTranslations[lang]) return `${base}/${path}`;
+  if (!lang) return `${base}/${path}`;
+  if (!routeTranslations[lang]) return `${base}/${lang}/${path}`;
   return `${base}/${lang}/${path
     .split("/")
     .map((segment) => {

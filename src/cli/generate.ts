@@ -52,10 +52,10 @@ export const generate = (
 
       filesToGenerate.push({
         path: createTranslatedPath(
-          routeTranslations,
           file,
           language === defaultLanguage ? undefined : language,
-          outputPath
+          outputPath,
+          routeTranslations
         ),
         source: newFileContents,
       });

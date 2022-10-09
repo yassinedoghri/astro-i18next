@@ -152,7 +152,7 @@ export const localizePath = (
   }
 
   // translating pathSegments
-  const routeTranslations = getLanguageRouteTranslations(i18next, locale);
+  const routeTranslations = getLanguageRouteTranslations(i18next, locale) || {};
   pathSegments = pathSegments.map((segment) =>
     routeTranslations[segment] ? routeTranslations[segment] : segment
   );
@@ -256,7 +256,7 @@ export const deeplyStringifyObject = (obj: object | Array<any>): string => {
 };
 
 export const createResourceBundleCallback = (
-  routes: AstroI18nextConfig["routes"]
+  routes: AstroI18nextConfig["routes"] = {}
 ) => {
   let callback = "() => {";
   for (const lang in routes) {
