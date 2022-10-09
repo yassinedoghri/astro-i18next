@@ -143,21 +143,22 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
 
 /**
  * Translates `path` with `routeTranslations` if `lang` exists in
- * `routeTranslations`, else returns `[base, path].join("/")`.
- * @param base defaults to `""`.
+ * `routeTranslations`, else returns `[basePath, path].join("/")` or
+ * `[basePath, language, path].join("/")`.
+ * @param basePath defaults to `""`.
  */
 export const createTranslatedPath = (
   path: string,
-  lang?: string,
-  base = "",
+  language?: string,
+  basePath = "",
   routeTranslations: AstroI18nextConfig["routes"] = {}
 ) => {
-  if (!lang) return `${base}/${path}`;
-  if (!routeTranslations[lang]) return `${base}/${lang}/${path}`;
-  return `${base}/${lang}/${path
+  if (!language) return `${basePath}/${path}`;
+  if (!routeTranslations[language]) return `${basePath}/${language}/${path}`;
+  return `${basePath}/${language}/${path
     .split("/")
     .map((segment) => {
-      const translated = routeTranslations[lang][segment];
+      const translated = routeTranslations[language][segment];
       if (!translated) return segment;
       return translated;
     })

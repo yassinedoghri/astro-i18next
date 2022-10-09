@@ -45,8 +45,12 @@ export interface AstroI18nextConfig {
     [key: string]: string;
   };
 
+  /**
+   * The translations for your routes.
+   *
+   * @default undefined
+   */
   routes: {
-    // eslint-disable-next-line no-unused-vars
-    [lang: string]: Record<string, string>;
+    [language: string]: Record<string, string>;
   };
 }
