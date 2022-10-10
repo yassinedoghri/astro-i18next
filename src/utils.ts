@@ -1,8 +1,9 @@
-import i18next, { t } from "i18next";
+import i18next, { type i18n, t } from "i18next";
 import { fileURLToPath } from "url";
 import load from "@proload/core";
 import { AstroI18nextConfig } from "./types";
 import typescript from "@proload/plugin-tsm";
+import { I18NEXT_ROUTES_BUNDLE_NS } from "./constants";
 
 /**
  * Adapted from astro's tailwind integration:
@@ -150,6 +151,12 @@ export const localizePath = (
     }
   }
 
+  // translating pathSegments
+  const routeTranslations = getLanguageRouteTranslations(i18next, locale) || {};
+  pathSegments = pathSegments.map((segment) =>
+    routeTranslations[segment] ? routeTranslations[segment] : segment
+  );
+
   // prepend the given locale if it's not the base one
   if (locale !== i18next.options.supportedLngs[0]) {
     pathSegments = [locale, ...pathSegments];
@@ -246,4 +253,22 @@ export const deeplyStringifyObject = (obj: object | Array<any>): string => {
     str += isArray ? `${value},` : `"${key}": ${value},`;
   }
   return `${str}${isArray ? "]" : "}"}`;
+};
+
+export const createResourceBundleCallback = (
+  routes: AstroI18nextConfig["routes"] = {}
+) => {
+  let callback = "() => {";
+  for (const lang in routes) {
+    callback += `i18next.addResourceBundle("${lang}", "${I18NEXT_ROUTES_BUNDLE_NS}", ${JSON.stringify(
+      routes[lang]
+    )});`;
+  }
+  return `${callback}}`;
+};
+
+export const getLanguageRouteTranslations = (i18next: i18n, lang: string) => {
+  return i18next.getResourceBundle(lang, I18NEXT_ROUTES_BUNDLE_NS) as
+    | AstroI18nextConfig["routes"][keyof AstroI18nextConfig["routes"]]
+    | undefined;
 };

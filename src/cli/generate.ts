@@ -1,4 +1,5 @@
 import fs from "fs";
+import { AstroI18nextConfig } from "types";
 import {
   getAstroPagesPath,
   createFiles,
@@ -6,6 +7,7 @@ import {
   generateLocalizedFrontmatter,
   overwriteAstroFrontmatter,
   parseFrontmatter,
+  createTranslatedPath,
 } from "./utils";
 
 /**
@@ -17,8 +19,9 @@ import {
  */
 export const generate = (
   inputPath: string,
-  defaultLanguage: string,
-  supportedLanguages: string[],
+  defaultLanguage: AstroI18nextConfig["defaultLanguage"],
+  supportedLanguages: AstroI18nextConfig["supportedLanguages"],
+  routeTranslations?: AstroI18nextConfig["routes"],
   outputPath: string = inputPath
 ): { filesToGenerate: FileToGenerate[]; timeToProcess: number } => {
   const start = process.hrtime();
@@ -48,9 +51,12 @@ export const generate = (
       );
 
       filesToGenerate.push({
-        path: [outputPath, language === defaultLanguage ? null : language, file]
-          .filter(Boolean)
-          .join("/"),
+        path: createTranslatedPath(
+          file,
+          language === defaultLanguage ? undefined : language,
+          outputPath,
+          routeTranslations
+        ),
         source: newFileContents,
       });
     });

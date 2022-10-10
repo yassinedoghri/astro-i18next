@@ -38,6 +38,7 @@ yargs(hideBin(process.argv))
         pagesPath,
         argv.config.defaultLanguage,
         argv.config.supportedLanguages,
+        argv.config.routes,
         argv.output
       );
 

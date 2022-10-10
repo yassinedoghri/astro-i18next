@@ -44,4 +44,13 @@ export interface AstroI18nextConfig {
   i18nextPlugins?: {
     [key: string]: string;
   };
+
+  /**
+   * The translations for your routes.
+   *
+   * @default undefined
+   */
+  routes: {
+    [language: string]: Record<string, string>;
+  };
 }
