@@ -4,6 +4,7 @@ import {
   moveBaseLanguageToFirstIndex,
   deeplyStringifyObject,
   getUserConfig,
+  createResourceBundleCallback,
 } from "./utils";
 
 export default (options?: AstroI18nextOptions): AstroIntegration => {
@@ -94,7 +95,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
         }
         i18nextInit += `.init(${deeplyStringifyObject(
           astroI18nextConfig.i18next
-        )});`;
+        )}, ${createResourceBundleCallback(astroI18nextConfig.routes)});`;
 
         injectScript("page-ssr", imports + i18nextInit);
       },
