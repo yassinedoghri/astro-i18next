@@ -1,10 +1,10 @@
 import { AstroIntegration } from "astro";
+import { setAstroI18nextConfig } from "./config";
 import { AstroI18nextConfig, AstroI18nextOptions } from "./types";
 import {
   moveBaseLanguageToFirstIndex,
   deeplyStringifyObject,
   getUserConfig,
-  createResourceBundleCallback,
 } from "./utils";
 
 export default (options?: AstroI18nextOptions): AstroIntegration => {
@@ -78,6 +78,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
         ];
 
         let imports = `import i18next from "i18next";`;
+
         let i18nextInit = `i18next`;
         if (
           astroI18nextConfig.i18nextPlugins &&
@@ -87,7 +88,6 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
           for (const key of Object.keys(astroI18nextConfig.i18nextPlugins)) {
             imports += `import ${key} from "${astroI18nextConfig.i18nextPlugins[key]}";`;
           }
-
           // loop through plugins to use them
           for (const key of Object.keys(astroI18nextConfig.i18nextPlugins)) {
             i18nextInit += `.use(${key.replace(/[{}]/g, "")})`;
@@ -95,13 +95,24 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
         }
         i18nextInit += `.init(${deeplyStringifyObject(
           astroI18nextConfig.i18next
-        )}, ${createResourceBundleCallback(astroI18nextConfig.routes)});`;
+        )});`;
 
-        injectScript("page-ssr", imports + i18nextInit);
+        // initializing runtime astro-i18next config
+        imports += `import {initAstroI18next} from "astro-i18next";`;
+        const astroI18nextInit = `initAstroI18next(${JSON.stringify(
+          astroI18nextConfig
+        )});`;
+
+        injectScript("page-ssr", imports + i18nextInit + astroI18nextInit);
       },
     },
   };
 };
+
+export function initAstroI18next(config: AstroI18nextConfig) {
+  // init runtime config
+  setAstroI18nextConfig(config);
+}
 
 export {
   interpolate,
