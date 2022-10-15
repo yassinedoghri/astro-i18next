@@ -1,5 +1,6 @@
 import {
   interpolate,
+  createReferenceStringFromHTML,
   localizePath,
   moveBaseLanguageToFirstIndex,
   localizeUrl,
@@ -21,6 +22,7 @@ i18next.init({
       translation: {
         hello: "Hello!",
         interpolationKey: "This is a <0>super cool</0> sentence!",
+        interpolationKeySelfClosing: "This has an image <0> here",
         interpolationKeyNoHTML:
           "This is a reference string without any HTML tags!",
       },
@@ -29,6 +31,7 @@ i18next.init({
       translation: {
         hello: "Bonjour !",
         interpolationKey: "Ceci est une phrase <0>super cool</0> !",
+        interpolationKeySelfClosing: "Ceci a une image <0> ici",
         interpolationKeyNoHTML:
           "Ceci est une chaîne de caractères de référence, sans aucune balise HTML !",
       },
@@ -75,12 +78,28 @@ describe("interpolate(...)", () => {
     );
   });
 
+  it("interpolates localized string with self-closing HTML tags", () => {
+    i18next.changeLanguage("fr");
+    const referenceString = 'This has an image <img src="./img.png"> here';
+    const interpolatedStringFR = 'Ceci a une image <img src="./img.png"> ici';
+
+    expect(interpolate("interpolationKeySelfClosing", referenceString)).toBe(
+      interpolatedStringFR
+    );
+
+    i18next.changeLanguage("en");
+    expect(interpolate("interpolationKeySelfClosing", referenceString)).toBe(
+      'This has an image <img src="./img.png"> here'
+    );
+  });
+
   it("with an i18nKey that is undefined", () => {
     expect(interpolate("missingKey", referenceString)).toBe(referenceString);
     expect(console.warn).toHaveBeenCalled();
   });
 
   it("with no HTML tags in default slot", () => {
+    i18next.changeLanguage("en");
     expect(
       interpolate(
         "interpolationKeyNoHTML",
@@ -91,6 +110,7 @@ describe("interpolate(...)", () => {
   });
 
   it("with malformed HTML tags in default slot", () => {
+    i18next.changeLanguage("en");
     expect(
       interpolate(
         "interpolationKeyNoHTML",
@@ -98,6 +118,90 @@ describe("interpolate(...)", () => {
       )
     ).toBe("This is a reference string without any HTML tags!");
     expect(console.warn).toHaveBeenCalled();
+  });
+});
+
+describe("createReferenceStringFromHTML(...)", () => {
+  it("replaces HTML elements", () => {
+    expect(createReferenceStringFromHTML("Single <h1>element</h1>")).toBe(
+      "Single <0>element</0>"
+    );
+    expect(
+      createReferenceStringFromHTML(
+        'Multiple <div class="wrapper" id="head"><h1>Elements</h1><p>Nested and with attributes</p></div>'
+      )
+    ).toBe("Multiple <0><1>Elements</1><2>Nested and with attributes</2></0>");
+
+    expect(
+      createReferenceStringFromHTML(
+        '<p>Self <img src="./img.png"> closing tags</p>'
+      )
+    ).toBe("<0>Self <1> closing tags</0>");
+  });
+
+  it("ignores allowed elements with no attributes", () => {
+    expect(
+      createReferenceStringFromHTML("<p>Text with <em>emphasis</em></p>")
+    ).toEqual("<0>Text with <em>emphasis</em></0>");
+
+    expect(
+      createReferenceStringFromHTML(
+        '<p>Text with <em class="test">emphasis</em></p>'
+      )
+    ).toEqual("<0>Text with <1>emphasis</1></0>");
+
+    expect(
+      createReferenceStringFromHTML("<em>Text with <div>div</div></em>")
+    ).toEqual("<em>Text with <1>div</1></em>");
+  });
+
+  it("warns when contains separator strings", () => {
+    const keySeparator = i18next.options.keySeparator;
+
+    expect(
+      createReferenceStringFromHTML(
+        `<p>Text with <em>emphasis</em>${keySeparator}</p>`
+      )
+    ).toEqual(`<0>Text with <em>emphasis</em>${keySeparator}</0>`);
+
+    expect(console.warn).toHaveBeenCalled();
+  });
+
+  it("collapses extra whitespace", () => {
+    expect(
+      createReferenceStringFromHTML("Single  \n    \t    <h1>element</h1>")
+    ).toBe("Single <0>element</0>");
+    expect(
+      createReferenceStringFromHTML("   Trims <h1>outer</h1> text     ")
+    ).toBe("Trims <0>outer</0> text");
+  });
+
+  it("does not cause duplicate elements with attributes to be collapsed", () => {
+    expect(
+      createReferenceStringFromHTML(
+        `<span><span class="one">one</span><span class="two">two</span></span>`
+      )
+    ).toBe("<0><1>one</0><2>two</0></0>");
+  });
+});
+
+describe("interpolate(...) and createReferenceStringFromHTML(...)", () => {
+  it("methods undo each other", () => {
+    const html =
+      '<p class="test1" id="test2"><strong>The</strong> text with <img src="./img.png"> image <em>reconstructs</em> properly</p>';
+    const frHtml =
+      '<p class="test1" id="test2"><strong>Le</strong> texte avec <img src="./img.png"> image <em>se reconstruit</em> correctement</p>';
+    const key = createReferenceStringFromHTML(html);
+    const frKey = createReferenceStringFromHTML(frHtml);
+    i18next.addResources("en", "translation", {
+      [key]: key,
+    });
+    i18next.addResources("fr", "translation", {
+      [key]: frKey,
+    });
+
+    i18next.changeLanguage("fr");
+    expect(interpolate(key, html)).toBe(frHtml);
   });
 });
 

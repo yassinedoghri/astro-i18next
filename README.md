@@ -284,10 +284,10 @@ import { Trans } from "astro-i18next/components";
 
 #### Trans Props
 
-| Prop name | Type (default)      | Description                                                                                                                                            |
-| --------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| i18nKey   | string (undefined)  | Internationalization key to interpolate to. Can contain the namespace by prepending it in the form 'ns:key' (depending on i18next.options.nsSeparator) |
-| ns        | ?string (undefined) | Namespace to use. May also be embedded in i18nKey but not recommended when used in combination with natural language keys.                             |
+| Prop name | Type (default)      | Description                                                                                                                                                                                                                            |
+| --------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| i18nKey   | ?string (undefined) | Internationalization key to interpolate to. Can contain the namespace by prepending it in the form 'ns:key' (depending on i18next.options.nsSeparator). If omitted, a key is automatically generated using the content of the element. |
+| ns        | ?string (undefined) | Namespace to use. May also be embedded in i18nKey but not recommended when used in combination with natural language keys.                                                                                                             |
 
 ### LanguageSelector component
 
