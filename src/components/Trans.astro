@@ -1,14 +1,21 @@
 ---
-import { interpolate } from "../utils";
+import { interpolate, createReferenceStringFromHTML } from "../utils";
 
 export interface Props {
-  i18nKey: string;
+  i18nKey?: string;
   ns?: string;
 }
 
 const { i18nKey, ns } = Astro.props;
 
 const referenceString = await Astro.slots.render("default");
+
+let key: string;
+if (typeof i18nKey === "string") {
+  key = i18nKey;
+} else {
+  key = createReferenceStringFromHTML(referenceString);
+}
 ---
 
-<Fragment set:html={interpolate(i18nKey, referenceString, ns)} />
+<Fragment set:html={interpolate(key, referenceString, ns)} />
