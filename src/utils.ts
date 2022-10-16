@@ -1,9 +1,9 @@
-import i18next, { type i18n, t } from "i18next";
+import i18next, { t } from "i18next";
 import { fileURLToPath } from "url";
 import load from "@proload/core";
 import { AstroI18nextConfig } from "./types";
 import typescript from "@proload/plugin-tsm";
-import { I18NEXT_ROUTES_BUNDLE_NS } from "./constants";
+import { getAstroI18nextConfig } from "./config";
 
 /**
  * Adapted from astro's tailwind integration:
@@ -214,38 +214,34 @@ export const localizePath = (
     return base + path;
   }
 
+  const { routes, showDefaultLocale } = getAstroI18nextConfig();
   let pathSegments = path.split("/");
 
   if (
     JSON.stringify(pathSegments) === JSON.stringify([""]) ||
     JSON.stringify(pathSegments) === JSON.stringify(["", ""])
   ) {
+    if (showDefaultLocale) return `${base}${locale}/`;
     return locale === i18next.options.supportedLngs[0]
       ? base
       : `${base}${locale}/`;
   }
 
-  // make a copy of i18next's supportedLngs
-  const otherLocales = [...(i18next.options.supportedLngs as string[])];
-  otherLocales.slice(1); // remove base locale (first index)
-
-  // loop over all locales except the base one
-  for (const otherLocale of otherLocales) {
-    if (pathSegments[0] === otherLocale) {
-      // if the path starts with one of the other locales, remove it from the path
+  // remove locale from pathSegments (if there is any)
+  for (const locale of i18next.options.supportedLngs as string[]) {
+    if (pathSegments[0] === locale) {
       pathSegments.shift();
-      break; // no need to continue
+      break;
     }
   }
 
   // translating pathSegments
-  const routeTranslations = getLanguageRouteTranslations(i18next, locale) || {};
   pathSegments = pathSegments.map((segment) =>
-    routeTranslations[segment] ? routeTranslations[segment] : segment
+    routes[locale]?.[segment] ? routes[locale][segment] : segment
   );
 
-  // prepend the given locale if it's not the base one
-  if (locale !== i18next.options.supportedLngs[0]) {
+  // prepend the given locale if it's not the base one (unless showDefaultLocale)
+  if (showDefaultLocale || locale !== i18next.options.supportedLngs[0]) {
     pathSegments = [locale, ...pathSegments];
   }
 
@@ -340,22 +336,4 @@ export const deeplyStringifyObject = (obj: object | Array<any>): string => {
     str += isArray ? `${value},` : `"${key}": ${value},`;
   }
   return `${str}${isArray ? "]" : "}"}`;
-};
-
-export const createResourceBundleCallback = (
-  routes: AstroI18nextConfig["routes"] = {}
-) => {
-  let callback = "() => {";
-  for (const lang in routes) {
-    callback += `i18next.addResourceBundle("${lang}", "${I18NEXT_ROUTES_BUNDLE_NS}", ${JSON.stringify(
-      routes[lang]
-    )});`;
-  }
-  return `${callback}}`;
-};
-
-export const getLanguageRouteTranslations = (i18next: i18n, lang: string) => {
-  return i18next.getResourceBundle(lang, I18NEXT_ROUTES_BUNDLE_NS) as
-    | AstroI18nextConfig["routes"][keyof AstroI18nextConfig["routes"]]
-    | undefined;
 };

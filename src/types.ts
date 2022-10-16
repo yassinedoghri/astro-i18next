@@ -48,9 +48,16 @@ export interface AstroI18nextConfig {
   /**
    * The translations for your routes.
    *
-   * @default undefined
+   * @default {}
    */
-  routes: {
+  routes?: {
     [language: string]: Record<string, string>;
   };
+
+  /**
+   * The display behaviour for the URL locale.
+   *
+   * @default false
+   */
+  showDefaultLocale?: boolean;
 }
