@@ -119,18 +119,28 @@ export const generateLocalizedFrontmatter = (
  * (https://docs.astro.build/en/core-concepts/routing/#excluding-pages)
  *
  * @param pagesDirectoryPath
+ * @param childDirToCrawl will make the function crawl inside the given
+ * `childDirToCrawl` (doesn't take paths, only dirname).
  */
-export const getAstroPagesPath = (pagesDirectoryPath: string): PathsOutput => {
+export const getAstroPagesPath = (
+  pagesDirectoryPath: string,
+  childDirToCrawl = undefined as
+    | AstroI18nextConfig["defaultLanguage"]
+    | undefined
+): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
     .filter(
       (filepath) => !isFileHidden(filepath) && filepath.endsWith(".astro")
     )
     .exclude((dirName) => isLocale(dirName))
-    .withRelativePaths()
-    .crawl(pagesDirectoryPath);
+    .withRelativePaths();
 
-  return api.sync() as PathsOutput;
+  return childDirToCrawl
+    ? (api
+        .crawl(`${pagesDirectoryPath}${path.sep}${childDirToCrawl}`)
+        .sync() as PathsOutput)
+    : (api.crawl(pagesDirectoryPath).sync() as PathsOutput);
 };
 
 export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
