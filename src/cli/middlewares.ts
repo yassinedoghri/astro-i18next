@@ -1,6 +1,6 @@
 import { pathToFileURL } from "url";
 import { MiddlewareFunction } from "yargs";
-import { getUserConfig } from "../utils";
+import { getUserConfig } from "../pluginUtils";
 import { GenerateArgs, GlobalArgs } from "./types";
 
 // @ts-ignore

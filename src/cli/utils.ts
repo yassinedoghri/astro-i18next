@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 import ts from "typescript";
 import { transformer } from "./transformer";
-import { AstroI18nextConfig } from "types";
+import { AstroI18nextConfig } from "../types";
 
 export interface FileToGenerate {
   path: string;

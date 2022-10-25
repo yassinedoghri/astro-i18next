@@ -5,7 +5,7 @@ import {
   moveBaseLanguageToFirstIndex,
   deeplyStringifyObject,
   getUserConfig,
-} from "./utils";
+} from "./pluginUtils";
 
 export default (options?: AstroI18nextOptions): AstroIntegration => {
   const customConfigPath = options?.configPath;
