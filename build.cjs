@@ -3,7 +3,7 @@
 require("esbuild")
   .build({
     bundle: true,
-    entryPoints: ["src/index.ts", "src/cli/index.ts"],
+    entryPoints: ["src/index.ts", "src/utils.ts", "src/cli/index.ts"],
     outdir: "dist",
     external: [
       "i18next",
