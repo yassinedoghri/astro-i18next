@@ -40,6 +40,9 @@
       "index": [
         "./dist/types/index.d.ts"
       ],
+      "utils": [
+        "./dist/types/utils.d.ts"
+      ],
       "components": [
         "./src/components/index.d.ts"
       ]
