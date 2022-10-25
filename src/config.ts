@@ -1,4 +1,4 @@
-import { AstroI18nextConfig } from "types";
+import { AstroI18nextConfig } from "./types";
 
 const astroI18nextConfig: AstroI18nextConfig = {
   defaultLanguage: "cimode",
