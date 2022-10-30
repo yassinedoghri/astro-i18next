@@ -2,14 +2,17 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jest/globals": true
+    "node": true
   },
-  "extends": ["standard", "plugin:prettier/recommended"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["prettier", "@typescript-eslint", "jest"],
-  "rules": {}
+  "plugins": ["prettier", "@typescript-eslint"],
+  "rules": {
+    // force use of curly braces for better readability
+    "curly": "error"
+  }
 }

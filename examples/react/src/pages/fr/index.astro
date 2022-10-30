@@ -2,7 +2,7 @@
 // Component Imports
 import Counter from "../../components/Counter";
 import { LanguageSelector } from "astro-i18next/components";
-import { t, changeLanguage } from "i18next";
+import i18next, { t, changeLanguage } from "i18next";
 
 changeLanguage("fr");
 
@@ -11,7 +11,7 @@ const someProps = {
 };
 ---
 
-<html lang="en">
+<html lang={i18next.language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -30,7 +30,7 @@ const someProps = {
   </head>
   <body>
     <main>
-      <LanguageSelector showFlag={true} />
+      <LanguageSelector />
       <Counter {...someProps} client:visible>
         <h1>{t("helloReact")}</h1>
       </Counter>

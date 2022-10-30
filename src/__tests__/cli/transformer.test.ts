@@ -83,7 +83,7 @@ describe("transformer(...)", () => {
       const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
         tsNode,
         [transformer],
-        { language: "fr" }
+        { locale: "fr" }
       );
       const printer = ts.createPrinter();
 

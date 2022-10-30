@@ -1,27 +1,13 @@
 import type { AstroI18nextConfig } from "astro-i18next";
 
 const config: AstroI18nextConfig = {
-  defaultLanguage: "en",
-  supportedLanguages: ["en", "fr"],
-  i18next: {
-    debug: true, // convenient during development to check for missing keys
-    resources: {
-      en: {
-        translation: {
-          helloReact: "Hello, React!",
-          myCoolCounter: "My cool counter",
-        },
-      },
-      fr: {
-        translation: {
-          helloReact: "Bonjour, React!",
-          myCoolCounter: "Mon compteur stylé",
-        },
-      },
-    },
+  defaultLocale: "en",
+  locales: ["en", "fr"],
+  i18nextServer: {
+    debug: true,
   },
-  i18nextPlugins: {
-    "{initReactI18next}": "react-i18next",
+  i18nextClient: {
+    debug: true,
   },
 };
 

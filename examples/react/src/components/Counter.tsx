@@ -1,32 +1,30 @@
-import { useState, useEffect } from "react";
+import { FunctionComponent, PropsWithChildren, useState } from "react";
 import "./Counter.css";
 import { useTranslation } from "react-i18next";
 
-export default function Counter({
+interface CounterProps {
+  count: number;
+}
+
+const Counter: FunctionComponent<PropsWithChildren<CounterProps>> = ({
   children,
   count: initialCount,
-}: {
-  children: Element;
-  count: number;
-}) {
-  const { t } = useTranslation();
+}) => {
+  const { t } = useTranslation("translation");
   const [count, setCount] = useState(initialCount);
   const add = () => setCount((i: number) => i + 1);
   const subtract = () => setCount((i: number) => i - 1);
 
-  useEffect(() => {
-    console.log(t("myCoolCounter"));
-  }, [t]);
-
   return (
     <>
-      <p>{t("myCoolCounter")}</p>
       <div className="counter">
         <button onClick={subtract}>-</button>
-        <pre>{count}</pre>
+        <pre>{t("counted", { count })}</pre>
         <button onClick={add}>+</button>
       </div>
       <div className="counter-message">{children}</div>
     </>
   );
-}
+};
+
+export default Counter;

@@ -95,14 +95,14 @@ export const parseFrontmatter = (source: string): ts.SourceFile =>
 
 export const generateLocalizedFrontmatter = (
   tsNode: ts.SourceFile,
-  language: string,
+  locale: string,
   fileDepth: number
 ) => {
-  // generate for default language, then loop over languages to generate other pages
+  // generate for default locale, then loop over locales to generate other pages
   const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
     tsNode,
     [transformer],
-    { language, fileDepth }
+    { locale, fileDepth }
   );
   const printer = ts.createPrinter();
 
@@ -124,9 +124,7 @@ export const generateLocalizedFrontmatter = (
  */
 export const getAstroPagesPath = (
   pagesDirectoryPath: string,
-  childDirToCrawl = undefined as
-    | AstroI18nextConfig["defaultLanguage"]
-    | undefined
+  childDirToCrawl = undefined as AstroI18nextConfig["defaultLocale"] | undefined
 ): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
@@ -150,28 +148,45 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
     fs.writeFileSync(fileToGenerate.path, fileToGenerate.source);
   });
 };
+/* c8 ignore stop */
 
 /**
  * Translates `path` with `routeTranslations` if `lang` exists in
  * `routeTranslations`, else returns `[basePath, path].join("/")` or
- * `[basePath, language, path].join("/")`.
+ * `[basePath, locale, path].join("/")`.
+ *
  * @param basePath defaults to `""`.
  */
 export const createTranslatedPath = (
   path: string,
-  language?: string,
+  locale?: string,
   basePath = "",
   routeTranslations: AstroI18nextConfig["routes"] = {}
 ) => {
-  if (!language) return `${basePath}/${path}`;
-  if (!routeTranslations[language]) return `${basePath}/${language}/${path}`;
-  return `${basePath}/${language}/${path
+  if (!locale) {
+    return `${basePath}/${path}`;
+  }
+
+  if (!routeTranslations[locale]) {
+    return `${basePath}/${locale}/${path}`;
+  }
+
+  return `${basePath}/${locale}/${path
     .split("/")
     .map((segment) => {
-      const translated = routeTranslations[language][segment];
-      if (!translated) return segment;
-      return translated;
+      // get segment extension
+      const segmentExtension = /(?:\.([^.]+))?$/.exec(segment)[0];
+
+      // remove extension from segment
+      const segmentWithoutExt = segment.replace(/\.[^.]+$/, "");
+
+      const translated = routeTranslations[locale][segmentWithoutExt];
+
+      if (!translated) {
+        return segment;
+      }
+
+      return translated + segmentExtension;
     })
     .join("/")}`;
 };
-/* c8 ignore stop */
