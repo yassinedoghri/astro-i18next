@@ -1,0 +1,6 @@
+{
+  "helloReact": "Hello, React!",
+  "counted_zero": "no count!",
+  "counted_one": "counted {{count}} time",
+  "counted_other": "counted {{count}} times"
+}

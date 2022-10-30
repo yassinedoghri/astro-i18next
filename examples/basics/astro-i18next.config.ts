@@ -1,16 +1,9 @@
 import type { AstroI18nextConfig } from "astro-i18next";
 
 const config: AstroI18nextConfig = {
-  defaultLanguage: "en",
-  supportedLanguages: ["en", "fr"],
-  i18next: {
-    debug: true,
-    initImmediate: false,
-    backend: {
-      loadPath: "./src/locales/{{lng}}.json",
-    },
-  },
-  i18nextPlugins: { fsBackend: "i18next-fs-backend" },
+  defaultLocale: "en",
+  locales: ["en", "fr"],
+  namespaces: ["common", "translation"],
 };
 
 export default config;

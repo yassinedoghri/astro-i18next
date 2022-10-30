@@ -1,8 +1,10 @@
 import { AstroI18nextConfig } from "./types";
 
 const astroI18nextConfig: AstroI18nextConfig = {
-  defaultLanguage: "cimode",
-  supportedLanguages: [],
+  defaultLocale: "cimode",
+  locales: [],
+  namespaces: "translation",
+  defaultNamespace: "translation",
   routes: {},
   showDefaultLocale: false,
 };

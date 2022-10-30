@@ -1,8 +1,9 @@
 import { AstroIntegration } from "astro";
+import { InitOptions } from "i18next";
 import { setAstroI18nextConfig } from "./config";
 import { AstroI18nextConfig, AstroI18nextOptions } from "./types";
 import {
-  moveBaseLanguageToFirstIndex,
+  movedefaultLocaleToFirstIndex,
   deeplyStringifyObject,
   getUserConfig,
 } from "./utils";
@@ -34,76 +35,97 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
          * 1. Validate and prepare config
          */
         if (
-          !astroI18nextConfig.defaultLanguage ||
-          astroI18nextConfig.defaultLanguage === ""
+          !astroI18nextConfig.defaultLocale ||
+          astroI18nextConfig.defaultLocale === ""
         ) {
           throw new Error(
-            "[astro-i18next]: you must set a `defaultLanguage` in your astroI18nextConfig!"
+            "[astro-i18next]: you must set a `defaultLocale` in your astroI18nextConfig!"
           );
         }
 
-        if (!astroI18nextConfig.supportedLanguages) {
-          astroI18nextConfig.supportedLanguages = [
-            astroI18nextConfig.defaultLanguage,
-          ];
+        if (!astroI18nextConfig.locales) {
+          astroI18nextConfig.locales = [astroI18nextConfig.defaultLocale];
         }
 
         if (
-          !astroI18nextConfig.supportedLanguages.includes(
-            astroI18nextConfig.defaultLanguage
+          !astroI18nextConfig.locales.includes(astroI18nextConfig.defaultLocale)
+        ) {
+          astroI18nextConfig.locales.unshift(astroI18nextConfig.defaultLocale);
+        }
+
+        // make sure to have default locale set as first element in supportedLngs
+        if (
+          astroI18nextConfig.locales[0] !== astroI18nextConfig.defaultLocale
+        ) {
+          movedefaultLocaleToFirstIndex(
+            astroI18nextConfig.locales as string[],
+            astroI18nextConfig.defaultLocale
+          );
+        }
+
+        // Build server side i18next config
+        // set i18next supported and fallback languages (same as locales)
+        const serverConfig: InitOptions = {
+          supportedLngs: astroI18nextConfig.locales as string[],
+          fallbackLng: astroI18nextConfig.locales as string[],
+          ns: astroI18nextConfig.namespaces,
+          defaultNS: astroI18nextConfig.defaultNamespace,
+          backend: {
+            loadPath: "./public/locales/{{lng}}/{{ns}}.json",
+          },
+          ...astroI18nextConfig.i18nextServer,
+        };
+
+        const clientConfig: InitOptions = {
+          supportedLngs: astroI18nextConfig.locales as string[],
+          fallbackLng: astroI18nextConfig.locales as string[],
+          ns: astroI18nextConfig.namespaces,
+          defaultNS: astroI18nextConfig.defaultNamespace,
+          detection: {
+            order: ["htmlTag"],
+            caches: [],
+          },
+          backend: {
+            loadPath: "/locales/{{lng}}/{{ns}}.json",
+          },
+          ...astroI18nextConfig.i18nextClient,
+        };
+
+        let serverImports = `import i18next from "i18next";import fsBackend from "i18next-fs-backend";`;
+        let i18nextInitServer = `i18next.use(fsBackend)`;
+
+        let clientImports = `import i18next from "i18next";import httpBackend from "i18next-http-backend";import LanguageDetector from "i18next-browser-languagedetector";`;
+        let i18nextInitClient = `i18next.use(httpBackend).use(LanguageDetector)`;
+
+        // Look for react integration and include react-i18next plugin import if found
+        if (
+          config.integrations.find(
+            (integration) => integration.name === "@astrojs/react"
           )
         ) {
-          astroI18nextConfig.supportedLanguages.unshift(
-            astroI18nextConfig.defaultLanguage
-          );
+          serverImports += `import {initReactI18next} from "react-i18next";`;
+          i18nextInitServer += `.use(initReactI18next)`;
+          clientImports += `import {initReactI18next} from "react-i18next";`;
+          i18nextInitClient += `.use(initReactI18next)`;
         }
 
-        // make sure to have base language set as first element in supportedLngs
-        if (
-          astroI18nextConfig.supportedLanguages[0] !==
-          astroI18nextConfig.defaultLanguage
-        ) {
-          moveBaseLanguageToFirstIndex(
-            astroI18nextConfig.supportedLanguages as string[],
-            astroI18nextConfig.defaultLanguage
-          );
-        }
-
-        // set i18next supported and fallback languages (same as supportedLocales)
-        astroI18nextConfig.i18next.supportedLngs = [
-          ...(astroI18nextConfig.supportedLanguages as string[]),
-        ];
-        astroI18nextConfig.i18next.fallbackLng = [
-          ...(astroI18nextConfig.supportedLanguages as string[]),
-        ];
-
-        let imports = `import i18next from "i18next";`;
-
-        let i18nextInit = `i18next`;
-        if (
-          astroI18nextConfig.i18nextPlugins &&
-          Object.keys(astroI18nextConfig.i18nextPlugins).length > 0
-        ) {
-          // loop through plugins to import them
-          for (const key of Object.keys(astroI18nextConfig.i18nextPlugins)) {
-            imports += `import ${key} from "${astroI18nextConfig.i18nextPlugins[key]}";`;
-          }
-          // loop through plugins to use them
-          for (const key of Object.keys(astroI18nextConfig.i18nextPlugins)) {
-            i18nextInit += `.use(${key.replace(/[{}]/g, "")})`;
-          }
-        }
-        i18nextInit += `.init(${deeplyStringifyObject(
-          astroI18nextConfig.i18next
-        )});`;
+        i18nextInitServer += `.init(${deeplyStringifyObject(serverConfig)});`;
+        i18nextInitClient += `.init(${deeplyStringifyObject(clientConfig)});`;
 
         // initializing runtime astro-i18next config
-        imports += `import {initAstroI18next} from "astro-i18next";`;
-        const astroI18nextInit = `initAstroI18next(${JSON.stringify(
+        serverImports += `import {initAstroI18next} from "astro-i18next";`;
+        const astroI18nextInit = `initAstroI18next(${deeplyStringifyObject(
           astroI18nextConfig
         )});`;
 
-        injectScript("page-ssr", imports + i18nextInit + astroI18nextInit);
+        // client side i18next instance
+        injectScript("before-hydration", clientImports + i18nextInitClient);
+
+        // server side i18next instance
+        injectScript(
+          "page-ssr",
+          serverImports + i18nextInitServer + astroI18nextInit
+        );
       },
     },
   };

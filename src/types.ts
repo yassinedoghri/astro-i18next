@@ -11,39 +11,42 @@ export interface AstroI18nextOptions {
 
 export interface AstroI18nextConfig {
   /**
-   * The default language for your website.
+   * The default locale for your website.
    *
    * @default undefined
    */
-  defaultLanguage: string;
+  defaultLocale: string;
 
   /**
    * The locales that are supported by your website.
    *
    * @default undefined
    */
-  supportedLanguages: string[];
+  locales: string[];
 
   /**
-   * i18next config. See https://www.i18next.com/overview/configuration-options
+   * String or array of namespaces to load
+   *
+   * @default "translation"
    */
-  i18next?: InitOptions;
+  namespaces?: string | string[];
 
   /**
-   * i18next plugins. See https://www.i18next.com/overview/plugins-and-utils
+   * Default namespace used if not passed to the translation function
    *
-   * Include the plugins with the key being the import name and the value being the plugin name.
-   *
-   * Eg.:
-   * ```
-   * {
-   *  "Backend": "i18next-fs-backend",
-   * }
-   * ```
+   * @default "translation"
    */
-  i18nextPlugins?: {
-    [key: string]: string;
-  };
+  defaultNamespace?: string;
+
+  /**
+   * i18next server side config. See https://www.i18next.com/overview/configuration-options
+   */
+  i18nextServer?: InitOptions;
+
+  /**
+   * i18next client side config. See https://www.i18next.com/overview/configuration-options
+   */
+  i18nextClient?: InitOptions;
 
   /**
    * The translations for your routes.
@@ -51,7 +54,7 @@ export interface AstroI18nextConfig {
    * @default {}
    */
   routes?: {
-    [language: string]: Record<string, string>;
+    [locale: string]: Record<string, string>;
   };
 
   /**

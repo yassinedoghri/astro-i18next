@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "astro": "^1.4.2"
+    "astro": "^1.6.1"
   },
   "dependencies": {
-    "astro-i18next": "^1.0.0-beta.12",
-    "i18next-fs-backend": "^1.1.5"
+    "astro-i18next": "file:../..",
+    "i18next-fs-backend": "^2.0.0"
   }
 }

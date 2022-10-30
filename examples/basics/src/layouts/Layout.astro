@@ -1,4 +1,6 @@
 ---
+import i18next from "i18next";
+
 export interface Props {
   title: string;
 }
@@ -7,7 +9,7 @@ const { title } = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={i18next.language}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />

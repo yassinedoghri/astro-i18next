@@ -37,7 +37,7 @@ export const getUserConfig = async (
 /**
  * Moves the default locale in the first index
  */
-export const moveBaseLanguageToFirstIndex = (
+export const movedefaultLocaleToFirstIndex = (
   supportedLocales: string[],
   baseLocale: string
 ): void => {
@@ -221,7 +221,10 @@ export const localizePath = (
     JSON.stringify(pathSegments) === JSON.stringify([""]) ||
     JSON.stringify(pathSegments) === JSON.stringify(["", ""])
   ) {
-    if (showDefaultLocale) return `${base}${locale}/`;
+    if (showDefaultLocale) {
+      return `${base}${locale}/`;
+    }
+
     return locale === i18next.options.supportedLngs[0]
       ? base
       : `${base}${locale}/`;

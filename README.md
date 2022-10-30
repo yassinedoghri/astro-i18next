@@ -24,12 +24,24 @@ translate your astro websites!
 > changes may still be introduced during this phase as the goal for v1 is to get
 > the best possible DX for translating your Astro pages.
 
+## Examples
+
+| Example                               | Status                                                                                               |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [SSG - **Basics**](examples/basics)   | [![example-up-badge]](examples/basics)                                                               |
+| [SSR - **Node**](examples/node)       | [![example-up-badge]](examples/node)                                                                 |
+| [**React**](examples/react)           | [![example-up-badge]](examples/react)                                                                |
+| [SSR - **Netlify**](examples/netlify) | [![example-down-badge]](examples/netlify) (https://github.com/yassinedoghri/astro-i18next/issues/26) |
+| SSR - **Deno**                        | [![example-down-badge]](examples/basics) (https://github.com/yassinedoghri/astro-i18next/issues/55)  |
+
+- [Examples](#examples)
 - [🚀 Getting started](#-getting-started)
   - [1. Install](#1-install)
   - [2. Configure](#2-configure)
   - [3. Start translating](#3-start-translating)
 - [💻 CLI commands](#-cli-commands)
   - [generate](#generate)
+- [🔄 Translate Routes](#-translate-routes)
 - [📦 Utility components](#-utility-components)
   - [Trans component](#trans-component)
   - [LanguageSelector component](#languageselector-component)
@@ -70,23 +82,8 @@ npm install astro-i18next
    ```js
    /** @type {import('astro-i18next').AstroI18nextConfig} */
    export default {
-     defaultLanguage: "en",
-     supportedLanguages: ["en", "fr"],
-     i18next: {
-       debug: true, // convenient during development to check for missing keys
-       resources: {
-         en: {
-           translation: {
-             key: "hello world",
-           },
-         },
-         fr: {
-           translation: {
-             key: "bonjour le monde",
-           },
-         },
-       },
-     },
+     defaultLocale: "en",
+     locales: ["en", "fr"],
    };
    ```
 
@@ -96,43 +93,20 @@ npm install astro-i18next
    ℹ️ For a more advanced configuration, see the
    [AstroI18nextConfig props](#astroi18nextconfig-props).
 
-3. (recommended) Load translation keys using an
-   [i18next backend plugin](https://www.i18next.com/overview/plugins-and-utils#backends).
-   For instance with the
-   [`i18next-fs-backend`](https://github.com/i18next/i18next-fs-backend) plugin
-   to load translation keys from the filesystem:
+3. By default, `astro-i18next` expects your translations to be organized inside
+   your `public` folder, in a `locales` folder:
 
    ```bash
-   npm install i18next-fs-backend
-   ```
-
-   ```bash
-     src
-     ├-- locales  # create this folder to store your translation strings
-     |   |-- en.json      # english translation strings
-     |   └-- fr.json      # french translation strings
-     └-- pages
-         └-- index.astro  # route for default language
-   ```
-
-   ```js
-   /** @type {import('astro-i18next').AstroI18nextConfig} */
-   export default {
-     defaultLanguage: "en",
-     supportedLanguages: ["en", "fr"],
-     i18next: {
-       debug: true,
-       initImmediate: false,
-       backend: {
-         loadPath: "./src/locales/{{lng}}.json",
-       },
-     },
-     i18nextPlugins: { fsBackend: "i18next-fs-backend" },
-   };
+     public
+     └── locales  # create this folder to store your translation strings
+         ├── en
+         |   └── translation.json
+         └── fr
+             └── translation.json
    ```
 
    ℹ️ You may choose to organize your translations into multiple files instead
-   of a single file per language [using namespaces](#namespaces).
+   of a single file per locale [using namespaces](#namespaces).
 
 ### 3. Start translating
 
@@ -173,7 +147,7 @@ Here's a quick tutorial to get you going:
    ```
 
    ```json
-   // src/locales/en.json
+   // public/locales/en/translation.json
    {
      "site": {
        "title": "My awesome website!",
@@ -187,7 +161,7 @@ Here's a quick tutorial to get you going:
    ```
 
    ```json
-   // src/locales/fr.json
+   // public/locales/fr/translation.json
    {
      "site": {
        "title": "Mon super site web !",
@@ -228,30 +202,88 @@ npx astro-i18next generate
 This command will generate localized pages depending on your config and set
 i18next's language change on each page.
 
-For instance, with `supportedLanguages = ["en", "fr", "es"]`, and `"en"` being
-the default language and having:
+For instance, with `locales = ["en", "fr", "es"]`, and `"en"` being the default
+locale and having:
 
 ```bash
 src
-└-- pages
-    |-- about.astro
-    └-- index.astro
+└── pages
+    ├── about.astro
+    └── index.astro
 ```
 
 👇 Running `npx astro-i18next generate` will create the following pages
 
 ```bash
 src
-└-- pages
-    |-- es
-    |   |-- about.astro
-    |   └-- index.astro
-    |-- fr
-    |   |-- about.astro
-    |   └-- index.astro
-    |-- about.astro
-    └-- index.astro
+└── pages
+    ├── es
+    |   ├── about.astro
+    |   └── index.astro
+    ├── fr
+    |   ├── about.astro
+    |   └── index.astro
+    ├── about.astro
+    └── index.astro
 ```
+
+## 🔄 Translate Routes
+
+`astro-i18next` let's you translate your pages routes for each locale!
+
+For instance, with support for 3 locales (`en`, `fr`, `es`), `en` being the
+default and the following pages:
+
+```bash
+src
+└── pages
+    ├── about.astro
+    ├── contact-us.astro
+    └── index.astro
+```
+
+1. Set route mappings in your `astro-i18next` config:
+
+   ```js
+   /** @type {import('astro-i18next').AstroI18nextConfig} */
+   export default {
+     defaultLocale: "en",
+     locales: ["en", "fr", "es"],
+     routes: {
+      fr: {
+        "about": "a-propos",
+        "contact-us": "contactez-nous",
+      }
+      es: {
+        "about": "a-proposito",
+        "contact-us": "contactenos",
+      }
+     },
+   };
+   ```
+
+2. Generate your localized pages using the [generate CLI command](#generate),
+   they will be translated for you!
+
+```bash
+src
+└── pages
+    ├── es
+    |   ├── a-proposito.astro
+    |   ├── contactenos.astro
+    |   └── index.astro
+    ├── fr
+    |   ├── a-propos.astro
+    |   ├── contactez-nous.astro
+    |   └── index.astro
+    ├── about.astro
+    ├── contact-us.astro
+    └── index.astro
+```
+
+**Note:** The [localizedPath](#localizepath-function) and
+[localizeUrl](#localizeurl-function) functions will retrieve the correct route
+based on the mappings.
 
 ---
 
@@ -332,10 +364,10 @@ import { HeadHrefLangs } from "astro-i18next/components";
 ```
 
 The HeadHrefLangs component will generate all of the alternate links depending
-on the current url and supported languages.
+on the current url and supported locales.
 
-For example, if you are on the `/about` page and support 3 languages (`en`,
-`fr`, `es`) with `en` being the default language, this will render:
+For example, if you are on the `/about` page and support 3 locales (`en`, `fr`,
+`es`) with `en` being the default locale, this will render:
 
 ```html
 <link rel="alternate" hreflang="en" href="https://www.example.com/about/" />
@@ -366,7 +398,7 @@ const interpolated = interpolate(
 `localizePath(path: string, locale: string | null = null, base: string = import.meta.env.BASE_URL): string`
 
 Sets a path within a given locale. If the locale param is not specified, the
-current language will be used.
+current locale will be used.
 
 **Note:** This should be used instead of hard coding paths to other pages. It
 will take care of setting the right path depending on the locale you set.
@@ -388,7 +420,7 @@ i18next.changeLanguage("fr");
 `localizeUrl(url: string, locale: string | null = null, base: string = import.meta.env.BASE_URL): string`
 
 Sets a url within a given locale. If the locale param is not specified, the
-current language will be used.
+current locale will be used.
 
 **Note:** This should be used instead of hard coding urls for internal links. It
 will take care of setting the right url depending on the locale you set.
@@ -418,13 +450,14 @@ You can have as many namespaces as you wish, have one per page and one for
 common translation strings for example:
 
 ```bash
-src
+public
 ├-- locales
 |   |-- en
 |   |   |-- about.json    # "about" namespace
 |   |   |-- common.json   # "common" namespace
 |   |   └-- home.json     # "home" namespace
-|   └-- fr   # same files other language folders
+|   └-- fr   # same files in other locale folders
+src
 └-- pages
       |-- about.astro
       └-- index.astro
@@ -436,24 +469,12 @@ src
    ```ts
    /** @type {import('astro-i18next').AstroI18nextConfig} */
    export default {
-     defaultLanguage: "en",
-     supportedLanguages: ["en", "fr"],
-     i18next: {
-       debug: true,
-       initImmediate: false,
-       ns: ["common", "home", "about"],
-       defaultNS: "common",
-       backend: {
-         loadPath: "./src/locales/{{lng}}/{{ns}}.json", // will look for json files inside language folders
-       },
-     },
-     i18nextPlugins: { fsBackend: "i18next-fs-backend" },
+     defaultLocale: "en",
+     locales: ["en", "fr"],
+     namespaces: ["about", "common", "home"],
+     defaultNamespace: "common",
    };
    ```
-
-   ℹ️ See
-   [i18next-fs-backend's documentation](https://github.com/i18next/i18next-fs-backend)
-   for more info.
 
 2. Load the namespace globally using `i18next.setDefaultNamespace(ns: string)`
    or specify it in the `t` function or the `Trans` component:
@@ -489,12 +510,15 @@ you don't have to think about it. Just focus on translating!
 Though if you'd like to go further in customizing i18next, feel free to tweak
 your config!
 
-| Prop name          | Type (default)             | Description                                                                                                       |
-| ------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| defaultLanguage    | `string` (undefined)       | The default language for your website                                                                             |
-| supportedLanguages | `string[]` (undefined)     | Your website's supported languages                                                                                |
-| i18next            | `?InitOptions`             | The i18next configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
-| i18nextPlugins     | `?{[key: string]: string}` | Set i18next plugins. See [i18next's available plugins](https://www.i18next.com/overview/plugins-and-utils).       |
+| Prop name        | Type (default)                         | Description                                                                                                                   |
+| ---------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| defaultLocale    | `string` (undefined)                   | The default locale for your website                                                                                           |
+| locales          | `string[]` (undefined)                 | Your website's supported locales                                                                                              |
+| namespaces       | `string` or `string[]` ('translation') | String or array of namespaces to load                                                                                         |
+| defaultNamespace | `string` (translation')                | Default namespace used if not passed to the translation function                                                              |
+| i18nextServer    | `?InitOptions`                         | The i18next configuration server side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
+| i18nextClient    | `?InitOptions`                         | The i18next configuration client side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
+| routes           | `[key: string]: string`(`{}`)          | The translations for your routes                                                                                              |
 
 ## ✨ Contributors
 
@@ -564,3 +588,5 @@ Copyright (c) 2022-present, Yassine Doghri
 [codecov]: https://codecov.io/gh/yassinedoghri/astro-i18next
 [codecov-badge]:
   https://codecov.io/gh/yassinedoghri/astro-i18next/branch/develop/graph/badge.svg?token=IFWNB6UJDJ
+[example-up-badge]: https://img.shields.io/badge/satus-up-brightgreen
+[example-down-badge]: https://img.shields.io/badge/satus-down-red
