@@ -1,0 +1,5 @@
+{
+  "helloReact": "Bonjour, React!",
+  "counted": "compté {{count}} fois",
+  "counted_zero": "aucun comptage !"
+}

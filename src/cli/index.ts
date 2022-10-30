@@ -27,17 +27,15 @@ yargs(hideBin(process.argv))
     },
     async (argv) => {
       if (argv.verbose) {
-        console.info(
-          `Generating localized pages: ${argv.config.supportedLanguages}`
-        );
+        console.info(`Generating localized pages: ${argv.config.locales}`);
       }
 
       const pagesPath = argv.path + "src/pages";
 
       const result = generate(
         pagesPath,
-        argv.config.defaultLanguage,
-        argv.config.supportedLanguages,
+        argv.config.defaultLocale,
+        argv.config.locales,
         argv.config.showDefaultLocale,
         argv.config.routes,
         argv.output

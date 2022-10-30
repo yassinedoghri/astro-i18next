@@ -2,7 +2,7 @@ import {
   interpolate,
   createReferenceStringFromHTML,
   localizePath,
-  moveBaseLanguageToFirstIndex,
+  movedefaultLocaleToFirstIndex,
   localizeUrl,
   deeplyStringifyObject,
   detectLocaleFromPath,
@@ -10,12 +10,12 @@ import {
 import i18next from "i18next";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-// init i18next config with "en", "fr", "fr-CA" and "es" as supported languages,
-// and "en" being the base language
+// init i18next config with "en", "fr", "fr-CA" and "es" as supported locales,
+// and "en" being the default locale
 i18next.init({
   lng: "en",
   debug: false,
-  supportedLngs: ["en", "fr", "es", "fr-CA"], // ℹ️ base language is the first one, ie. "en"
+  supportedLngs: ["en", "fr", "es", "fr-CA"], // ℹ️ default locale is the first one, ie. "en"
   fallbackLng: ["en", "fr", "es", "fr-CA"],
   resources: {
     en: {
@@ -44,17 +44,17 @@ afterEach(() => {
 });
 
 describe("moveBaseLanguageToFirstIndex(...)", () => {
-  it("moves base language to first index", () => {
+  it("moves default locale to first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
-    moveBaseLanguageToFirstIndex(supportedLngs, "en");
+    movedefaultLocaleToFirstIndex(supportedLngs, "en");
     expect(supportedLngs).toStrictEqual(["en", "fr", "es"]);
   });
 
-  it("keeps base language in first index", () => {
+  it("keeps default locale in first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
-    moveBaseLanguageToFirstIndex(supportedLngs, "fr");
+    movedefaultLocaleToFirstIndex(supportedLngs, "fr");
     expect(supportedLngs).toStrictEqual(["fr", "es", "en"]);
   });
 });
@@ -251,7 +251,7 @@ describe("localizePath(...)", () => {
   });
 
   it("with an empty string as path", () => {
-    i18next.changeLanguage("en"); // base language
+    i18next.changeLanguage("en"); // default locale
     expect(localizePath("")).toBe("/");
 
     i18next.changeLanguage("fr");
@@ -259,7 +259,7 @@ describe("localizePath(...)", () => {
   });
 
   it("with no supplied path", () => {
-    i18next.changeLanguage("en"); // base language
+    i18next.changeLanguage("en"); // default locale
     expect(localizePath()).toBe("/");
 
     i18next.changeLanguage("fr");

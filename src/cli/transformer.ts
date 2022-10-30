@@ -11,7 +11,7 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
     const { factory, getCompilerOptions } = context;
     let doesI18nextImportExist = false;
 
-    const { language, fileDepth } = getCompilerOptions();
+    const { locale, fileDepth } = getCompilerOptions();
 
     function visit(node: ts.Node): ts.Node {
       // isolate i18next import statement
@@ -159,7 +159,7 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
         factory.createCallExpression(
           factory.createIdentifier("changeLanguage"),
           undefined,
-          [factory.createStringLiteral(language as string)]
+          [factory.createStringLiteral(locale as string)]
         )
       )
     );
