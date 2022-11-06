@@ -540,15 +540,16 @@ you don't have to think about it. Just focus on translating!
 Though if you'd like to go further in customizing i18next, feel free to tweak
 your config!
 
-| Prop name        | Type (default)                         | Description                                                                                                                   |
-| ---------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| defaultLocale    | `string` (undefined)                   | The default locale for your website                                                                                           |
-| locales          | `string[]` (undefined)                 | Your website's supported locales                                                                                              |
-| namespaces       | `string` or `string[]` ('translation') | String or array of namespaces to load                                                                                         |
-| defaultNamespace | `string` (translation')                | Default namespace used if not passed to the translation function                                                              |
-| i18nextServer    | `?InitOptions`                         | The i18next configuration server side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
-| i18nextClient    | `?InitOptions`                         | The i18next configuration client side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
-| routes           | `[key: string]: string`(`{}`)          | The translations for your routes                                                                                              |
+| Prop name         | Type (default)                          | Description                                                                                                                   |
+| ----------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| defaultLocale     | `string` (undefined)                    | The default locale for your website.                                                                                          |
+| locales           | `string[]` (undefined)                  | Your website's supported locales.                                                                                             |
+| namespaces        | `string` or `string[]` ('translation')  | String or array of namespaces to load.                                                                                        |
+| defaultNamespace  | `string` (translation')                 | Default namespace used if not passed to the translation function.                                                             |
+| i18nextServer     | `?InitOptions`                          | The i18next configuration server side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
+| i18nextClient     | `?InitOptions`                          | The i18next configuration client side. See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |
+| routes            | `[key: string]: string or object`(`{}`) | The translations mapping for your routes. See [translate routes](#-translate-routes).                                         |
+| showDefaultLocale | `boolean`(`false`)                      | Whether or not the defaultLocale should show up in the url just as other locales.                                             |
 
 ## ✨ Contributors
 
