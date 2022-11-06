@@ -29,8 +29,8 @@ export const generate = (
 
   // default locale page paths
   const astroPagesPaths = showDefaultLocale
-    ? getAstroPagesPath(inputPath, defaultLocale)
-    : getAstroPagesPath(inputPath);
+    ? getAstroPagesPath(inputPath, defaultLocale, locales)
+    : getAstroPagesPath(inputPath, undefined, locales);
 
   const filesToGenerate: FileToGenerate[] = [];
   astroPagesPaths.forEach(async function (astroFilePath: string) {

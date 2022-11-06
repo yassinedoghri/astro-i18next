@@ -5,47 +5,8 @@ import {
   doesStringIncludeFrontmatter,
   extractFrontmatterFromAstroSource,
   isFileHidden,
-  isLocale,
   overwriteAstroFrontmatter,
 } from "../../cli/utils";
-
-describe("isLocale(...)", () => {
-  it("with correct iso6391 only", () => {
-    expect(isLocale("en")).toBe(true);
-    expect(isLocale("fr")).toBe(true);
-    expect(isLocale("es")).toBe(true);
-    expect(isLocale("de")).toBe(true);
-  });
-
-  it("with correct iso6391 and iso33661a2", () => {
-    expect(isLocale("en-US")).toBe(true);
-    expect(isLocale("fr-FR")).toBe(true);
-    expect(isLocale("fr-BE")).toBe(true);
-    expect(isLocale("pt-BR")).toBe(true);
-  });
-
-  it("with wrong format / random strings", () => {
-    expect(isLocale("en_US")).toBe(false);
-    expect(isLocale("frFR")).toBe(false);
-    expect(isLocale("foo")).toBe(false);
-    expect(isLocale("bar")).toBe(false);
-  });
-
-  it("with incorrect iso6391 only", () => {
-    expect(isLocale("cc")).toBe(false);
-    expect(isLocale("zz")).toBe(false);
-  });
-
-  it("with correct iso33661a2 but incorrect iso6391", () => {
-    expect(isLocale("cc-FR")).toBe(false);
-    expect(isLocale("cc-FR")).toBe(false);
-  });
-
-  it("with correct iso6391 but incorrect iso33661a2", () => {
-    expect(isLocale("en-AA")).toBe(false);
-    expect(isLocale("en-AA")).toBe(false);
-  });
-});
 
 describe("doesStringIncludeFrontmatter(...)", () => {
   it("with frontmatter in source", () => {
