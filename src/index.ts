@@ -70,6 +70,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
           fallbackLng: astroI18nextConfig.locales as string[],
           ns: astroI18nextConfig.namespaces,
           defaultNS: astroI18nextConfig.defaultNamespace,
+          initImmediate: false,
           backend: {
             loadPath: "./public/locales/{{lng}}/{{ns}}.json",
           },
