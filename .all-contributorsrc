@@ -131,6 +131,17 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/813192?v=4",
       "profile": "https://github.com/jkjustjoshing",
       "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "Alexandre-Fernandez",
+      "name": "Alexandre Fernandez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79476242?v=4",
+      "profile": "https://github.com/Alexandre-Fernandez",
+      "contributions": [
+        "code",
         "bug"
       ]
     }
