@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "i18n:generate": "astro-i18next generate"
   },
   "devDependencies": {
     "astro": "^1.6.1"
