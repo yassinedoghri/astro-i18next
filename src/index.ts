@@ -114,7 +114,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
 
         // initializing runtime astro-i18next config
         serverImports += `import {initAstroI18next} from "astro-i18next";`;
-        const astroI18nextInit = `initAstroI18next(${deeplyStringifyObject(
+        const astroI18nextInit = `initAstroI18next(${JSON.stringify(
           astroI18nextConfig
         )});`;
 

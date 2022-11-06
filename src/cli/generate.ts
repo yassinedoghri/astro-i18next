@@ -7,7 +7,7 @@ import {
   generateLocalizedFrontmatter,
   overwriteAstroFrontmatter,
   parseFrontmatter,
-  createTranslatedPath,
+  resolveTranslatedAstroPath,
 } from "./utils";
 
 /**
@@ -22,7 +22,7 @@ export const generate = (
   defaultLocale: AstroI18nextConfig["defaultLocale"],
   locales: AstroI18nextConfig["locales"],
   showDefaultLocale = false,
-  routeTranslations?: AstroI18nextConfig["routes"],
+  flatRoutes?: AstroI18nextConfig["flatRoutes"],
   outputPath: string = inputPath
 ): { filesToGenerate: FileToGenerate[]; timeToProcess: number } => {
   const start = process.hrtime();
@@ -33,10 +33,10 @@ export const generate = (
     : getAstroPagesPath(inputPath);
 
   const filesToGenerate: FileToGenerate[] = [];
-  astroPagesPaths.forEach(async function (file: string) {
+  astroPagesPaths.forEach(async function (astroFilePath: string) {
     const inputFilePath = showDefaultLocale
-      ? [inputPath, defaultLocale, file].join("/")
-      : [inputPath, file].join("/");
+      ? [inputPath, defaultLocale, astroFilePath].join("/")
+      : [inputPath, astroFilePath].join("/");
 
     const fileContents = fs.readFileSync(inputFilePath);
     const fileContentsString = fileContents.toString();
@@ -64,11 +64,11 @@ export const generate = (
       const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
 
       filesToGenerate.push({
-        path: createTranslatedPath(
-          file,
+        path: resolveTranslatedAstroPath(
+          astroFilePath,
           createLocaleFolder ? locale : undefined,
           outputPath,
-          routeTranslations
+          flatRoutes
         ),
         source: newFileContents,
       });
