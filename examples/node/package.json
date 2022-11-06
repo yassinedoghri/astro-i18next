@@ -12,8 +12,8 @@
     "server": "npm run build && node server/server.mjs"
   },
   "dependencies": {
-    "@astrojs/node": "^1.1.0",
-    "astro": "^1.4.2",
-    "astro-i18next": "^file:../.."
+    "@astrojs/node": "^2.0.2",
+    "astro": "^1.6.3",
+    "astro-i18next": "file:../.."
   }
 }

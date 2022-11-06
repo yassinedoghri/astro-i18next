@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^1.2.2",
-    "@types/react": "^18.0.24",
-    "astro": "^1.6.1",
+    "@types/react": "^18.0.25",
+    "astro": "^1.6.3",
     "astro-i18next": "file:../../astro-i18next-1.0.0-beta.12.tgz",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
