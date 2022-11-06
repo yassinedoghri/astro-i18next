@@ -1,7 +1,5 @@
 import { fdir, PathsOutput } from "fdir";
 import fsExtra from "fs-extra";
-import ISO6391 from "iso-639-1";
-import ISO33661a2 from "iso-3166-1-alpha-2";
 import path from "path";
 import fs from "fs";
 import ts from "typescript";
@@ -12,28 +10,6 @@ export interface FileToGenerate {
   path: string;
   source: string;
 }
-
-export const isLocale = (code: string): boolean => {
-  const REGEX = /^(?<iso6391>[a-z]{2})(-(?<iso33661a2>[A-Z]{2}))?$/;
-
-  if (!REGEX.test(code)) {
-    return false;
-  }
-
-  const {
-    groups: { iso6391, iso33661a2 },
-  } = REGEX.exec(code);
-
-  if (iso33661a2 && !ISO33661a2.getCountry(iso33661a2)) {
-    return false;
-  }
-
-  if (!ISO6391.validate(iso6391)) {
-    return false;
-  }
-
-  return true;
-};
 
 export const doesStringIncludeFrontmatter = (source: string): boolean =>
   /---.*---/s.test(source);
@@ -124,14 +100,15 @@ export const generateLocalizedFrontmatter = (
  */
 export const getAstroPagesPath = (
   pagesDirectoryPath: string,
-  childDirToCrawl = undefined as AstroI18nextConfig["defaultLocale"] | undefined
+  childDirToCrawl: AstroI18nextConfig["defaultLocale"] | undefined = undefined,
+  locales: AstroI18nextConfig["locales"] = []
 ): PathsOutput => {
   // eslint-disable-next-line new-cap
   const api = new fdir()
     .filter(
       (filepath) => !isFileHidden(filepath) && filepath.endsWith(".astro")
     )
-    .exclude((dirName) => isLocale(dirName))
+    .exclude((dirName) => locales.includes(dirName))
     .withRelativePaths();
 
   return childDirToCrawl
