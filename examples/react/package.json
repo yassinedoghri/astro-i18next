@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "build:package": "cd ../.. && npm run pack && cd examples/react && npm update astro-i18next",
+    "package:pack": "cd ../.. && npm run pack && cd examples/react && npm update astro-i18next",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -15,7 +15,7 @@
     "@astrojs/react": "^1.2.2",
     "@types/react": "^18.0.24",
     "astro": "^1.6.1",
-    "astro-i18next": "file:../..",
+    "astro-i18next": "file:../../astro-i18next-1.0.0-beta.12.tgz",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.0.0"

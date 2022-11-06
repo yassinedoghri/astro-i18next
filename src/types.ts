@@ -9,6 +9,10 @@ export interface AstroI18nextOptions {
   configPath?: string;
 }
 
+export interface Routes {
+  [segment: string]: string | Record<string, string | Routes>;
+}
+
 export interface AstroI18nextConfig {
   /**
    * The default locale for your website.
@@ -53,9 +57,14 @@ export interface AstroI18nextConfig {
    *
    * @default {}
    */
-  routes?: {
-    [locale: string]: Record<string, string>;
-  };
+  routes?: Routes;
+
+  /**
+   * Generated mappings based on the routes
+   *
+   * @default {}
+   */
+  readonly flatRoutes?: Record<string, string>;
 
   /**
    * The display behaviour for the URL locale.

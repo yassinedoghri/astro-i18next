@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   addDepthToRelativePath,
+  resolveTranslatedAstroPath,
   doesStringIncludeFrontmatter,
   extractFrontmatterFromAstroSource,
   isFileHidden,
@@ -146,5 +147,87 @@ describe("isFileVisible(...)", () => {
     expect(isFileHidden("foo.ts")).toBe(false);
     expect(isFileHidden("foo/bar.ts")).toBe(false);
     expect(isFileHidden("foo/bar/baz.ts")).toBe(false);
+  });
+});
+
+describe("resolveTranslatedPath(...)", () => {
+  const flatRouteTranslations = {
+    "/fr/about": "/fr/a-propos",
+    "/fr/contact-us": "/fr/contactez-nous",
+    "/es/about": "/es/a-propos",
+    "/es/contact-us": "/es/contactenos",
+  };
+
+  it("with translated path", () => {
+    expect(
+      resolveTranslatedAstroPath(
+        "index.astro",
+        "fr",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/fr/index.astro");
+    expect(
+      resolveTranslatedAstroPath(
+        "about.astro",
+        "fr",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/fr/a-propos.astro");
+    expect(
+      resolveTranslatedAstroPath(
+        "contact-us.astro",
+        "es",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/es/contactenos.astro");
+  });
+
+  it("with path not translated", () => {
+    expect(
+      resolveTranslatedAstroPath(
+        "products/index.astro",
+        "fr",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/fr/products/index.astro");
+    expect(
+      resolveTranslatedAstroPath(
+        "products/merchants.astro",
+        "fr",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/fr/products/merchants.astro");
+    expect(
+      resolveTranslatedAstroPath(
+        "products/categories/index.astro",
+        "fr",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/fr/products/categories/index.astro");
+    expect(
+      resolveTranslatedAstroPath(
+        "products/categories/fruits.astro",
+        "es",
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/es/products/categories/fruits.astro");
+  });
+
+  it("without locale", () => {
+    expect(
+      resolveTranslatedAstroPath(
+        "products/index.astro",
+        null,
+        "./src/pages",
+        flatRouteTranslations
+      )
+    ).toBe("./src/pages/products/index.astro");
   });
 });
