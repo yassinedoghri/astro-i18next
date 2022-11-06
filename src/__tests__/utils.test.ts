@@ -9,6 +9,20 @@ import {
 } from "../utils";
 import i18next from "i18next";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { setAstroI18nextConfig } from "../config";
+
+setAstroI18nextConfig({
+  defaultLocale: "en",
+  locales: ["en", "fr", "es", "fr-CA"],
+  routes: {
+    fr: {
+      about: "a-propos",
+    },
+    es: {
+      about: "a-proposito",
+    },
+  },
+});
 
 // init i18next config with "en", "fr", "fr-CA" and "es" as supported locales,
 // and "en" being the default locale
@@ -217,9 +231,7 @@ describe("localizePath(...)", () => {
 
     i18next.changeLanguage("fr");
     expect(localizePath("/")).toBe("/fr/");
-    expect(localizePath("/about")).toBe("/fr/about/");
-    expect(localizePath("/fr/about")).toBe("/fr/about/");
-    expect(localizePath("/fr-CA/about")).toBe("/fr/about/");
+    expect(localizePath("/foo")).toBe("/fr/foo/");
 
     i18next.changeLanguage("fr-CA");
     expect(localizePath("/fr/about")).toBe("/fr-CA/about/");
@@ -246,8 +258,8 @@ describe("localizePath(...)", () => {
 
   it("with multiple leading slashes", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("//fr-CA/about")).toBe("/fr/about/");
-    expect(localizePath("////fr/about")).toBe("/fr/about/");
+    expect(localizePath("//fr-CA/foo")).toBe("/fr/foo/");
+    expect(localizePath("////fr/foo")).toBe("/fr/foo/");
   });
 
   it("with an empty string as path", () => {
@@ -301,6 +313,18 @@ describe("localizePath(...)", () => {
     expect(localizePath("", null, "/base///")).toBe("/base/fr/");
     expect(localizePath("", null, "///base/")).toBe("/base/fr/");
   });
+
+  it("with translated routes", () => {
+    i18next.changeLanguage("fr");
+    expect(localizePath("/fr/about")).toBe("/fr/a-propos/");
+    expect(localizePath("/fr-CA/about")).toBe("/fr/a-propos/");
+
+    i18next.changeLanguage("es");
+    expect(localizePath("/about", "es")).toBe("/es/a-proposito/");
+
+    i18next.changeLanguage("en");
+    expect(localizePath("/fr/a-propos")).toBe("/about/");
+  });
 });
 
 describe("localizeUrl(...)", () => {
@@ -311,14 +335,14 @@ describe("localizeUrl(...)", () => {
       "https://example.com/about/"
     );
     expect(localizeUrl("https://example.com/fr/")).toBe("https://example.com/");
-    expect(localizeUrl("https://example.com/fr/about")).toBe(
+    expect(localizeUrl("https://example.com/fr/a-propos")).toBe(
       "https://example.com/about/"
     );
 
     i18next.changeLanguage("fr");
     expect(localizeUrl("https://example.com/")).toBe("https://example.com/fr/");
     expect(localizeUrl("https://example.com/about")).toBe(
-      "https://example.com/fr/about/"
+      "https://example.com/fr/a-propos/"
     );
   });
 

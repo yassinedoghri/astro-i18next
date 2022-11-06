@@ -151,42 +151,33 @@ export const createFiles = (filesToGenerate: FileToGenerate[]): void => {
 /* c8 ignore stop */
 
 /**
- * Translates `path` with `routeTranslations` if `lang` exists in
- * `routeTranslations`, else returns `[basePath, path].join("/")` or
- * `[basePath, locale, path].join("/")`.
- *
- * @param basePath defaults to `""`.
+ * Resolves the right translated path based on
+ * a given `astroFilePath` and a locale,
+ * with the `routeTranslations` mapping.
  */
-export const createTranslatedPath = (
-  path: string,
-  locale?: string,
-  basePath = "",
-  routeTranslations: AstroI18nextConfig["routes"] = {}
+export const resolveTranslatedAstroPath = (
+  astroFilePath: string,
+  locale: string | null = null,
+  basePath: string = "",
+  flatRoutes: AstroI18nextConfig["flatRoutes"] = {}
 ) => {
-  if (!locale) {
-    return `${basePath}/${path}`;
+  astroFilePath = astroFilePath.replace(/^\/+|\/+$/g, "");
+
+  // remove trailing slash of basePath if any
+  basePath = basePath.replace(/\/+$/g, "");
+
+  if (locale === null) {
+    return `${basePath}/${astroFilePath}`;
   }
 
-  if (!routeTranslations[locale]) {
-    return `${basePath}/${locale}/${path}`;
+  astroFilePath = astroFilePath.replace(/.astro$/, "");
+
+  const filePath = `/${locale}/${astroFilePath}`;
+
+  // is route translated?
+  if (Object.prototype.hasOwnProperty.call(flatRoutes, filePath)) {
+    return `${basePath}${flatRoutes[filePath]}.astro`;
   }
 
-  return `${basePath}/${locale}/${path
-    .split("/")
-    .map((segment) => {
-      // get segment extension
-      const segmentExtension = /(?:\.([^.]+))?$/.exec(segment)[0];
-
-      // remove extension from segment
-      const segmentWithoutExt = segment.replace(/\.[^.]+$/, "");
-
-      const translated = routeTranslations[locale][segmentWithoutExt];
-
-      if (!translated) {
-        return segment;
-      }
-
-      return translated + segmentExtension;
-    })
-    .join("/")}`;
+  return `${basePath}/${locale}/${astroFilePath}.astro`;
 };

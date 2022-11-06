@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { flattenRoutes } from "../config";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { generate } from "./generate";
@@ -32,12 +33,14 @@ yargs(hideBin(process.argv))
 
       const pagesPath = argv.path + "src/pages";
 
+      const flatRoutes = flattenRoutes(argv.config.routes);
+
       const result = generate(
         pagesPath,
         argv.config.defaultLocale,
         argv.config.locales,
         argv.config.showDefaultLocale,
-        argv.config.routes,
+        flatRoutes,
         argv.output
       );
 
