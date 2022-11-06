@@ -54,6 +54,7 @@ translate your astro websites!
   - [Namespaces](#namespaces)
   - [AstroI18nextConfig Props](#astroi18nextconfig-props)
 - [✨ Contributors](#-contributors)
+- [❤️ Acknowledgments](#️-acknowledgments)
 - [📜 License](#-license)
 
 ## 🚀 Getting started
@@ -104,6 +105,12 @@ npm install astro-i18next
          └── fr
              └── translation.json
    ```
+
+   ℹ️ `astro-i18next` loads your translation files both server-side and
+   client-side using
+   [i18next-fs-backend](https://github.com/i18next/i18next-fs-backend) and
+   [i18next-http-backend](https://github.com/i18next/i18next-http-backend)
+   plugins.
 
    ℹ️ You may choose to organize your translations into multiple files instead
    of a single file per locale [using namespaces](#namespaces).
@@ -253,10 +260,18 @@ src
       fr: {
         "about": "a-propos",
         "contact-us": "contactez-nous",
+        "products": {
+          "index": "produits",
+          "categories": "categories",
+        }
       }
       es: {
         "about": "a-proposito",
         "contact-us": "contactenos",
+        "products": {
+          "index": "productos",
+          "categories": "categorias",
+        }
       }
      },
    };
@@ -269,21 +284,32 @@ src
 src
 └── pages
     ├── es
+    |   ├── productos
+    |   |   ├── categorias.astro
+    |   |   └── index.astro
     |   ├── a-proposito.astro
     |   ├── contactenos.astro
     |   └── index.astro
     ├── fr
+    |   ├── produits
+    |   |   ├── categories.astro
+    |   |   └── index.astro
     |   ├── a-propos.astro
     |   ├── contactez-nous.astro
+    |   └── index.astro
+    ├── products
+    |   ├── categories.astro
     |   └── index.astro
     ├── about.astro
     ├── contact-us.astro
     └── index.astro
 ```
 
-**Note:** The [localizedPath](#localizepath-function) and
-[localizeUrl](#localizeurl-function) functions will retrieve the correct route
-based on the mappings.
+> **Note**
+>
+> The [localizedPath](#localizepath-function) and
+> [localizeUrl](#localizeurl-function) utility functions will retrieve the
+> correct route based on your mappings.
 
 ---
 
@@ -400,8 +426,10 @@ const interpolated = interpolate(
 Sets a path within a given locale. If the locale param is not specified, the
 current locale will be used.
 
-**Note:** This should be used instead of hard coding paths to other pages. It
-will take care of setting the right path depending on the locale you set.
+> **Note**
+>
+> This should be used instead of hard coding paths to other pages. It will take
+> care of setting the right path depending on the locale you set.
 
 ```astro
 ---
@@ -422,8 +450,10 @@ i18next.changeLanguage("fr");
 Sets a url within a given locale. If the locale param is not specified, the
 current locale will be used.
 
-**Note:** This should be used instead of hard coding urls for internal links. It
-will take care of setting the right url depending on the locale you set.
+> **Note**
+>
+> This should be used instead of hard coding urls for internal links. It will
+> take care of setting the right url depending on the locale you set.
 
 ```astro
 ---
@@ -463,8 +493,8 @@ src
       └-- index.astro
 ```
 
-1. Using the `i18next-fs-backend` plugin, it can easily be setup in your
-   `backend.loadPath` alongside the `ns` and `defaultNS` keys, like so:
+1. It can easily be setup using the `namespaces` and `defaultNamespace` keys,
+   like so:
 
    ```ts
    /** @type {import('astro-i18next').AstroI18nextConfig} */
@@ -559,6 +589,17 @@ Thanks goes to these wonderful people
 This project follows the
 [all-contributors](https://github.com/all-contributors/all-contributors)
 specification. Contributions of any kind welcome!
+
+## ❤️ Acknowledgments
+
+This wouldn't have been possible without the awesome work from the
+[Locize](https://locize.com/) and [Astro](https://astro.build/) teams.
+
+Inspired by some of the greatly thought-out i18n implementations:
+
+- [next-i18next](https://github.com/i18next/next-i18next)
+- [react-i18next](https://github.com/i18next/react-i18next)
+- [NextJS's Internationalized Routing](https://nextjs.org/docs/advanced-features/i18n-routing)
 
 ## 📜 License
 
