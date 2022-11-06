@@ -11,7 +11,7 @@
     "i18n:generate": "astro-i18next generate"
   },
   "devDependencies": {
-    "astro": "^1.6.1"
+    "astro": "^1.6.3"
   },
   "dependencies": {
     "astro-i18next": "file:../..",
