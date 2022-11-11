@@ -631,5 +631,5 @@ Copyright (c) 2022-present, Yassine Doghri
 [codecov]: https://codecov.io/gh/yassinedoghri/astro-i18next
 [codecov-badge]:
   https://codecov.io/gh/yassinedoghri/astro-i18next/branch/develop/graph/badge.svg?token=IFWNB6UJDJ
-[example-up-badge]: https://img.shields.io/badge/satus-up-brightgreen
-[example-down-badge]: https://img.shields.io/badge/satus-down-red
+[example-up-badge]: https://img.shields.io/badge/status-up-brightgreen
+[example-down-badge]: https://img.shields.io/badge/status-down-red
