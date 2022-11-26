@@ -5,6 +5,7 @@ var astroI18nextConfig: AstroI18nextConfig = {
   locales: [],
   namespaces: "translation",
   defaultNamespace: "translation",
+  load: ["server"],
   routes: {},
   flatRoutes: {},
   showDefaultLocale: false,
@@ -14,14 +15,23 @@ export const getAstroI18nextConfig = () => astroI18nextConfig;
 
 /* c8 ignore start */
 export const setAstroI18nextConfig = (config: AstroI18nextConfig) => {
+  let flatRoutes = {};
   for (const key in config) {
     if (key === "routes") {
-      // @ts-ignore
-      astroI18nextConfig["flatRoutes"] = flattenRoutes(config["routes"]);
+      flatRoutes = flattenRoutes(config[key]);
     }
 
     astroI18nextConfig[key] = config[key];
   }
+
+  // @ts-ignore
+  astroI18nextConfig["flatRoutes"] = flatRoutes;
+};
+
+export const astroI18nextConfigBuilder = (
+  config: AstroI18nextConfig
+): AstroI18nextConfig => {
+  return { ...astroI18nextConfig, ...config };
 };
 /* c8 ignore stop */
 

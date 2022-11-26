@@ -37,7 +37,7 @@ export const getUserConfig = async (
 /**
  * Moves the default locale in the first index
  */
-export const movedefaultLocaleToFirstIndex = (
+export const moveDefaultLocaleToFirstIndex = (
   locales: string[],
   baseLocale: string
 ): void => {

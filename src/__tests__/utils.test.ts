@@ -2,7 +2,7 @@ import {
   interpolate,
   createReferenceStringFromHTML,
   localizePath,
-  movedefaultLocaleToFirstIndex,
+  moveDefaultLocaleToFirstIndex,
   localizeUrl,
   deeplyStringifyObject,
   detectLocaleFromPath,
@@ -61,14 +61,14 @@ describe("moveBaseLanguageToFirstIndex(...)", () => {
   it("moves default locale to first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
-    movedefaultLocaleToFirstIndex(supportedLngs, "en");
+    moveDefaultLocaleToFirstIndex(supportedLngs, "en");
     expect(supportedLngs).toStrictEqual(["en", "fr", "es"]);
   });
 
   it("keeps default locale in first index", () => {
     const supportedLngs = ["fr", "es", "en"];
 
-    movedefaultLocaleToFirstIndex(supportedLngs, "fr");
+    moveDefaultLocaleToFirstIndex(supportedLngs, "fr");
     expect(supportedLngs).toStrictEqual(["fr", "es", "en"]);
   });
 });
