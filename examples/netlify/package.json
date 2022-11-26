@@ -10,12 +10,12 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "astro": "^1.6.3",
+    "astro": "^1.6.11",
     "prettier-plugin-astro": "^0.7.0"
   },
   "dependencies": {
-    "@astrojs/netlify": "^1.2.0",
+    "@astrojs/netlify": "^1.2.1",
     "astro-i18next": "file:../..",
-    "netlify-cli": "^12.1.0"
+    "netlify-cli": "^12.2.7"
   }
 }

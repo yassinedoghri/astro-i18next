@@ -11,10 +11,9 @@
     "i18n:generate": "astro-i18next generate"
   },
   "devDependencies": {
-    "astro": "^1.6.3"
+    "astro": "^1.6.11"
   },
   "dependencies": {
-    "astro-i18next": "file:../..",
-    "i18next-fs-backend": "^2.0.0"
+    "astro-i18next": "file:../.."
   }
 }
