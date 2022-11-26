@@ -95,7 +95,9 @@ npm install astro-i18next
    [AstroI18nextConfig props](#astroi18nextconfig-props).
 
 3. By default, `astro-i18next` expects your translations to be organized inside
-   your `public` folder, in a `locales` folder:
+   your
+   [astro's `publicDir`](https://docs.astro.build/en/reference/configuration-reference/#publicdir),
+   in a `locales` folder:
 
    ```bash
      public
