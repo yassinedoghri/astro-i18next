@@ -1,28 +1,45 @@
 # [1.0.0-beta.13](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2022-11-06)
 
-
 ### Bug Fixes
 
-* add isFileHidden function + tests to prevent missing hidden files ([7dcd0aa](https://github.com/yassinedoghri/astro-i18next/commit/7dcd0aad9adfb43f47446f8b2ca1059eafbc7bf9))
-* **generate:** replace isLocale check with user defined locales to prevent nested folders generation ([a598e2e](https://github.com/yassinedoghri/astro-i18next/commit/a598e2ebb7b1e3c7a2073ed626aae39fe5ef580b)), closes [#56](https://github.com/yassinedoghri/astro-i18next/issues/56)
-* **i18next-server:** load locale files synchronously ([e7892e2](https://github.com/yassinedoghri/astro-i18next/commit/e7892e20a63b7b639b390c4f6487a8757bfbf157))
-* update types import to relative ([#58](https://github.com/yassinedoghri/astro-i18next/issues/58)) ([44a5422](https://github.com/yassinedoghri/astro-i18next/commit/44a54223cff9f57686ec0830529f26304a763a50))
-
+- add isFileHidden function + tests to prevent missing hidden files
+  ([7dcd0aa](https://github.com/yassinedoghri/astro-i18next/commit/7dcd0aad9adfb43f47446f8b2ca1059eafbc7bf9))
+- **generate:** replace isLocale check with user defined locales to prevent
+  nested folders generation
+  ([a598e2e](https://github.com/yassinedoghri/astro-i18next/commit/a598e2ebb7b1e3c7a2073ed626aae39fe5ef580b)),
+  closes [#56](https://github.com/yassinedoghri/astro-i18next/issues/56)
+- **i18next-server:** load locale files synchronously
+  ([e7892e2](https://github.com/yassinedoghri/astro-i18next/commit/e7892e20a63b7b639b390c4f6487a8757bfbf157))
+- update types import to relative
+  ([#58](https://github.com/yassinedoghri/astro-i18next/issues/58))
+  ([44a5422](https://github.com/yassinedoghri/astro-i18next/commit/44a54223cff9f57686ec0830529f26304a763a50))
 
 ### Features
 
-* add option to show the default locale in the url ([#51](https://github.com/yassinedoghri/astro-i18next/issues/51)) ([ea939db](https://github.com/yassinedoghri/astro-i18next/commit/ea939db76114ed0ffb5efec452d6fcfaefe8962c)), closes [#54](https://github.com/yassinedoghri/astro-i18next/issues/54)
-* add support for route translations ([db5200b](https://github.com/yassinedoghri/astro-i18next/commit/db5200b69bb79ae1a7bb9d60c05aee44e46e948d)), closes [#50](https://github.com/yassinedoghri/astro-i18next/issues/50) [#29](https://github.com/yassinedoghri/astro-i18next/issues/29)
-* allow implicit key for <Trans> when omitting i18nKey prop ([ff14354](https://github.com/yassinedoghri/astro-i18next/commit/ff14354b81cf2d5462a3831a2f2cfabbc53e4dc0)), closes [#53](https://github.com/yassinedoghri/astro-i18next/issues/53)
-* simplified API + instanciate i18next both in server and client side ([ed44510](https://github.com/yassinedoghri/astro-i18next/commit/ed445109ea7aa93fa0b2130d159c91a48f2e5869)), closes [#57](https://github.com/yassinedoghri/astro-i18next/issues/57) [#46](https://github.com/yassinedoghri/astro-i18next/issues/46) [#37](https://github.com/yassinedoghri/astro-i18next/issues/37)
-
+- add option to show the default locale in the url
+  ([#51](https://github.com/yassinedoghri/astro-i18next/issues/51))
+  ([ea939db](https://github.com/yassinedoghri/astro-i18next/commit/ea939db76114ed0ffb5efec452d6fcfaefe8962c)),
+  closes [#54](https://github.com/yassinedoghri/astro-i18next/issues/54)
+- add support for route translations
+  ([db5200b](https://github.com/yassinedoghri/astro-i18next/commit/db5200b69bb79ae1a7bb9d60c05aee44e46e948d)),
+  closes [#50](https://github.com/yassinedoghri/astro-i18next/issues/50)
+  [#29](https://github.com/yassinedoghri/astro-i18next/issues/29)
+- allow implicit key for <Trans> when omitting i18nKey prop
+  ([ff14354](https://github.com/yassinedoghri/astro-i18next/commit/ff14354b81cf2d5462a3831a2f2cfabbc53e4dc0)),
+  closes [#53](https://github.com/yassinedoghri/astro-i18next/issues/53)
+- simplified API + instanciate i18next both in server and client side
+  ([ed44510](https://github.com/yassinedoghri/astro-i18next/commit/ed445109ea7aa93fa0b2130d159c91a48f2e5869)),
+  closes [#57](https://github.com/yassinedoghri/astro-i18next/issues/57)
+  [#46](https://github.com/yassinedoghri/astro-i18next/issues/46)
+  [#37](https://github.com/yassinedoghri/astro-i18next/issues/37)
 
 ### BREAKING CHANGES
 
-* - defaultLanguage is now defaultLocale
-- supportedLanguages is now locales
-- i18next config is now split into two configs: `i18nextServer`
-and `i18nextClient`
+- - defaultLanguage is now defaultLocale
+
+* supportedLanguages is now locales
+* i18next config is now split into two configs: `i18nextServer` and
+  `i18nextClient`
 
 # [1.0.0-beta.12](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2022-09-25)
 
