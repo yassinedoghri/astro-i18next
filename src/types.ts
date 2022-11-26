@@ -13,18 +13,22 @@ export interface Routes {
   [segment: string]: string | Record<string, string | Routes>;
 }
 
+export interface Plugins {
+  [importName: string]: string | null;
+}
+
 export interface AstroI18nextConfig {
   /**
    * The default locale for your website.
    *
-   * @default undefined
+   * @default "cimode"
    */
   defaultLocale: string;
 
   /**
    * The locales that are supported by your website.
    *
-   * @default undefined
+   * @default []
    */
   locales: string[];
 
@@ -41,6 +45,13 @@ export interface AstroI18nextConfig {
    * @default "translation"
    */
   defaultNamespace?: string;
+
+  /**
+   * Load i18next on server side only, client side only or both.
+   *
+   * @default ["server"]
+   */
+  load?: ("server" | "client")[];
 
   /**
    * i18next server side config. See https://www.i18next.com/overview/configuration-options
@@ -72,4 +83,32 @@ export interface AstroI18nextConfig {
    * @default false
    */
   showDefaultLocale?: boolean;
+
+  /**
+   * i18next server side plugins. See https://www.i18next.com/overview/plugins-and-utils
+   *
+   * Include the plugins with the key being the import name and the value being the plugin name.
+   *
+   * Eg.:
+   * ```
+   * {
+   *  "Backend": "i18next-fs-backend",
+   * }
+   * ```
+   */
+  i18nextServerPlugins?: Plugins;
+
+  /**
+   * i18next client side plugins. See https://www.i18next.com/overview/plugins-and-utils
+   *
+   * Include the plugins with the key being the import name and the value being the plugin name.
+   *
+   * Eg.:
+   * ```
+   * {
+   *  "{initReactI18next}": "react-i18next",
+   * }
+   * ```
+   */
+  i18nextClientPlugins?: Plugins;
 }

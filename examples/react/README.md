@@ -10,9 +10,7 @@
 
 ## 🛠️ How to setup?
 
-astro-i18next loads two i18next configs by default. One on the server side, the
-other one client side (where the required `react-i18next` package will be
-initialized).
+`astro-i18next` can be loaded in both server and client side.
 
 ### 1. Install
 
@@ -41,6 +39,13 @@ npm install astro-i18next @astrojs/react react-i18next
    export default {
      defaultLocale: "en",
      locales: ["en", "fr"],
+     load: ["server", "client"], // load i18next server and client side
+     i18nextServerPlugins: {
+       "{initReactI18next}": "react-i18next",
+     },
+     i18nextClientPlugins: {
+       "{initReactI18next}": "react-i18next",
+     },
    };
    ```
 
@@ -60,7 +65,7 @@ npm install astro-i18next @astrojs/react react-i18next
 
 ## 🌐 Client-side locale detection
 
-⚠️ **astro-18next** implements client-side locale detection using the great
+⚠️ **astro-18next** implements client-side locale detection using the
 [`i18next-browser-languageDetector`](https://github.com/i18next/i18next-browser-languageDetector)
 plugin.
 
