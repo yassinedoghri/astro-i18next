@@ -197,6 +197,13 @@ describe("createReferenceStringFromHTML(...)", () => {
       )
     ).toBe("<0><1>one</0><2>two</0></0>");
   });
+
+  it("shows warning when default slot does not include any HTML tag to interpolate", () => {
+    vi.spyOn(console, "warn");
+
+    expect(createReferenceStringFromHTML(`Cool`)).toBe("Cool");
+    expect(console.warn).toHaveBeenCalled();
+  });
 });
 
 describe("interpolate(...) and createReferenceStringFromHTML(...)", () => {
@@ -325,10 +332,45 @@ describe("localizePath(...)", () => {
     i18next.changeLanguage("en");
     expect(localizePath("/fr/a-propos")).toBe("/about/");
   });
+
+  it("with showDefaultLocale set to true", () => {
+    setAstroI18nextConfig({
+      defaultLocale: "en",
+      locales: ["en", "fr", "es", "fr-CA"],
+      routes: {
+        fr: {
+          about: "a-propos",
+        },
+        es: {
+          about: "a-proposito",
+        },
+      },
+      showDefaultLocale: true,
+    });
+
+    i18next.changeLanguage("en");
+    expect(localizePath("/fr/a-propos")).toBe("/en/about/");
+    expect(localizePath("/fr/")).toBe("/en/");
+    expect(localizePath("")).toBe("/en/");
+  });
 });
 
 describe("localizeUrl(...)", () => {
   it("generates the correct url given a url with supported locale", () => {
+    setAstroI18nextConfig({
+      defaultLocale: "en",
+      locales: ["en", "fr", "es", "fr-CA"],
+      routes: {
+        fr: {
+          about: "a-propos",
+        },
+        es: {
+          about: "a-proposito",
+        },
+      },
+      showDefaultLocale: false,
+    });
+
     i18next.changeLanguage("en");
     expect(localizeUrl("https://example.com/")).toBe("https://example.com/");
     expect(localizeUrl("https://example.com/about")).toBe(
