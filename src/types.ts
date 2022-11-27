@@ -1,5 +1,9 @@
 import { InitOptions } from "i18next";
 
+export interface AstroI18nextGlobal {
+  config: AstroI18nextConfig;
+}
+
 export interface AstroI18nextOptions {
   /**
    * Path to your astro-i18next config file

@@ -1,17 +1,17 @@
-import { AstroI18nextConfig, Routes } from "./types";
+import { AstroI18nextConfig, AstroI18nextGlobal, Routes } from "./types";
 
-var astroI18nextConfig: AstroI18nextConfig = {
-  defaultLocale: "cimode",
-  locales: [],
-  namespaces: "translation",
-  defaultNamespace: "translation",
-  load: ["server"],
-  routes: {},
-  flatRoutes: {},
-  showDefaultLocale: false,
+export const AstroI18next: AstroI18nextGlobal = {
+  config: {
+    defaultLocale: "cimode",
+    locales: [],
+    namespaces: "translation",
+    defaultNamespace: "translation",
+    load: ["server"],
+    routes: {},
+    flatRoutes: {},
+    showDefaultLocale: false,
+  },
 };
-
-export const getAstroI18nextConfig = () => astroI18nextConfig;
 
 /* c8 ignore start */
 export const setAstroI18nextConfig = (config: AstroI18nextConfig) => {
@@ -21,17 +21,17 @@ export const setAstroI18nextConfig = (config: AstroI18nextConfig) => {
       flatRoutes = flattenRoutes(config[key]);
     }
 
-    astroI18nextConfig[key] = config[key];
+    AstroI18next.config[key] = config[key];
   }
 
   // @ts-ignore
-  astroI18nextConfig["flatRoutes"] = flatRoutes;
+  AstroI18next.config.flatRoutes = flatRoutes;
 };
 
 export const astroI18nextConfigBuilder = (
   config: AstroI18nextConfig
 ): AstroI18nextConfig => {
-  return { ...astroI18nextConfig, ...config };
+  return { ...AstroI18next.config, ...config };
 };
 /* c8 ignore stop */
 

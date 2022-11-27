@@ -39,7 +39,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
           astroI18nextConfig.defaultLocale === ""
         ) {
           throw new Error(
-            "[astro-i18next]: you must set a `defaultLocale` in your astroI18nextConfig!"
+            "[astro-i18next]: you must set a `defaultLocale` in your astro-i18next config!"
           );
         }
 
@@ -167,11 +167,14 @@ export function initAstroI18next(config: AstroI18nextConfig) {
   setAstroI18nextConfig(config);
 }
 
+export { AstroI18next } from "./config";
+
 export {
+  createReferenceStringFromHTML,
+  detectLocaleFromPath,
   interpolate,
   localizePath,
   localizeUrl,
-  detectLocaleFromPath,
 } from "./utils";
 
 export { AstroI18nextConfig, AstroI18nextOptions } from "./types";
