@@ -1,16 +1,22 @@
 # [1.0.0-beta.14](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2022-11-27)
 
-
 ### Bug Fixes
 
-* expect locales folder to be in astro's publicDir config by default ([ec72ff3](https://github.com/yassinedoghri/astro-i18next/commit/ec72ff36150960f56df760b64aed49af00f10fe3)), closes [#64](https://github.com/yassinedoghri/astro-i18next/issues/64)
-* import localizeUrl in HeadHrefLangs from index for access to astro-i18next runtime config ([5e3b96c](https://github.com/yassinedoghri/astro-i18next/commit/5e3b96c4a38ce9c726663a74c7ebdc45e83113e2)), closes [#65](https://github.com/yassinedoghri/astro-i18next/issues/65)
-* **trans component:** import utility functions from index ([eea0d5d](https://github.com/yassinedoghri/astro-i18next/commit/eea0d5d9c65552739a41a425621ecd57fd07df22))
-
+- expect locales folder to be in astro's publicDir config by default
+  ([ec72ff3](https://github.com/yassinedoghri/astro-i18next/commit/ec72ff36150960f56df760b64aed49af00f10fe3)),
+  closes [#64](https://github.com/yassinedoghri/astro-i18next/issues/64)
+- import localizeUrl in HeadHrefLangs from index for access to astro-i18next
+  runtime config
+  ([5e3b96c](https://github.com/yassinedoghri/astro-i18next/commit/5e3b96c4a38ce9c726663a74c7ebdc45e83113e2)),
+  closes [#65](https://github.com/yassinedoghri/astro-i18next/issues/65)
+- **trans component:** import utility functions from index
+  ([eea0d5d](https://github.com/yassinedoghri/astro-i18next/commit/eea0d5d9c65552739a41a425621ecd57fd07df22))
 
 ### Features
 
-* **plugins:** set i18next plugins config for both server and client side setups ([5ddb1c7](https://github.com/yassinedoghri/astro-i18next/commit/5ddb1c779367148fb0e690cd6503cba32d2bee59)), closes [#68](https://github.com/yassinedoghri/astro-i18next/issues/68)
+- **plugins:** set i18next plugins config for both server and client side setups
+  ([5ddb1c7](https://github.com/yassinedoghri/astro-i18next/commit/5ddb1c779367148fb0e690cd6503cba32d2bee59)),
+  closes [#68](https://github.com/yassinedoghri/astro-i18next/issues/68)
 
 # [1.0.0-beta.13](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2022-11-06)
 
