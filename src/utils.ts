@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import load from "@proload/core";
 import { AstroI18nextConfig } from "./types";
 import typescript from "@proload/plugin-tsm";
-import { getAstroI18nextConfig } from "./config";
+import { AstroI18next } from "./config";
 
 /**
  * Adapted from astro's tailwind integration:
@@ -204,8 +204,7 @@ export const localizePath = (
   base = base.replace(/^\/+|\/+$/g, "");
   base = base === "" ? "/" : "/" + base + "/";
 
-  const { flatRoutes, showDefaultLocale, defaultLocale } =
-    getAstroI18nextConfig();
+  const { flatRoutes, showDefaultLocale, defaultLocale } = AstroI18next.config;
 
   // remove base path if found
   path = path.startsWith(base) ? path.slice(base.length) : path.slice(1);
@@ -289,7 +288,7 @@ export const detectLocaleFromPath = (path: string) => {
   // remove all leading slashes
   path = path.replace(/^\/+/g, "");
 
-  const { defaultLocale, locales } = getAstroI18nextConfig();
+  const { defaultLocale, locales } = AstroI18next.config;
 
   const pathSegments = path.split("/");
 

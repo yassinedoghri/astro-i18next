@@ -369,6 +369,15 @@ describe("localizeUrl(...)", () => {
       "https://example.com/base/fr/about/"
     );
   });
+
+  it("generates the correct locale given a locale", () => {
+    expect(localizeUrl("https://example.com/fr/a-propos", "fr")).toBe(
+      "https://example.com/fr/a-propos/"
+    );
+    expect(localizeUrl("https://example.com/fr/a-propos", "en")).toBe(
+      "https://example.com/about/"
+    );
+  });
 });
 
 describe("detectLocaleFromPath(...)", () => {
