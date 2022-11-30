@@ -14,6 +14,6 @@
     "astro": "^1.6.11"
   },
   "dependencies": {
-    "astro-i18next": "file:../.."
+    "astro-i18next": "^1.0.0-beta.14"
   }
 }
