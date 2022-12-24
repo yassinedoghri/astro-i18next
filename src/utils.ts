@@ -196,51 +196,53 @@ export const localizePath = (
     locale = i18next.language;
   }
 
-  // remove all leading slashes off of path
-  path = path.replace(/^\/+|\/+$/g, "");
-  path = path === "" ? "/" : "/" + path + "/";
+  let pathSegments = path.split("/").filter((segment) => segment !== "");
+  const baseSegments = base.split("/").filter((segment) => segment !== "");
 
-  // remove leading and trailing slashes off of base path
-  base = base.replace(/^\/+|\/+$/g, "");
-  base = base === "" ? "/" : "/" + base + "/";
+  if (
+    JSON.stringify(pathSegments).startsWith(
+      JSON.stringify(baseSegments).replace(/]+$/, "")
+    )
+  ) {
+    // remove base from path
+    pathSegments.splice(0, baseSegments.length);
+  }
 
-  const { flatRoutes, showDefaultLocale, defaultLocale } = AstroI18next.config;
+  path = pathSegments.length === 0 ? "" : pathSegments.join("/");
+  base = baseSegments.length === 0 ? "/" : "/" + baseSegments.join("/") + "/";
 
-  // remove base path if found
-  path = path.startsWith(base) ? path.slice(base.length) : path.slice(1);
+  const { flatRoutes, showDefaultLocale, defaultLocale, locales } =
+    AstroI18next.config;
 
-  if (!(i18next.options.supportedLngs as string[]).includes(locale)) {
+  if (!locales.includes(locale)) {
     console.warn(
       `WARNING(astro-i18next): "${locale}" locale is not supported, add it to the locales in your astro config.`
     );
-    return base + path;
+    return `${base}${path}`;
   }
 
-  // check if the path is not already
+  if (pathSegments.length === 0) {
+    if (showDefaultLocale) {
+      return `${base}${locale}`;
+    }
+
+    return locale === defaultLocale ? base : `${base}${locale}`;
+  }
+
+  // check if the path is not already present in flatRoutes
   if (locale === defaultLocale) {
     const translatedPathKey = Object.keys(flatRoutes).find(
-      (key) => flatRoutes[key] + "/" === "/" + path
+      (key) => flatRoutes[key] === "/" + path
     );
     if (typeof translatedPathKey !== "undefined") {
-      path = translatedPathKey.replace(/^\//, "") + "/";
+      pathSegments = translatedPathKey
+        .split("/")
+        .filter((segment) => segment !== "");
     }
-  }
-
-  let pathSegments = path.split("/");
-
-  if (
-    JSON.stringify(pathSegments) === JSON.stringify([""]) ||
-    JSON.stringify(pathSegments) === JSON.stringify(["", ""])
-  ) {
-    if (showDefaultLocale) {
-      return `${base}${locale}/`;
-    }
-
-    return locale === defaultLocale ? base : `${base}${locale}/`;
   }
 
   // remove locale from pathSegments (if there is any)
-  for (const locale of i18next.options.supportedLngs as string[]) {
+  for (const locale of locales) {
     if (pathSegments[0] === locale) {
       pathSegments.shift();
       break;
@@ -261,7 +263,7 @@ export const localizePath = (
       localizedPath.replace(/\/$/, "")
     )
   ) {
-    return flatRoutes[localizedPath.replace(/\/$/, "")] + "/";
+    return flatRoutes[localizedPath.replace(/\/$/, "")];
   }
 
   return localizedPath;
@@ -299,7 +301,7 @@ export const detectLocaleFromPath = (path: string) => {
     return defaultLocale;
   }
 
-  // make a copy of i18next's supportedLngs
+  // make a copy of supported locales
   let otherLocales = [...locales];
   otherLocales = otherLocales.filter((locale) => locale !== defaultLocale); // remove base locale (first index)
 
