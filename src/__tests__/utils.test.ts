@@ -233,40 +233,40 @@ describe("localizePath(...)", () => {
     i18next.changeLanguage("en");
     expect(localizePath("/")).toBe("/");
     expect(localizePath("/fr")).toBe("/");
-    expect(localizePath("/about")).toBe("/about/");
-    expect(localizePath("/fr/about")).toBe("/about/");
+    expect(localizePath("/about")).toBe("/about");
+    expect(localizePath("/fr/about")).toBe("/about");
 
     i18next.changeLanguage("fr");
-    expect(localizePath("/")).toBe("/fr/");
-    expect(localizePath("/foo")).toBe("/fr/foo/");
+    expect(localizePath("/")).toBe("/fr");
+    expect(localizePath("/foo")).toBe("/fr/foo");
 
     i18next.changeLanguage("fr-CA");
-    expect(localizePath("/fr/about")).toBe("/fr-CA/about/");
-    expect(localizePath("/about")).toBe("/fr-CA/about/");
+    expect(localizePath("/fr/about")).toBe("/fr-CA/about");
+    expect(localizePath("/about")).toBe("/fr-CA/about");
   });
 
   it("with longer paths", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("/really/long/path")).toBe("/fr/really/long/path/");
+    expect(localizePath("/really/long/path")).toBe("/fr/really/long/path");
     expect(localizePath("/super/huge/and/really/long/path")).toBe(
-      "/fr/super/huge/and/really/long/path/"
+      "/fr/super/huge/and/really/long/path"
     );
 
     i18next.changeLanguage("fr-CA");
     expect(localizePath("/fr/really/long/path/with/locale/before")).toBe(
-      "/fr-CA/really/long/path/with/locale/before/"
+      "/fr-CA/really/long/path/with/locale/before"
     );
 
     i18next.changeLanguage("en");
     expect(localizePath("/fr/really/long/path/with/locale/before")).toBe(
-      "/really/long/path/with/locale/before/"
+      "/really/long/path/with/locale/before"
     );
   });
 
   it("with multiple leading slashes", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("//fr-CA/foo")).toBe("/fr/foo/");
-    expect(localizePath("////fr/foo")).toBe("/fr/foo/");
+    expect(localizePath("//fr-CA/foo")).toBe("/fr/foo");
+    expect(localizePath("////fr/foo")).toBe("/fr/foo");
   });
 
   it("with an empty string as path", () => {
@@ -274,7 +274,7 @@ describe("localizePath(...)", () => {
     expect(localizePath("")).toBe("/");
 
     i18next.changeLanguage("fr");
-    expect(localizePath("")).toBe("/fr/");
+    expect(localizePath("")).toBe("/fr");
   });
 
   it("with no supplied path", () => {
@@ -282,55 +282,55 @@ describe("localizePath(...)", () => {
     expect(localizePath()).toBe("/");
 
     i18next.changeLanguage("fr");
-    expect(localizePath()).toBe("/fr/");
+    expect(localizePath()).toBe("/fr");
   });
 
   it("with an unsupported locale", () => {
     i18next.changeLanguage("de");
-    expect(localizePath("/fr/about")).toBe("/fr/about/");
+    expect(localizePath("/fr/about")).toBe("/fr/about");
     expect(console.warn).toHaveBeenCalled();
   });
 
   it("with base path", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("/base", null, "/base/")).toBe("/base/fr/");
-    expect(localizePath("/base/about", null, "/base/")).toBe("/base/fr/about/");
-    expect(localizePath("/about", null, "/base/")).toBe("/base/fr/about/");
-    expect(localizePath("/", null, "/base/")).toBe("/base/fr/");
-    expect(localizePath("", null, "/base/")).toBe("/base/fr/");
+    expect(localizePath("/base", null, "/base/")).toBe("/base/fr");
+    expect(localizePath("/base/about", null, "/base/")).toBe("/base/fr/about");
+    expect(localizePath("/about", null, "/base/")).toBe("/base/fr/about");
+    expect(localizePath("/", null, "/base/")).toBe("/base/fr");
+    expect(localizePath("", null, "/base/")).toBe("/base/fr");
 
     i18next.changeLanguage("en");
-    expect(localizePath("/base/about", null, "/base/")).toBe("/base/about/");
-    expect(localizePath("/about", null, "/base/")).toBe("/base/about/");
+    expect(localizePath("/base/about", null, "/base/")).toBe("/base/about");
+    expect(localizePath("/about", null, "/base/")).toBe("/base/about");
     expect(localizePath("/", null, "/base/")).toBe("/base/");
     expect(localizePath("", null, "/base/")).toBe("/base/");
 
     i18next.changeLanguage("de");
-    expect(localizePath("/fr/about", null, "/base/")).toBe("/base/fr/about/");
-    expect(localizePath("base/fr/about", null, "base")).toBe("/base/fr/about/");
+    expect(localizePath("/fr/about", null, "/base/")).toBe("/base/fr/about");
+    expect(localizePath("base/fr/about", null, "base")).toBe("/base/fr/about");
     expect(console.warn).toHaveBeenCalled();
   });
 
   it("with base path written weirdly", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("", null, "base")).toBe("/base/fr/");
-    expect(localizePath("", null, "/base")).toBe("/base/fr/");
-    expect(localizePath("", null, "base/")).toBe("/base/fr/");
-    expect(localizePath("", null, "//base//")).toBe("/base/fr/");
-    expect(localizePath("", null, "/base///")).toBe("/base/fr/");
-    expect(localizePath("", null, "///base/")).toBe("/base/fr/");
+    expect(localizePath("", null, "base")).toBe("/base/fr");
+    expect(localizePath("", null, "/base")).toBe("/base/fr");
+    expect(localizePath("", null, "base/")).toBe("/base/fr");
+    expect(localizePath("", null, "//base//")).toBe("/base/fr");
+    expect(localizePath("", null, "/base///")).toBe("/base/fr");
+    expect(localizePath("", null, "///base/")).toBe("/base/fr");
   });
 
   it("with translated routes", () => {
     i18next.changeLanguage("fr");
-    expect(localizePath("/fr/about")).toBe("/fr/a-propos/");
-    expect(localizePath("/fr-CA/about")).toBe("/fr/a-propos/");
+    expect(localizePath("/fr/about")).toBe("/fr/a-propos");
+    expect(localizePath("/fr-CA/about")).toBe("/fr/a-propos");
 
     i18next.changeLanguage("es");
-    expect(localizePath("/about", "es")).toBe("/es/a-proposito/");
+    expect(localizePath("/about", "es")).toBe("/es/a-proposito");
 
     i18next.changeLanguage("en");
-    expect(localizePath("/fr/a-propos")).toBe("/about/");
+    expect(localizePath("/fr/a-propos")).toBe("/about");
   });
 
   it("with showDefaultLocale set to true", () => {
@@ -349,9 +349,9 @@ describe("localizePath(...)", () => {
     });
 
     i18next.changeLanguage("en");
-    expect(localizePath("/fr/a-propos")).toBe("/en/about/");
-    expect(localizePath("/fr/")).toBe("/en/");
-    expect(localizePath("")).toBe("/en/");
+    expect(localizePath("/fr/a-propos")).toBe("/en/about");
+    expect(localizePath("/fr/")).toBe("/en");
+    expect(localizePath("")).toBe("/en");
   });
 });
 
@@ -374,17 +374,17 @@ describe("localizeUrl(...)", () => {
     i18next.changeLanguage("en");
     expect(localizeUrl("https://example.com/")).toBe("https://example.com/");
     expect(localizeUrl("https://example.com/about")).toBe(
-      "https://example.com/about/"
+      "https://example.com/about"
     );
     expect(localizeUrl("https://example.com/fr/")).toBe("https://example.com/");
     expect(localizeUrl("https://example.com/fr/a-propos")).toBe(
-      "https://example.com/about/"
+      "https://example.com/about"
     );
 
     i18next.changeLanguage("fr");
-    expect(localizeUrl("https://example.com/")).toBe("https://example.com/fr/");
+    expect(localizeUrl("https://example.com/")).toBe("https://example.com/fr");
     expect(localizeUrl("https://example.com/about")).toBe(
-      "https://example.com/fr/a-propos/"
+      "https://example.com/fr/a-propos"
     );
   });
 
@@ -394,30 +394,30 @@ describe("localizeUrl(...)", () => {
       "https://example.com/base/"
     );
     expect(localizeUrl("https://example.com/base/about/", null, "/base/")).toBe(
-      "https://example.com/base/about/"
+      "https://example.com/base/about"
     );
     expect(localizeUrl("https://example.com/fr/", null, "/base/")).toBe(
       "https://example.com/base/"
     );
     expect(
       localizeUrl("https://example.com/base/fr/about", null, "/base/")
-    ).toBe("https://example.com/base/about/");
+    ).toBe("https://example.com/base/about");
 
     i18next.changeLanguage("fr");
     expect(localizeUrl("https://example.com/", null, "/base/")).toBe(
-      "https://example.com/base/fr/"
+      "https://example.com/base/fr"
     );
     expect(localizeUrl("https://example.com/about", null, "/base/")).toBe(
-      "https://example.com/base/fr/about/"
+      "https://example.com/base/fr/about"
     );
   });
 
   it("generates the correct locale given a locale", () => {
     expect(localizeUrl("https://example.com/fr/a-propos", "fr")).toBe(
-      "https://example.com/fr/a-propos/"
+      "https://example.com/fr/a-propos"
     );
     expect(localizeUrl("https://example.com/fr/a-propos", "en")).toBe(
-      "https://example.com/about/"
+      "https://example.com/about"
     );
   });
 });
