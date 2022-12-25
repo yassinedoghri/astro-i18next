@@ -1,5 +1,4 @@
 import ts from "typescript";
-import { addDepthToRelativePath } from "./utils";
 
 /**
  * Traverse ts' AST to inject i18next's language switch
@@ -11,7 +10,7 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
     const { factory, getCompilerOptions } = context;
     let doesI18nextImportExist = false;
 
-    const { locale, fileDepth } = getCompilerOptions();
+    const { locale } = getCompilerOptions();
 
     function visit(node: ts.Node): ts.Node {
       // isolate i18next import statement
@@ -73,50 +72,6 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
         }
 
         return node;
-      }
-
-      // update relative imports
-      if (
-        ts.isImportDeclaration(node) &&
-        ts.isStringLiteral(node.moduleSpecifier) &&
-        node.moduleSpecifier.text.startsWith(".")
-      ) {
-        return factory.updateImportDeclaration(
-          node,
-          node.modifiers,
-          node.importClause,
-          factory.createStringLiteral(
-            addDepthToRelativePath(
-              node.moduleSpecifier.text,
-              fileDepth as number
-            )
-          ),
-          node.assertClause
-        );
-      }
-
-      // update Astro glob relative paths
-      if (
-        ts.isCallExpression(node) &&
-        ts.isPropertyAccessExpression(node.expression) &&
-        ts.isIdentifier(node.expression.expression) &&
-        ts.isStringLiteral(node.arguments[0]) &&
-        node.expression.expression.escapedText === "Astro" &&
-        node.expression.name.escapedText === "glob"
-      ) {
-        return factory.updateCallExpression(
-          node,
-          node.expression,
-          node.typeArguments,
-          [
-            factory.createStringLiteral(
-              addDepthToRelativePath(
-                node.arguments[0].text,
-                fileDepth as number
-              )
-            ),
-          ]
-        );
       }
 
       // remove any occurrence of changeLanguage() call
