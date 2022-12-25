@@ -70,6 +70,16 @@ describe("transformer(...)", () => {
       expected:
         'import { changeLanguage } from "i18next";\nimport Foo from "../../Foo.astro";\nimport Bar from "../../../Bar.astro";\nimport { baz } from "../baz";\n\nchangeLanguage("fr");\n\n',
     },
+    {
+      name: "with Astro.glob relative path",
+      actual: `const astroGlob = Astro.glob("../foo/bar/*.mdx");`,
+      expected: `import { changeLanguage } from "i18next";\n\nchangeLanguage("fr");\n\nconst astroGlob = Astro.glob("../../foo/bar/*.mdx");\n`,
+    },
+    {
+      name: "with multiple Astro.glob relative paths",
+      actual: `const astroGlob = Astro.glob("../foo/bar/*.mdx");\nconst astroGlob2 = Astro.glob("../baz/*.mdx");`,
+      expected: `import { changeLanguage } from "i18next";\n\nchangeLanguage("fr");\n\nconst astroGlob = Astro.glob("../../foo/bar/*.mdx");\nconst astroGlob2 = Astro.glob("../../baz/*.mdx");\n`,
+    },
   ];
 
   codeStringTests.forEach((codeStringTest) => {
