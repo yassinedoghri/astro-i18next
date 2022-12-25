@@ -41,7 +41,7 @@ export const addDepthToRelativePath = (
   relativePath: string,
   depth: number = 1
 ): string => {
-  if (relativePath.startsWith("./")) {
+  if (relativePath.startsWith("./") && depth > 0) {
     // remove "./" from relativePath
     relativePath = relativePath.slice(2);
   }
