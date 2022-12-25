@@ -8,6 +8,7 @@ import {
   overwriteAstroFrontmatter,
   parseFrontmatter,
   resolveTranslatedAstroPath,
+  addDepthToRelativePath,
 } from "./utils";
 
 /**
@@ -39,40 +40,50 @@ export const generate = (
       : [inputPath, astroFilePath].join("/");
 
     const fileContents = fs.readFileSync(inputFilePath);
-    const fileContentsString = fileContents.toString();
+    let fileContentsString = fileContents.toString();
 
     const parsedFrontmatter = parseFrontmatter(fileContentsString);
 
-    locales.forEach((locale) => {
-      const isOtherLocale = locale !== defaultLocale;
+    if (astroFilePath === "blog/index.astro") {
+      locales.forEach((locale) => {
+        const isOtherLocale = locale !== defaultLocale;
+        const fileDepth = showDefaultLocale ? 0 : Number(isOtherLocale);
 
-      const frontmatterCode = generateLocalizedFrontmatter(
-        parsedFrontmatter,
-        locale,
-        // If showDefaultLocale then we want to have 0 depth since 1 depth was
-        // already added by the defaultLocale folder
-        // Else we add depth only when the locale is not the default one
-        showDefaultLocale ? 0 : Number(isOtherLocale)
-      );
+        const frontmatterCode = generateLocalizedFrontmatter(
+          parsedFrontmatter,
+          locale,
+          // If showDefaultLocale then we want to have 0 depth since 1 depth was
+          // already added by the defaultLocale folder
+          // Else we add depth only when the locale is not the default one
+          fileDepth
+        );
 
-      // get the astro file contents
-      const newFileContents = overwriteAstroFrontmatter(
-        fileContentsString,
-        frontmatterCode
-      );
+        // edit sources' script relative imports
+        fileContentsString = fileContentsString.replace(
+          /import\s+["'](\..*)["']/g,
+          (_, relativePath) =>
+            `import "${addDepthToRelativePath(relativePath, fileDepth)}"`
+        );
 
-      const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
+        // get the astro file contents
+        const newFileContents = overwriteAstroFrontmatter(
+          fileContentsString,
+          frontmatterCode
+        );
 
-      filesToGenerate.push({
-        path: resolveTranslatedAstroPath(
-          astroFilePath,
-          createLocaleFolder ? locale : undefined,
-          outputPath,
-          flatRoutes
-        ),
-        source: newFileContents,
+        const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
+
+        filesToGenerate.push({
+          path: resolveTranslatedAstroPath(
+            astroFilePath,
+            createLocaleFolder ? locale : undefined,
+            outputPath,
+            flatRoutes
+          ),
+          source: newFileContents,
+        });
       });
-    });
+    }
   });
 
   createFiles(filesToGenerate);

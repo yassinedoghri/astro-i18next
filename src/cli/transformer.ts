@@ -95,6 +95,30 @@ export const transformer: ts.TransformerFactory<ts.SourceFile> =
         );
       }
 
+      // update Astro glob relative paths
+      if (
+        ts.isCallExpression(node) &&
+        ts.isPropertyAccessExpression(node.expression) &&
+        ts.isIdentifier(node.expression.expression) &&
+        ts.isStringLiteral(node.arguments[0]) &&
+        node.expression.expression.escapedText === "Astro" &&
+        node.expression.name.escapedText === "glob"
+      ) {
+        return factory.updateCallExpression(
+          node,
+          node.expression,
+          node.typeArguments,
+          [
+            factory.createStringLiteral(
+              addDepthToRelativePath(
+                node.arguments[0].text,
+                fileDepth as number
+              )
+            ),
+          ]
+        );
+      }
+
       // remove any occurrence of changeLanguage() call
       if (
         ts.isExpressionStatement(node) &&

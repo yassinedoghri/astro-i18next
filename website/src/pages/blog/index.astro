@@ -1,0 +1,19 @@
+---
+import { changeLanguage } from "i18next";
+import { hello } from "../hello";
+
+changeLanguage("en");
+
+hello();
+const frAstroFiles = Astro.glob("../fr/*.astro");
+console.log(frAstroFiles);
+---
+
+<script>
+    import "../scripts/pageBackgroundChanger.ts";
+    import "../scripts/secondBackgroundChanger.ts";
+    import "./foo/hello/scripts/third.ts";
+    import "https://cool.com/foo/hello/scripts/third.ts";
+</script>
+
+<div>hello</div>
