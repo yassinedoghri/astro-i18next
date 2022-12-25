@@ -1,12 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { transformer } from "../../cli/transformer";
 import ts from "typescript";
-
-interface CodeStringsTest {
-  name: string;
-  actual: string;
-  expected: string;
-}
+import { CodeStringsTest } from "../types";
 
 describe("transformer(...)", () => {
   const codeStringTests: CodeStringsTest[] = [
@@ -63,22 +58,6 @@ describe("transformer(...)", () => {
       actual: `import { changeLanguage } from "i18next";\n\nconst a = 1 + 2;\nchangeLanguage("en");`,
       expected:
         'import { changeLanguage } from "i18next";\n\nchangeLanguage("fr");\n\nconst a = 1 + 2;\n',
-    },
-    {
-      name: "with relative imports",
-      actual: `import Foo from "../Foo.astro";\nimport Bar from "../../Bar.astro";\nimport { baz } from "./baz";`,
-      expected:
-        'import { changeLanguage } from "i18next";\nimport Foo from "../../Foo.astro";\nimport Bar from "../../../Bar.astro";\nimport { baz } from "../baz";\n\nchangeLanguage("fr");\n\n',
-    },
-    {
-      name: "with Astro.glob relative path",
-      actual: `const astroGlob = Astro.glob("../foo/bar/*.mdx");`,
-      expected: `import { changeLanguage } from "i18next";\n\nchangeLanguage("fr");\n\nconst astroGlob = Astro.glob("../../foo/bar/*.mdx");\n`,
-    },
-    {
-      name: "with multiple Astro.glob relative paths",
-      actual: `const astroGlob = Astro.glob("../foo/bar/*.mdx");\nconst astroGlob2 = Astro.glob("../baz/*.mdx");`,
-      expected: `import { changeLanguage } from "i18next";\n\nchangeLanguage("fr");\n\nconst astroGlob = Astro.glob("../../foo/bar/*.mdx");\nconst astroGlob2 = Astro.glob("../../baz/*.mdx");\n`,
     },
   ];
 

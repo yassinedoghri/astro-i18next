@@ -56,6 +56,24 @@ export const isFileHidden = (filepath: string): boolean => {
   return /((^_)|(\/_))/.test(filepath);
 };
 
+export const resolveRelativePathsLevel = (
+  fileContents: string,
+  fileDepth: number
+) => {
+  fileContents = fileContents.replace(
+    /(import\s+.*["'])(\..*)(["'])/g,
+    (_, before, relativePath, after) =>
+      `${before}${addDepthToRelativePath(relativePath, fileDepth)}${after}`
+  );
+  fileContents = fileContents.replace(
+    /(Astro.glob\(["'])(\..*)(["']\))/g,
+    (_, before, relativePath, after) =>
+      `${before}${addDepthToRelativePath(relativePath, fileDepth)}${after}`
+  );
+
+  return fileContents;
+};
+
 /* c8 ignore start */
 /**
  * parse frontmatter using typescript compiler
@@ -71,14 +89,13 @@ export const parseFrontmatter = (source: string): ts.SourceFile =>
 
 export const generateLocalizedFrontmatter = (
   tsNode: ts.SourceFile,
-  locale: string,
-  fileDepth: number
+  locale: string
 ) => {
   // generate for default locale, then loop over locales to generate other pages
   const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
     tsNode,
     [transformer],
-    { locale, fileDepth }
+    { locale }
   );
   const printer = ts.createPrinter();
 
