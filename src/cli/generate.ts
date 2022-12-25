@@ -8,7 +8,7 @@ import {
   overwriteAstroFrontmatter,
   parseFrontmatter,
   resolveTranslatedAstroPath,
-  addDepthToRelativePath,
+  resolveRelativePathsLevel,
 } from "./utils";
 
 /**
@@ -40,7 +40,7 @@ export const generate = (
       : [inputPath, astroFilePath].join("/");
 
     const fileContents = fs.readFileSync(inputFilePath);
-    let fileContentsString = fileContents.toString();
+    const fileContentsString = fileContents.toString();
 
     const parsedFrontmatter = parseFrontmatter(fileContentsString);
 
@@ -49,27 +49,20 @@ export const generate = (
         const isOtherLocale = locale !== defaultLocale;
         const fileDepth = showDefaultLocale ? 0 : Number(isOtherLocale);
 
+        // add i18next's changeLanguage function to frontmatter
         const frontmatterCode = generateLocalizedFrontmatter(
           parsedFrontmatter,
-          locale,
-          // If showDefaultLocale then we want to have 0 depth since 1 depth was
-          // already added by the defaultLocale folder
-          // Else we add depth only when the locale is not the default one
-          fileDepth
-        );
-
-        // edit sources' script relative imports
-        fileContentsString = fileContentsString.replace(
-          /import\s+["'](\..*)["']/g,
-          (_, relativePath) =>
-            `import "${addDepthToRelativePath(relativePath, fileDepth)}"`
+          locale
         );
 
         // get the astro file contents
-        const newFileContents = overwriteAstroFrontmatter(
+        let newFileContents = overwriteAstroFrontmatter(
           fileContentsString,
           frontmatterCode
         );
+
+        // add depth to imports and Astro.glob pattern
+        newFileContents = resolveRelativePathsLevel(newFileContents, fileDepth);
 
         const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
 

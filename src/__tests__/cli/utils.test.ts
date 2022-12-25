@@ -6,7 +6,9 @@ import {
   extractFrontmatterFromAstroSource,
   isFileHidden,
   overwriteAstroFrontmatter,
+  resolveRelativePathsLevel,
 } from "../../cli/utils";
+import { CodeStringsTest } from "../types";
 
 describe("doesStringIncludeFrontmatter(...)", () => {
   it("with frontmatter in source", () => {
@@ -190,5 +192,31 @@ describe("resolveTranslatedPath(...)", () => {
         flatRouteTranslations
       )
     ).toBe("./src/pages/products/index.astro");
+  });
+});
+
+describe("resolveRelativePathsLevel(...)", () => {
+  const codeStringTests: CodeStringsTest[] = [
+    {
+      name: "with named relative imports",
+      actual: `import { hello } from "../hello";`,
+      expected: 'import { hello } from "../../hello";',
+    },
+    {
+      name: "with relative imports",
+      actual: `import "../hello.ts";`,
+      expected: 'import "../../hello.ts";',
+    },
+    {
+      name: "with relative Astro.glob pattern",
+      actual: `const astroGlob = Astro.glob("../foo/*.mdx");`,
+      expected: 'const astroGlob = Astro.glob("../../foo/*.mdx");',
+    },
+  ];
+
+  codeStringTests.forEach((codeStringTest) => {
+    it(codeStringTest.name, () => {
+      resolveRelativePathsLevel(codeStringTest.actual, 1);
+    });
   });
 });
