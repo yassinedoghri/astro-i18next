@@ -1,6 +1,5 @@
 import fs from "fs";
 import { AstroI18nextConfig } from "types";
-import { createSolutionBuilderHost } from "typescript";
 import {
   getAstroPagesPath,
   createFiles,
