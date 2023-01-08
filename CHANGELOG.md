@@ -1,11 +1,15 @@
 # [1.0.0-beta.15](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2023-01-08)
 
-
 ### Bug Fixes
 
-* add levels to Astro.global pattern and scripts' import statements ([9d88d79](https://github.com/yassinedoghri/astro-i18next/commit/9d88d79e5d24d8b4663501f7436f512d02d114d3))
-* remove trailing slash from localized path ([1998309](https://github.com/yassinedoghri/astro-i18next/commit/19983092a1b71fb962a924dccd19fbbe40b58d62)), closes [#77](https://github.com/yassinedoghri/astro-i18next/issues/77)
-* use fileURLToPath to normalize publicDir pathname accross operating systems ([3c07d6a](https://github.com/yassinedoghri/astro-i18next/commit/3c07d6af4d1eb0beb959b35e19768ba2ad7a0037)), closes [#79](https://github.com/yassinedoghri/astro-i18next/issues/79)
+- add levels to Astro.global pattern and scripts' import statements
+  ([9d88d79](https://github.com/yassinedoghri/astro-i18next/commit/9d88d79e5d24d8b4663501f7436f512d02d114d3))
+- remove trailing slash from localized path
+  ([1998309](https://github.com/yassinedoghri/astro-i18next/commit/19983092a1b71fb962a924dccd19fbbe40b58d62)),
+  closes [#77](https://github.com/yassinedoghri/astro-i18next/issues/77)
+- use fileURLToPath to normalize publicDir pathname accross operating systems
+  ([3c07d6a](https://github.com/yassinedoghri/astro-i18next/commit/3c07d6af4d1eb0beb959b35e19768ba2ad7a0037)),
+  closes [#79](https://github.com/yassinedoghri/astro-i18next/issues/79)
 
 # [1.0.0-beta.14](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2022-11-27)
 
