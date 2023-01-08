@@ -200,17 +200,22 @@ describe("resolveRelativePathsLevel(...)", () => {
     {
       name: "with named relative imports",
       actual: `import { hello } from "../hello";`,
-      expected: 'import { hello } from "../../hello";',
+      expected: `import { hello } from "../../hello";`,
+    },
+    {
+      name: "with same folder imports",
+      actual: `import { hello } from "./hello";`,
+      expected: `import { hello } from "../hello";`,
     },
     {
       name: "with relative imports",
       actual: `import "../hello.ts";`,
-      expected: 'import "../../hello.ts";',
+      expected: `import "../../hello.ts";`,
     },
     {
       name: "with relative Astro.glob pattern",
       actual: `const astroGlob = Astro.glob("../foo/*.mdx");`,
-      expected: 'const astroGlob = Astro.glob("../../foo/*.mdx");',
+      expected: `const astroGlob = Astro.glob("../../foo/*.mdx");`,
     },
   ];
 

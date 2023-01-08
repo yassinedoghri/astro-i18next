@@ -16,8 +16,6 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
     name: "astro-i18next",
     hooks: {
       "astro:config:setup": async ({ config, injectScript }) => {
-        console.log(config);
-
         /**
          * 0. Get user config
          */

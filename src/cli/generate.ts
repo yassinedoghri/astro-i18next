@@ -1,5 +1,6 @@
 import fs from "fs";
 import { AstroI18nextConfig } from "types";
+import { createSolutionBuilderHost } from "typescript";
 import {
   getAstroPagesPath,
   createFiles,
@@ -44,39 +45,37 @@ export const generate = (
 
     const parsedFrontmatter = parseFrontmatter(fileContentsString);
 
-    if (astroFilePath === "blog/index.astro") {
-      locales.forEach((locale) => {
-        const isOtherLocale = locale !== defaultLocale;
-        const fileDepth = showDefaultLocale ? 0 : Number(isOtherLocale);
+    locales.forEach((locale) => {
+      const isOtherLocale = locale !== defaultLocale;
+      const fileDepth = showDefaultLocale ? 0 : Number(isOtherLocale);
 
-        // add i18next's changeLanguage function to frontmatter
-        const frontmatterCode = generateLocalizedFrontmatter(
-          parsedFrontmatter,
-          locale
-        );
+      // add i18next's changeLanguage function to frontmatter
+      const frontmatterCode = generateLocalizedFrontmatter(
+        parsedFrontmatter,
+        locale
+      );
 
-        // get the astro file contents
-        let newFileContents = overwriteAstroFrontmatter(
-          fileContentsString,
-          frontmatterCode
-        );
+      // get the astro file contents
+      let newFileContents = overwriteAstroFrontmatter(
+        fileContentsString,
+        frontmatterCode
+      );
 
-        // add depth to imports and Astro.glob pattern
-        newFileContents = resolveRelativePathsLevel(newFileContents, fileDepth);
+      // add depth to imports and Astro.glob pattern
+      newFileContents = resolveRelativePathsLevel(newFileContents, fileDepth);
 
-        const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
+      const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
 
-        filesToGenerate.push({
-          path: resolveTranslatedAstroPath(
-            astroFilePath,
-            createLocaleFolder ? locale : undefined,
-            outputPath,
-            flatRoutes
-          ),
-          source: newFileContents,
-        });
+      filesToGenerate.push({
+        path: resolveTranslatedAstroPath(
+          astroFilePath,
+          createLocaleFolder ? locale : undefined,
+          outputPath,
+          flatRoutes
+        ),
+        source: newFileContents,
       });
-    }
+    });
   });
 
   createFiles(filesToGenerate);
