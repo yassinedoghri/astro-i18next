@@ -618,7 +618,7 @@ Copyright (c) 2022-present, Yassine Doghri
 [build]:
   https://github.com/yassinedoghri/astro-i18next/actions/workflows/publish.yml
 [build-badge]:
-  https://img.shields.io/github/workflow/status/yassinedoghri/astro-i18next/astro-i18next-publish
+  https://img.shields.io/github/actions/workflow/status/yassinedoghri/astro-i18next/publish.yml
 [license]:
   https://github.com/yassinedoghri/astro-i18next/blob/develop/LICENSE.md
 [license-badge]:
