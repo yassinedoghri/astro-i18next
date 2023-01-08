@@ -16,7 +16,7 @@ jobs:
       - name: Setup node ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Quality check 👌
         run: |
@@ -35,7 +35,7 @@ jobs:
       - name: Setup node ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Bundle 📦
         run: |
@@ -63,7 +63,7 @@ jobs:
       - name: Setup node ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Download bundle artifact 📥
         uses: actions/download-artifact@v3
