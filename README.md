@@ -350,21 +350,22 @@ import { Trans } from "astro-i18next/components";
 
 ### LanguageSelector component
 
-Unstyled custom select component to choose amongst supported locales.
+Unstyled custom component to choose amongst supported locales.
 
 ```astro
 ---
 import { LanguageSelector } from "astro-i18next/components";
 ---
 
-<LanguageSelector showFlag={true} class="my-select-class" />
+<LanguageSelector showFlag={true} mobile={true} class="my-select-class" />
 ```
 
 #### LanguageSelector Props
 
-| Prop name | Type (default)     | Description                                               |
-| --------- | ------------------ | --------------------------------------------------------- |
-| showFlag  | ?boolean (`false`) | Choose to display the language emoji before language name |
+| Prop name | Type (default)     | Description                                                    |
+| --------- | ------------------ | -------------------------------------------------------------- |
+| showFlag  | ?boolean (`false`) | Choose to display the language emoji before language name      |
+| mobile    | ?boolean (`false`) | Choose to display the mobile friendly version of the component |
 
 ### HeadHrefLangs component
 

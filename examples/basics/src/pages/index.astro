@@ -9,7 +9,13 @@ changeLanguage("en");
 
 <Layout title={t("pageTitle")}>
   <main>
-    <LanguageSelector showFlag={true} class="languages" />
+    <LanguageSelector id="desktop-screen" showFlag={true} class="languages" />
+    <LanguageSelector
+      id="small-screen"
+      showFlag={true}
+      mobile={true}
+      class="languages"
+    />
     <h1>
       <Trans i18nKey="welcome">
         Welcome to <span class="text-gradient">Astro</span>
@@ -75,6 +81,30 @@ changeLanguage("en");
 
   .languages:is(:hover, :focus-within) {
     border-color: #4f39fa;
+  }
+
+  @media (max-width: 639px) {
+    #desktop-screen {
+      display: none;
+    }
+
+    .languages {
+      display: inline-flex;
+      flex-direction: column;
+    }
+
+    /* CSS rules are automatically scoped by default.
+    We can mix global & scoped CSS rules together for
+    applying CSS styles to children of the component. */
+    .languages :global(ul) {
+      margin: 0.5em 0 0 0.5em;
+    }
+  }
+
+  @media (min-width: 640px) {
+    #small-screen {
+      display: none;
+    }
   }
 
   .text-gradient {

@@ -6,6 +6,7 @@ import ISO6991 from "iso-639-1";
 
 export interface Props extends astroHTML.JSX.SelectHTMLAttributes {
   showFlag?: boolean;
+  mobile?: boolean;
 }
 
 const supportedLanguages = i18next.languages;
@@ -13,22 +14,106 @@ const currentLanguage = i18next.language;
 
 const { pathname } = Astro.url;
 
-const { showFlag = false, ...attributes } = Astro.props;
+const { showFlag = false, mobile = false, ...attributes } = Astro.props;
+
+const getValue = (supportedLanguage: string) => {
+  return localizePath(pathname, supportedLanguage);
+};
+
+const getLabel = (supportedLanguage: string) => {
+  const flag = showFlag ? localeEmoji(supportedLanguage) + " " : "";
+  const nativeName = ISO6991.getNativeName(supportedLanguage);
+  return flag + nativeName;
+};
 ---
 
-<select onchange="location = this.value;" {...attributes}>
-  {
-    supportedLanguages.map((supportedLanguage: string) => {
-      let value = localizePath(pathname, supportedLanguage);
-      const flag = showFlag ? localeEmoji(supportedLanguage) + " " : "";
-      const nativeName = ISO6991.getNativeName(supportedLanguage);
-      const label = flag + nativeName;
+{
+  mobile ? (
+    <div {...attributes}>
+      <button
+        class="current-language"
+        onclick="document.getElementById('list').classList.toggle('hide')"
+      >
+        {getLabel(currentLanguage)}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          focusable="false"
+          viewBox="0 0 24 24"
+          class="icon chevron"
+        >
+          <path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z" />
+        </svg>
+      </button>
+      <ul id="list" class="hide">
+        {supportedLanguages
+          .filter((supportedLanguage: string) => {
+            if (supportedLanguage !== currentLanguage) return supportedLanguage;
+          })
+          .map((supportedLanguage: string) => {
+            return (
+              <li class="item">
+                <button
+                  onclick="location = this.value;"
+                  value={getValue(supportedLanguage)}
+                >
+                  {getLabel(supportedLanguage)}
+                </button>
+              </li>
+            );
+          })}
+      </ul>
+    </div>
+  ) : (
+    <select onchange="location = this.value;" {...attributes}>
+      {supportedLanguages.map((supportedLanguage: string) => {
+        let value = getValue(supportedLanguage);
+        const label = getLabel(supportedLanguage);
 
-      return (
-        <option value={value} selected={supportedLanguage === currentLanguage}>
-          {label}
-        </option>
-      );
-    })
+        return (
+          <option
+            value={value}
+            selected={supportedLanguage === currentLanguage}
+          >
+            {label}
+          </option>
+        );
+      })}
+    </select>
+  )
+}
+
+<style>
+  .hide {
+    display: none;
   }
-</select>
+
+  button.current-language {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  button svg {
+    width: 1em;
+    margin-left: 0.25em;
+  }
+
+  /* Unset button style */
+  button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  /* Unset ul style */
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>
