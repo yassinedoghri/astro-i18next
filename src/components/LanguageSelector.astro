@@ -47,9 +47,9 @@ const getLabel = (supportedLanguage: string) => {
       </button>
       <ul id="list" class="hide">
         {supportedLanguages
-          .filter((supportedLanguage: string) => {
-            if (supportedLanguage !== currentLanguage) return supportedLanguage;
-          })
+          .filter(
+            (supportedLanguage: string) => supportedLanguage !== currentLanguage
+          )
           .map((supportedLanguage: string) => {
             return (
               <li class="item">
