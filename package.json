@@ -67,7 +67,7 @@
   },
   "homepage": "https://astro-i18next.yassinedoghri.com/",
   "peerDependencies": {
-    "astro": "^1.0.0"
+    "astro": ">=1.0.0"
   },
   "dependencies": {
     "@proload/core": "^0.3.3",
