@@ -17,7 +17,7 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^2.1.3",
     "astro": "^1.9.2",
-    "astro-i18next": "1.0.0-beta.15",
+    "astro-i18next": "1.0.0-beta.16",
     "astro-seo": "^0.7.0",
     "tailwindcss": "^3.2.4"
   }

@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^1.3.0",
-    "astro-i18next": "1.0.0-beta.15",
+    "astro-i18next": "1.0.0-beta.16",
     "netlify-cli": "^12.9.1"
   }
 }

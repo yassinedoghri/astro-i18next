@@ -1,9 +1,10 @@
 # [1.0.0-beta.16](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2023-01-22)
 
-
 ### Bug Fixes
 
-* use unjs/pathe to resolve cross OS public path ([ad1d24f](https://github.com/yassinedoghri/astro-i18next/commit/ad1d24f0ac14b16b7c83d255547a8bd6c04f5223)), closes [#105](https://github.com/yassinedoghri/astro-i18next/issues/105)
+- use unjs/pathe to resolve cross OS public path
+  ([ad1d24f](https://github.com/yassinedoghri/astro-i18next/commit/ad1d24f0ac14b16b7c83d255547a8bd6c04f5223)),
+  closes [#105](https://github.com/yassinedoghri/astro-i18next/issues/105)
 
 # [1.0.0-beta.15](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2023-01-08)
 
