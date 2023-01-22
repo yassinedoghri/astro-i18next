@@ -7,7 +7,7 @@ import {
   deeplyStringifyObject,
   getUserConfig,
 } from "./utils";
-import { fileURLToPath } from "url";
+import { resolve } from "pathe";
 
 export default (options?: AstroI18nextOptions): AstroIntegration => {
   const customConfigPath = options?.configPath;
@@ -75,7 +75,8 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
             initImmediate: false,
             backend: {
               loadPath:
-                fileURLToPath(config.publicDir) + "locales/{{lng}}/{{ns}}.json",
+                resolve(config.publicDir.pathname) +
+                "/locales/{{lng}}/{{ns}}.json",
             },
             ...astroI18nextConfig.i18nextServer,
           };
