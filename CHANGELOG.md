@@ -1,3 +1,10 @@
+# [1.0.0-beta.17](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2023-01-24)
+
+
+### Features
+
+* Allow astro versions greater than 1.0.0 as peer dependency. ([0205d41](https://github.com/yassinedoghri/astro-i18next/commit/0205d41d282848bbe9b0ac153a4b024438e5ca65))
+
 # [1.0.0-beta.16](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2023-01-22)
 
 ### Bug Fixes
