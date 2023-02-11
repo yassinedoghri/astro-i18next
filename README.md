@@ -358,13 +358,21 @@ import { LanguageSelector } from "astro-i18next/components";
 ---
 
 <LanguageSelector showFlag={true} class="my-select-class" />
+
+<!-- LanguageSelector with custom language naming -->
+<LanguageSelector
+  showFlag={true}
+  languageMapping={{ en: "Anglais" }}
+  class="my-select-class"
+/>
 ```
 
 #### LanguageSelector Props
 
-| Prop name | Type (default)     | Description                                               |
-| --------- | ------------------ | --------------------------------------------------------- |
-| showFlag  | ?boolean (`false`) | Choose to display the language emoji before language name |
+| Prop name       | Type (default)        | Description                                                                                 |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------- |
+| showFlag        | ?boolean (`false`)    | Choose to display the language emoji before language name                                   |
+| languageMapping | ?object (`undefined`) | Rewrite language names by setting the locale as key and the wording of your choice as value |
 
 ### HeadHrefLangs component
 
