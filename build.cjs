@@ -11,7 +11,6 @@ require("esbuild")
       "i18next-browser-languagedetector",
       "i18next-fs-backend",
       "i18next-http-backend",
-      "i18next",
       "iso-639-1",
       "locale-emoji",
     ],

@@ -62,7 +62,19 @@ translate your astro websites!
 ### 1. Install
 
 ```bash
-npm install astro-i18next
+npm install astro-i18next i18next
+```
+
+or
+
+```bash
+pnpm install astro-i18next i18next
+```
+
+or
+
+```bash
+yarn add astro-i18next i18next
 ```
 
 ### 2. Configure
