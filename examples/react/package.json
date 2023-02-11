@@ -12,12 +12,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^1.2.2",
-    "@types/react": "^18.0.27",
-    "astro": "^1.9.2",
-    "astro-i18next": "1.0.0-beta.16",
+    "@astrojs/react": "^2.0.2",
+    "@types/react": "^18.0.28",
+    "astro": "^2.0.10",
+    "astro-i18next": "1.0.0-beta.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.1.4"
+    "i18next": "^22.4.9",
+    "react-i18next": "^12.1.5"
   }
 }
