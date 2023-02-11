@@ -4,8 +4,13 @@ import { localizePath } from "../..";
 import localeEmoji from "locale-emoji";
 import ISO6991 from "iso-639-1";
 
+interface languageMapping {
+  [localeCode: string]: string;
+}
+
 export interface Props extends astroHTML.JSX.SelectHTMLAttributes {
   showFlag?: boolean;
+  languageMapping?: languageMapping;
 }
 
 const supportedLanguages = i18next.languages;
@@ -13,7 +18,7 @@ const currentLanguage = i18next.language;
 
 const { pathname } = Astro.url;
 
-const { showFlag = false, ...attributes } = Astro.props;
+const { showFlag = false, languageMapping, ...attributes } = Astro.props;
 ---
 
 <select onchange="location = this.value;" {...attributes}>
@@ -21,7 +26,17 @@ const { showFlag = false, ...attributes } = Astro.props;
     supportedLanguages.map((supportedLanguage: string) => {
       let value = localizePath(pathname, supportedLanguage);
       const flag = showFlag ? localeEmoji(supportedLanguage) + " " : "";
-      const nativeName = ISO6991.getNativeName(supportedLanguage);
+
+      let nativeName = "";
+      if (
+        languageMapping &&
+        languageMapping.hasOwnProperty(supportedLanguage)
+      ) {
+        nativeName = languageMapping[supportedLanguage];
+      } else {
+        nativeName = ISO6991.getNativeName(supportedLanguage);
+      }
+
       const label = flag + nativeName;
 
       return (
