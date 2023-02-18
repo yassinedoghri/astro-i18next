@@ -1,21 +1,25 @@
 {
   "name": "astro-i18next",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "VARIANT": "16-bullseye"
-    }
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node",
+  "args": {
+    "VARIANT": "16-bullseye"
   },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/guiyomh/features/vim:0": {},
+    "ghcr.io/NicoVIII/devcontainer-features/pnpm:2": {}
+  },
+  "remoteUser": "root",
 
-  // Set *default* container specific settings.json values on container create.
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm install",
+
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "markdown.extension.toc.levels": "1..3"
   },
 
-  // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "astro-build.astro-vscode",
     "bradlc.vscode-tailwindcss",
@@ -28,16 +32,5 @@
     "streetsidesoftware.code-spell-checker",
     "wayou.vscode-todo-highlight",
     "yzhang.markdown-all-in-one"
-  ],
-
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install",
-
-  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-  "features": {
-    "git": "latest"
-  }
+  ]
 }

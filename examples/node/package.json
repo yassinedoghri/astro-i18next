@@ -9,12 +9,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "server": "npm run build && node server/server.mjs"
+    "server": "pnpm run build && node server/server.mjs"
   },
   "dependencies": {
-    "@astrojs/node": "^5.0.3",
-    "astro": "^2.0.10",
+    "@astrojs/node": "^5.0.4",
+    "astro": "^2.0.15",
     "astro-i18next": "1.0.0-beta.17",
-    "i18next": "^22.4.9"
+    "i18next": "^22.4.10",
+    "mime": "^3.0.0"
   }
 }
