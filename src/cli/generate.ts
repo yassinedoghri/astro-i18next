@@ -1,5 +1,5 @@
 import fs from "fs";
-import { AstroI18nextConfig } from "types";
+import { AstroI18nextConfig } from "../types";
 import {
   getAstroPagesPath,
   createFiles,

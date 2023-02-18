@@ -74,9 +74,9 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
             defaultNS: astroI18nextConfig.defaultNamespace,
             initImmediate: false,
             backend: {
-              loadPath:
-                resolve(config.publicDir.pathname) +
-                "/locales/{{lng}}/{{ns}}.json",
+              loadPath: resolve(
+                config.publicDir.pathname + "/locales/{{lng}}/{{ns}}.json"
+              ),
             },
             ...astroI18nextConfig.i18nextServer,
           };
