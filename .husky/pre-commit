@@ -1,5 +1,6 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-npm run typecheck
-npx lint-staged
+pnpm run test:coverage --run
+pnpm exec lint-staged
+pnpm run typecheck

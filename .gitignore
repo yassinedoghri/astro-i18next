@@ -23,3 +23,6 @@ coverage
 
 # Local Netlify folder
 .netlify
+
+# pnpm
+.pnpm-store

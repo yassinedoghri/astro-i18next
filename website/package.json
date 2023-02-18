@@ -7,18 +7,18 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "autolink": "cd .. && npm link && cd website && npm link astro-i18next",
-    "package:build": "cd .. && npm run build && cd website",
-    "package:pack": "cd .. && npm run build && npm run pack && cd website",
+    "autolink": "cd .. && pnpm link && cd website && pnpm link astro-i18next",
+    "package:build": "cd .. && pnpm run build && cd website",
+    "package:pack": "cd .. && pnpm run build && pnpm run pack && cd website",
     "preview": "astro preview",
     "i18n:generate": "astro-i18next generate"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^1.0.1",
+    "@astrojs/sitemap": "^1.1.0",
     "@astrojs/tailwind": "^3.0.1",
-    "astro": "^2.0.10",
+    "astro": "^2.0.15",
     "astro-i18next": "1.0.0-beta.17",
-    "astro-seo": "^0.7.0",
-    "tailwindcss": "^3.2.6"
+    "astro-seo": "^0.7.1",
+    "tailwindcss": "^3.2.7"
   }
 }

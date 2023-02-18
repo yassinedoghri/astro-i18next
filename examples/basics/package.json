@@ -10,11 +10,9 @@
     "astro": "astro",
     "i18n:generate": "astro-i18next generate"
   },
-  "devDependencies": {
-    "astro": "^2.0.10"
-  },
   "dependencies": {
+    "astro": "^2.0.15",
     "astro-i18next": "1.0.0-beta.17",
-    "i18next": "^22.4.9"
+    "i18next": "^22.4.10"
   }
 }
