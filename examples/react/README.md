@@ -15,7 +15,7 @@
 ### 1. Install
 
 ```bash
-npm install astro-i18next @astrojs/react react-i18next
+npm install astro-i18next i18next @astrojs/react react-i18next
 ```
 
 ### 2. Configure

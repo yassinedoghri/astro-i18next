@@ -20,7 +20,7 @@ jobs:
           version: 7
 
       - name: Install dependencies 📥
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests and collect coverage 🛠️
         run: pnpm run test:coverage

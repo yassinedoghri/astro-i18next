@@ -64,6 +64,9 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
           );
         }
 
+        // add trailingSlash config from astro if not set
+        astroI18nextConfig.trailingSlash = config.trailingSlash;
+
         if (astroI18nextConfig.load.includes("server")) {
           // Build server side i18next config
           // set i18next supported and fallback languages (same as locales)

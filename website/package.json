@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "autolink": "cd .. && pnpm link && cd website && pnpm link astro-i18next",
+    "autolink": "pnpm link .. && pnpm link astro-i18next",
     "package:build": "cd .. && pnpm run build && cd website",
     "package:pack": "cd .. && pnpm run build && pnpm run pack && cd website",
     "preview": "astro preview",
@@ -17,8 +17,9 @@
     "@astrojs/sitemap": "^1.1.0",
     "@astrojs/tailwind": "^3.0.1",
     "astro": "^2.0.15",
-    "astro-i18next": "1.0.0-beta.17",
+    "astro-i18next": "file:..",
     "astro-seo": "^0.7.1",
+    "i18next": "^22.4.10",
     "tailwindcss": "^3.2.7"
   }
 }

@@ -115,4 +115,13 @@ export interface AstroI18nextConfig {
    * ```
    */
   i18nextClientPlugins?: Plugins;
+
+  /**
+   * Set the route matching behavior of the dev server. Choose from the following options:
+   *
+   * 'always' - Only match URLs that include a trailing slash (ex: "/foo/")
+   * 'never' - Never match URLs that include a trailing slash (ex: "/foo")
+   * 'ignore' - Match URLs regardless of whether a trailing "/" exists
+   */
+  trailingSlash?: "always" | "never" | "ignore";
 }

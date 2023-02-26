@@ -8,6 +8,9 @@ const config: AstroI18nextConfig = {
       about: "a-propos",
     },
   },
+  i18nextServer: {
+    debug: true,
+  },
 };
 
 export default config;

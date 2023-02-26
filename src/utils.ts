@@ -116,14 +116,10 @@ export const createReferenceStringFromHTML = (html: string) => {
       "contextSeparator",
     ]
       .map((key) => {
-        const str = i18next.options[key];
-        if (str) {
-          return {
-            key,
-            str: i18next.options[key],
-          };
-        }
-        return undefined;
+        return {
+          key,
+          str: i18next.options[key],
+        };
       })
       .filter(function <T>(val: T | undefined): val is T {
         return typeof val !== "undefined";
@@ -184,6 +180,24 @@ export const createReferenceStringFromHTML = (html: string) => {
   return sanitizedString;
 };
 
+export const handleTrailingSlash = (
+  path: string,
+  trailingSlash: AstroI18nextConfig["trailingSlash"]
+) => {
+  if (path === "/") {
+    return path;
+  }
+
+  switch (trailingSlash) {
+    case "always":
+      return path.endsWith("/") ? path : path + "/";
+    case "never":
+      return path.replace(/\/$/, "");
+    default:
+      return path;
+  }
+};
+
 /**
  * Injects the given locale to a path
  */
@@ -211,22 +225,30 @@ export const localizePath = (
   path = pathSegments.length === 0 ? "" : pathSegments.join("/");
   base = baseSegments.length === 0 ? "/" : "/" + baseSegments.join("/") + "/";
 
-  const { flatRoutes, showDefaultLocale, defaultLocale, locales } =
-    AstroI18next.config;
+  const {
+    flatRoutes,
+    showDefaultLocale,
+    defaultLocale,
+    locales,
+    trailingSlash,
+  } = AstroI18next.config;
 
   if (!locales.includes(locale)) {
     console.warn(
       `WARNING(astro-i18next): "${locale}" locale is not supported, add it to the locales in your astro config.`
     );
-    return `${base}${path}`;
+    return handleTrailingSlash(`${base}${path}`, trailingSlash);
   }
 
   if (pathSegments.length === 0) {
     if (showDefaultLocale) {
-      return `${base}${locale}`;
+      return handleTrailingSlash(`${base}${locale}`, trailingSlash);
     }
 
-    return locale === defaultLocale ? base : `${base}${locale}`;
+    return handleTrailingSlash(
+      locale === defaultLocale ? base : `${base}${locale}`,
+      trailingSlash
+    );
   }
 
   // check if the path is not already present in flatRoutes
@@ -263,10 +285,13 @@ export const localizePath = (
       localizedPath.replace(/\/$/, "")
     )
   ) {
-    return flatRoutes[localizedPath.replace(/\/$/, "")];
+    return handleTrailingSlash(
+      flatRoutes[localizedPath.replace(/\/$/, "")],
+      trailingSlash
+    );
   }
 
-  return localizedPath;
+  return handleTrailingSlash(localizedPath, trailingSlash);
 };
 
 /**
