@@ -1,3 +1,15 @@
+# [1.0.0-beta.18](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2023-02-26)
+
+
+### Bug Fixes
+
+* handle localizePath trailing slash depending on astro's trailingSlash config ([880666c](https://github.com/yassinedoghri/astro-i18next/commit/880666c83b7ef6ac304658546ce08407ddea4db2)), closes [#119](https://github.com/yassinedoghri/astro-i18next/issues/119)
+
+
+### Features
+
+* **language-selector:** add languageMapping prop to rename languages of choice ([20d94e4](https://github.com/yassinedoghri/astro-i18next/commit/20d94e4b1b221cad02d15b68124dc9b03367bfb9)), closes [#116](https://github.com/yassinedoghri/astro-i18next/issues/116)
+
 # [1.0.0-beta.17](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2023-01-24)
 
 ### Features

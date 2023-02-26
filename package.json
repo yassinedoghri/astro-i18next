@@ -1,6 +1,6 @@
 {
   "name": "astro-i18next",
-  "version": "1.0.0-beta.17",
+  "version": "1.0.0-beta.18",
   "description": "An astro integration of i18next + some utility components to help you translate your astro websites!",
   "scripts": {
     "test": "vitest",
