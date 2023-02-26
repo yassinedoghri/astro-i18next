@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/node": "^5.0.4",
     "astro": "^2.0.15",
-    "astro-i18next": "1.0.0-beta.17",
+    "astro-i18next": "1.0.0-beta.18",
     "i18next": "^22.4.10",
     "mime": "^3.0.0"
   }
