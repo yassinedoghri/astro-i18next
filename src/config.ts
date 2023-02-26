@@ -10,6 +10,7 @@ export const AstroI18next: AstroI18nextGlobal = {
     routes: {},
     flatRoutes: {},
     showDefaultLocale: false,
+    trailingSlash: "ignore",
   },
 };
 

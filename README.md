@@ -68,7 +68,7 @@ npm install astro-i18next i18next
 or
 
 ```bash
-pnpm install astro-i18next i18next
+pnpm add astro-i18next i18next
 ```
 
 or

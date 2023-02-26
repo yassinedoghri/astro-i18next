@@ -1,0 +1,29 @@
+# build output
+dist
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Output of 'npm pack'
+*.tgz
+
+# macOS-specific files
+.DS_Store
+
+# cache
+.eslintcache
+
+# tests
+coverage
+
+# Local Netlify folder
+.netlify
+
+# pnpm
+.pnpm-store
+pnpm-lock.yaml

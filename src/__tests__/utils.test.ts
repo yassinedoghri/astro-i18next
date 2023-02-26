@@ -6,6 +6,7 @@ import {
   localizeUrl,
   deeplyStringifyObject,
   detectLocaleFromPath,
+  handleTrailingSlash,
 } from "../utils";
 import i18next from "i18next";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -352,6 +353,26 @@ describe("localizePath(...)", () => {
     expect(localizePath("/fr/a-propos")).toBe("/en/about");
     expect(localizePath("/fr/")).toBe("/en");
     expect(localizePath("")).toBe("/en");
+  });
+});
+
+describe("handleTrailingSlash(...)", () => {
+  it("renders the path taking the correct trailingSlash into account", () => {
+    expect(handleTrailingSlash("/fr/a-propos", "always")).toBe("/fr/a-propos/");
+    expect(handleTrailingSlash("/fr/a-propos/", "always")).toBe(
+      "/fr/a-propos/"
+    );
+    expect(handleTrailingSlash("/fr/a-propos", "never")).toBe("/fr/a-propos");
+    expect(handleTrailingSlash("/fr/a-propos/", "never")).toBe("/fr/a-propos");
+
+    expect(handleTrailingSlash("/fr/a-propos/", "ignore")).toBe(
+      "/fr/a-propos/"
+    );
+    expect(handleTrailingSlash("/fr/a-propos", "ignore")).toBe("/fr/a-propos");
+
+    expect(handleTrailingSlash("/", "always")).toBe("/");
+    expect(handleTrailingSlash("/", "never")).toBe("/");
+    expect(handleTrailingSlash("/", "ignore")).toBe("/");
   });
 });
 
