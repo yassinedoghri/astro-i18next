@@ -320,7 +320,7 @@ src
 
 > **Note**
 >
-> The [localizedPath](#localizepath-function) and
+> The [localizePath](#localizepath-function) and
 > [localizeUrl](#localizeurl-function) utility functions will retrieve the
 > correct route based on your mappings.
 
