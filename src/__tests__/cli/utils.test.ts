@@ -217,11 +217,18 @@ describe("resolveRelativePathsLevel(...)", () => {
       actual: `const astroGlob = Astro.glob("../foo/*.mdx");`,
       expected: `const astroGlob = Astro.glob("../../foo/*.mdx");`,
     },
+    {
+      name: "with relative src pattern",
+      actual: `<src="../path/to/script"></script>`,
+      expected: `<src="../../path/to/script"></script>`,
+    },
   ];
 
   codeStringTests.forEach((codeStringTest) => {
     it(codeStringTest.name, () => {
-      resolveRelativePathsLevel(codeStringTest.actual, 1);
+      expect(resolveRelativePathsLevel(codeStringTest.actual, 1)).toBe(
+        codeStringTest.expected
+      );
     });
   });
 });
