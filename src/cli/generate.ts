@@ -1,4 +1,5 @@
 import fs from "fs";
+import { resolve } from "pathe";
 import { AstroI18nextConfig } from "../types";
 import {
   getAstroPagesPath,
@@ -66,11 +67,13 @@ export const generate = (
       const createLocaleFolder = showDefaultLocale ? true : isOtherLocale;
 
       filesToGenerate.push({
-        path: resolveTranslatedAstroPath(
-          astroFilePath,
-          createLocaleFolder ? locale : undefined,
-          outputPath,
-          flatRoutes
+        path: resolve(
+          resolveTranslatedAstroPath(
+            astroFilePath,
+            createLocaleFolder ? locale : undefined,
+            outputPath,
+            flatRoutes
+          )
         ),
         source: newFileContents,
       });
