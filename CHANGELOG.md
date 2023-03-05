@@ -1,3 +1,20 @@
+# [1.0.0-beta.19](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.18...v1.0.0-beta.19) (2023-03-05)
+
+### Bug Fixes
+
+- add levels to relative path in script tag
+  ([1203d42](https://github.com/yassinedoghri/astro-i18next/commit/1203d4232d3edcf833a43a10b0d837a35444531a)),
+  closes [#129](https://github.com/yassinedoghri/astro-i18next/issues/129)
+- use unjs/pathe to resolve generated localized files paths across OS
+  ([da80a8d](https://github.com/yassinedoghri/astro-i18next/commit/da80a8d9660ac75b7dfc20d6e88d9df8f60154bf)),
+  closes [#135](https://github.com/yassinedoghri/astro-i18next/issues/135)
+
+### Reverts
+
+- **i18next-peer:** reset i18next as package dependency
+  ([7906e19](https://github.com/yassinedoghri/astro-i18next/commit/7906e1936b577d54ae137451cf53f38d1f13f60f)),
+  closes [#131](https://github.com/yassinedoghri/astro-i18next/issues/131)
+
 # [1.0.0-beta.18](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2023-02-26)
 
 ### Bug Fixes
