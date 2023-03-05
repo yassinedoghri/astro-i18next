@@ -1,15 +1,10 @@
 ---
 import Link from "atoms:Link";
-import i18next, { t, changeLanguage } from "i18next";
+import { t, changeLanguage } from "i18next";
 import { Trans } from "astro-i18next/components";
 import BaseTemplate from "templates:BaseTemplate";
-import { localizePath } from "astro-i18next";
 
 changeLanguage("en");
-
-console.log(i18next.language);
-
-console.log("WATIOT", localizePath("/about"));
 ---
 
 <BaseTemplate>
