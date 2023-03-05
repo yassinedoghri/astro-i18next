@@ -3648,7 +3648,7 @@ packages:
     resolution: {directory: .., type: directory}
     id: file:..
     name: astro-i18next
-    version: 1.0.0-beta.17
+    version: 1.0.0-beta.18
     hasBin: true
     peerDependencies:
       astro: '>=1.0.0'

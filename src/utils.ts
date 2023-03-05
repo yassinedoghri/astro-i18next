@@ -206,6 +206,8 @@ export const localizePath = (
   locale: string | null = null,
   base: string = import.meta.env.BASE_URL
 ): string => {
+  console.log("HELLO", i18next.language);
+
   if (!locale) {
     locale = i18next.language;
   }
