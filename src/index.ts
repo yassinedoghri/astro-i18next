@@ -78,7 +78,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
             initImmediate: false,
             backend: {
               loadPath: resolve(
-                config.publicDir.pathname + "/locales/{{lng}}/{{ns}}.json"
+                `${config.publicDir.pathname}/${astroI18nextConfig.resourcesBasePath}/{{lng}}/{{ns}}.json`
               ),
             },
             ...astroI18nextConfig.i18nextServer,
@@ -120,7 +120,7 @@ export default (options?: AstroI18nextOptions): AstroIntegration => {
               caches: [],
             },
             backend: {
-              loadPath: "/locales/{{lng}}/{{ns}}.json",
+              loadPath: `${astroI18nextConfig.resourcesBasePath}/{{lng}}/{{ns}}.json`,
             },
             ...astroI18nextConfig.i18nextClient,
           };

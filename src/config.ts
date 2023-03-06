@@ -11,6 +11,7 @@ export const AstroI18next: AstroI18nextGlobal = {
     flatRoutes: {},
     showDefaultLocale: false,
     trailingSlash: "ignore",
+    resourcesBasePath: "/locales",
   },
 };
 

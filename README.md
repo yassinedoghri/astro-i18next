@@ -568,6 +568,7 @@ your config!
 | namespaces           | `string` or `string[]` ('translation')       | String or array of namespaces to load.                                                                                         |
 | defaultNamespace     | `string` (translation')                      | Default namespace used if not passed to the translation function.                                                              |
 | load                 | `Array<"server" or "client">` (`["server"]`) | Load i18next on server side only, client side only or both.                                                                    |
+| resourcesBasePath    | `?string`                                    | Set base path for i18next resources. Defaults to `/locales`.                                                                   |
 | i18nextServer        | `?InitOptions`                               | The i18next server side configuration. See [i18next's documentation](https://www.i18next.com/overview/configuration-options).  |
 | i18nextServerPlugins | `?{[key: string]: string}` (`{}`)            | Set i18next server side plugins. See [available plugins](https://www.i18next.com/overview/plugins-and-utils).                  |
 | i18nextClient        | `?InitOptions`                               | The i18next client side configuration . See [i18next's documentation](https://www.i18next.com/overview/configuration-options). |

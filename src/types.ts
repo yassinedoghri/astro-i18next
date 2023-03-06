@@ -58,6 +58,13 @@ export interface AstroI18nextConfig {
   load?: ("server" | "client")[];
 
   /**
+   * Set base path for i18next resources.
+   *
+   * @default ["/locales"]
+   */
+  resourcesBasePath?: string;
+
+  /**
    * i18next server side config. See https://www.i18next.com/overview/configuration-options
    */
   i18nextServer?: InitOptions;
