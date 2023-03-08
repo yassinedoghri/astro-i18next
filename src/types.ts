@@ -62,7 +62,7 @@ export interface AstroI18nextConfig {
    *
    * @default ["/locales"]
    */
-  basePath?: string;
+  resourcesBasePath?: string;
 
   /**
    * i18next server side config. See https://www.i18next.com/overview/configuration-options
