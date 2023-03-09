@@ -219,8 +219,8 @@ describe("resolveRelativePathsLevel(...)", () => {
     },
     {
       name: "with relative src pattern",
-      actual: `<src="../path/to/script"></script>`,
-      expected: `<src="../../path/to/script"></script>`,
+      actual: `<script src="../path/to/script"></script>`,
+      expected: `<script src="../../path/to/script"></script>`,
     },
   ];
 
