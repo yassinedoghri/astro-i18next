@@ -1,3 +1,11 @@
+# [1.0.0-beta.21](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2023-03-09)
+
+### Bug Fixes
+
+- resolve astroFileFullPath to extract relative astroFilePath on Windows
+  ([c23cd27](https://github.com/yassinedoghri/astro-i18next/commit/c23cd276753db5a5515ced8f33c745f6f2749a49)),
+  closes [#135](https://github.com/yassinedoghri/astro-i18next/issues/135)
+
 # [1.0.0-beta.20](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2023-03-09)
 
 ### Bug Fixes
