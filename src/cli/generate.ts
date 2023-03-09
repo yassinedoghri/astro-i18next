@@ -36,7 +36,10 @@ export const generate = (
 
   const filesToGenerate: FileToGenerate[] = [];
   astroPagesFullPaths.forEach(async function (astroFileFullPath: string) {
-    const astroFilePath = astroFileFullPath.replace(resolve(inputPath), "");
+    const astroFilePath = resolve(astroFileFullPath).replace(
+      resolve(inputPath),
+      ""
+    );
 
     const inputFilePath = showDefaultLocale
       ? [inputPath, defaultLocale, astroFilePath].join("/")
