@@ -71,7 +71,7 @@ export const resolveRelativePathsLevel = (
       `${before}${addDepthToRelativePath(relativePath, fileDepth)}${after}`
   );
   fileContents = fileContents.replace(
-    /(<src=["'])(\..*)(["'])/g,
+    /(<script\s+src=["'])(\..*)(["'])/g,
     (_, before, relativePath, after) =>
       `${before}${addDepthToRelativePath(relativePath, fileDepth)}${after}`
   );
