@@ -1,3 +1,20 @@
+# [1.0.0-beta.20](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2023-03-09)
+
+### Bug Fixes
+
+- add missing `script` to regex in resolveRelativePathsLevel
+  ([9288efe](https://github.com/yassinedoghri/astro-i18next/commit/9288efef47dbfadce8b02de0b8e3222b0d518537)),
+  closes [#129](https://github.com/yassinedoghri/astro-i18next/issues/129)
+- get astro pages' full paths using fdir's withFullPaths instead of
+  withRelativePaths
+  ([92a5178](https://github.com/yassinedoghri/astro-i18next/commit/92a51780956d02451870eed5fa2ec3d996eb33ec)),
+  closes [#135](https://github.com/yassinedoghri/astro-i18next/issues/135)
+
+### Features
+
+- make base path for i18next resources configurable
+  ([4e4b057](https://github.com/yassinedoghri/astro-i18next/commit/4e4b0572fa5bf8ac0e81ae5b0b374928589a9f6c))
+
 # [1.0.0-beta.19](https://github.com/yassinedoghri/astro-i18next/compare/v1.0.0-beta.18...v1.0.0-beta.19) (2023-03-05)
 
 ### Bug Fixes
