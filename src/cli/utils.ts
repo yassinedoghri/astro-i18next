@@ -120,7 +120,7 @@ export const generateLocalizedFrontmatter = (
  * @param childDirToCrawl will make the function crawl inside the given
  * `childDirToCrawl` (doesn't take paths, only dirname).
  */
-export const getAstroPagesPath = (
+export const getAstroPagesFullPaths = (
   pagesDirectoryPath: string,
   childDirToCrawl: AstroI18nextConfig["defaultLocale"] | undefined = undefined,
   locales: AstroI18nextConfig["locales"] = []
@@ -131,7 +131,7 @@ export const getAstroPagesPath = (
       (filepath) => !isFileHidden(filepath) && filepath.endsWith(".astro")
     )
     .exclude((dirName) => locales.includes(dirName))
-    .withRelativePaths();
+    .withFullPaths();
 
   return childDirToCrawl
     ? (api

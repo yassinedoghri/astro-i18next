@@ -2,7 +2,7 @@ import fs from "fs";
 import { resolve } from "pathe";
 import { AstroI18nextConfig } from "../types";
 import {
-  getAstroPagesPath,
+  getAstroPagesFullPaths,
   createFiles,
   FileToGenerate,
   generateLocalizedFrontmatter,
@@ -30,12 +30,14 @@ export const generate = (
   const start = process.hrtime();
 
   // default locale page paths
-  const astroPagesPaths = showDefaultLocale
-    ? getAstroPagesPath(inputPath, defaultLocale, locales)
-    : getAstroPagesPath(inputPath, undefined, locales);
+  const astroPagesFullPaths = showDefaultLocale
+    ? getAstroPagesFullPaths(inputPath, defaultLocale, locales)
+    : getAstroPagesFullPaths(inputPath, undefined, locales);
 
   const filesToGenerate: FileToGenerate[] = [];
-  astroPagesPaths.forEach(async function (astroFilePath: string) {
+  astroPagesFullPaths.forEach(async function (astroFileFullPath: string) {
+    const astroFilePath = astroFileFullPath.replace(resolve(inputPath), "");
+
     const inputFilePath = showDefaultLocale
       ? [inputPath, defaultLocale, astroFilePath].join("/")
       : [inputPath, astroFilePath].join("/");
