@@ -277,7 +277,7 @@ src
           "index": "produits",
           "categories": "categories",
         }
-      }
+      },
       es: {
         "about": "a-proposito",
         "contact-us": "contactenos",
