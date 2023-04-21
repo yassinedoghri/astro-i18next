@@ -30,9 +30,7 @@ export const generate = (
   const start = process.hrtime();
 
   // default locale page paths
-  const astroPagesFullPaths = showDefaultLocale
-    ? getAstroPagesFullPaths(inputPath, defaultLocale, locales)
-    : getAstroPagesFullPaths(inputPath, undefined, locales);
+  const astroPagesFullPaths = getAstroPagesFullPaths(inputPath, undefined, locales);
 
   const filesToGenerate: FileToGenerate[] = [];
   astroPagesFullPaths.forEach(async function (astroFileFullPath: string) {
@@ -41,9 +39,7 @@ export const generate = (
       ""
     );
 
-    const inputFilePath = showDefaultLocale
-      ? [inputPath, defaultLocale, astroFilePath].join("/")
-      : [inputPath, astroFilePath].join("/");
+    const inputFilePath = [inputPath, astroFilePath].join("/");
 
     const fileContents = fs.readFileSync(inputFilePath);
     const fileContentsString = fileContents.toString();
