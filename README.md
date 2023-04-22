@@ -270,6 +270,24 @@ src
      defaultLocale: "en",
      locales: ["en", "fr", "es"],
      routes: {
+   <<<<<<< HEAD
+       fr: {
+         about: "a-propos",
+         "contact-us": "contactez-nous",
+         products: {
+           index: "produits",
+           categories: "categories",
+         },
+       },
+       es: {
+         about: "a-proposito",
+         "contact-us": "contactenos",
+         products: {
+           index: "productos",
+           categories: "categorias",
+         },
+       },
+   =======
       fr: {
         "about": "a-propos",
         "contact-us": "contactez-nous",
@@ -286,6 +304,7 @@ src
           "categories": "categorias",
         }
       }
+   >>>>>>> 6cb1a984e3df170a0901e17a4dcc2e9b9ab92076
      },
    };
    ```
@@ -417,6 +436,11 @@ For example, if you are on the `/about` page and support 3 locales (`en`, `fr`,
 `es`) with `en` being the default locale, this will render:
 
 ```html
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href="https://www.example.com/about/"
+/>
 <link rel="alternate" hreflang="en" href="https://www.example.com/about/" />
 <link rel="alternate" hreflang="fr" href="https://www.example.com/fr/about/" />
 <link rel="alternate" hreflang="es" href="https://www.example.com/es/about/" />
