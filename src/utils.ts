@@ -57,7 +57,12 @@ export const interpolate = (
   const localizedString = t(i18nKey, { ns: namespace });
 
   if (localizedString === i18nKey) {
-    console.warn(`WARNING(astro-i18next): missing translation key ${i18nKey}.`);
+    const disabledFallback = i18next.options?.fallbackLng === false;
+    // When fallbackLng is set to false, the key is the fallback
+    // so it's expected that the key and localizedString will match
+    if (!disabledFallback) {
+      console.warn(`WARNING(astro-i18next): missing translation key ${i18nKey}.`);
+    }
     return referenceString;
   }
 
