@@ -39,8 +39,12 @@ const { showFlag = false, languageMapping, ...attributes } = Astro.props;
 
       const label = flag + nativeName;
 
+      let selectedAttr = {};
+      if (supportedLanguage === currentLanguage)
+        selectedAttr = { ...selectedAttr, selected: ''};
+
       return (
-        <option value={value} selected={supportedLanguage === currentLanguage}>
+        <option value={value} {...selectedAttr}>
           {label}
         </option>
       );
