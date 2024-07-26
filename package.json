@@ -31,7 +31,10 @@
   "main": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./components": "./src/components/index.ts"
   },
   "typesVersions": {
